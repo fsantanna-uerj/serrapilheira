@@ -1,0 +1,672 @@
+\documentclass[12pt,english]{amsart}
+%\usepackage[margin=0.5in]{geometry}
+\usepackage[a4paper, margin=2cm]{geometry}
+\linespread{1.5}
+
+%\usepackage{fontspec}
+%\setmainfont{Times New Roman}
+\usepackage{mathptmx}
+
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage{lscape}
+\usepackage{rotating}
+\usepackage{epstopdf}
+
+\usepackage{verbatim}
+\usepackage{url}
+\usepackage{xspace}
+%\usepackage{wrapfig}
+
+\usepackage{listings}
+\usepackage{color}
+    \definecolor{light}{gray}{0.97}
+    \definecolor{dark}{gray}{0.30}
+\lstset{
+%columns=fullflexible,
+%basicstyle=\ttfamily,
+escapeinside={||},
+    %mathescape=true,
+    language=C, % choose the language of the code
+    basicstyle=\fontfamily{pcr}\selectfont\scriptsize\color{black},
+    keywordstyle=\color{black}\bfseries, % style for keywords
+    numbers=none, % where to put the line-numbers
+    numberstyle=\tiny, % the size of the fonts that are used for the line-numbers
+    backgroundcolor=\color{light},
+    showspaces=false, % show spaces adding particular underscores
+    showstringspaces=false, % underline spaces within strings
+    showtabs=false, % show tabs within strings adding particular underscores
+    %frame=single, % adds a frame around the code
+    tabsize=2, % sets default tabsize to 2 spaces
+    %rulesepcolor=\color{gray}
+    captionpos=b, % sets the caption-position to bottom
+    breaklines=false, % sets automatic line breaking
+    %breakatwhitespace=false,
+    numbersep=2em,
+    % C was used in the blocksworld example to refer to block C and nowhere else
+    emph={par,or,hor,do,end,loop,code,await,pause,emit,input,event,call,with,%
+          var,and,then,else,return,pure,deterministic,nohold,finalize,%
+          class, every, FOREVER, this, spawn, in, pool, watching, until, 
+          interface, each, abort, when, signal, PROC, CHAN, SIGNAL, PAR, not,
+          bool, tag, escape, traverse,implementation,output,true,false,
+          native,@const,@pure,@safe,define,public,private,none},
+    emphstyle={\bfseries},
+    commentstyle=\color{dark}\scriptsize,
+    %xleftmargin=20pt,
+    %xrightmargin=20pt,
+    framesep=20pt,
+    %upquote=true,
+    %aboveskip={1.5\baselineskip},
+}
+
+%\newcommand{\CEU}{\textsc{C\'{e}u}\xspace}
+\newcommand{\code}[1] {{\small{\texttt{#1}}}}
+
+\usepackage{enumitem}
+\setlist{nolistsep}
+
+% Auto-Standby
+\title{Energy Efficiency for IoT Software in the Large
+        }%\\ \large{Research project proposal submitted to the Instituto Serrapilheira}}
+
+%\author{Anonymous Author}
+
+\begin{document}
+
+\date{}
+\maketitle
+
+\vspace{-1cm}
+\begin{comment}
+\abstract{
+TODO
+}
+\end{comment}
+
+%\newpage
+\section{Professional Narrative}
+
+I work in the field of \emph{Programming Languages} with a focus on
+\emph{Real-Time Reactive Systems}.
+Reactive systems interact continuously with the external world through sensors
+and actuators (e.g., buttons, LEDs, and motors).
+When these interactions have to comply with strict deadlines, the system is
+said to be \emph{real time}.
+Most everyday applications, such as office suites, phone apps, and video games
+are reactive but fairly tolerant to delays.
+In contrast, embedded real-time systems, such as medical appliances,
+avionic systems, and IoT devices, must conform to stricter deadlines.
+
+%Since the beginning of my Masters at PUC-Rio, I have been working with
+%programming languages support for reactive systems.
+In the beginning of my Masters, I joined a group supporting
+\emph{Ginga}, the software standard of the Brazilian Digital TV
+System~\cite{ncl.abnt}, which also became an UN's ITU
+standard~\cite{ncl.itu}.
+%In a digital system, broadcasters can transmit and execute software in real
+%time along with the primary audio-visual content.
+% in order to enrich the
+%audience experience (e.g., focused content, online shopping, etc.).
+During this period, I worked on a non-intrusive integration of the two
+standardized languages NCL and Lua through a reactive programming
+interface.
+%I have also participated in standardization meetings with broadcasters, TV
+%manufacturers, government, and academia.
+The outcome of this work was published in the \emph{ACM DocEng} in 2009.
+I also wrote the chapter on developing with Lua and NCL in Ginga's main
+reference book. % on developing Digital TV applications.
+
+\begin{comment}
+NCL is a declarative language to specify how multiple media objects are
+composed together in cause-effect relationships to form a complete multimedia
+presentation (e.g., after 1 minute of a video playback, show an image for 10
+seconds).
+Lua is a scripting language that extends the power of NCL with generic
+programming language constructs such as loops, variables, and arithmetic
+expressions.
+During the same period, I wrote my Masters thesis on the design of
+\emph{LuaGravity}, a programming language that extends Lua with support to
+handle events from the environment.
+Programs written in LuaGravity behave like spreadsheets, in which a user
+event (e.g., typing a new number in a cell) propagates throughout the program
+and changes all of its dependencies automatically.
+\end{comment}
+
+In 2009, I started the PhD program with the goal of designing a new
+reactive language from scratch, now targeting resource-constrained embedded
+systems.
+On the one hand, these platforms are typically six orders of magnitude less
+powerful than off-the-shelf personal computers in terms of memory size and CPU
+speed.
+On the other hand, embedded applications need higher reliability to operate
+without human supervision for long periods of time.
+Furthermore, a significant subset of embedded systems is deployed in locations
+without power lines and need to run on batteries.
+Hence, a programming language targeting constrained embedded systems needs to
+be small, reliable, and energy efficient.
+At the end of 2012, I earned a scholarship from SAAB Aerospace for a six-month
+research period. % in the field of \emph{Secure Wireless Sensor Networks}.
+I joined an University in Sweden and
+we rewrote industrial-grade network drivers and protocols using my
+research language and attested a considerable reduction in source code size
+with similar resource usage in comparison to C. % of memory and CPU.
+In 2013, we published a paper with these results in the \emph{ACM SenSys}.
+
+After graduating, I contributed to the
+project \emph{Cidades Inteligentes} (Smart Cities), which involves 20 
+Universities and aims to build an infrastructure for the IoT.
+%
+In 2015, in cooperation with a PhD student, we published a paper the
+\emph{ACM TOSN}, showing that we can reprogram embedded devices remotely using
+less energy than the state of the art.
+%
+During the same period, I published a paper in the \emph{Int'l Conference on Modularity}
+proposing a new concurrency abstraction that leads to more modular
+programs.
+%
+I was also invited to present my research language in the annual
+meeting of the \emph{Working Group on Language Design}, which is affiliated
+with UNESCO's IFIP.%\footnote{IFIP: \url{http://www.ifip.org/}}.
+
+Currently, as an associate professor at a Brazilian University,
+%In 2016, I became an associate professor (\emph{professor adjunto}) at UERJ.
+I continue to investigate how the design of languages can affect
+the development of reactive applications.
+For the last 4 years, I have have been either publishing in or acting in the
+committee of the \emph{Int'l Workshop on Reactive Languages}.
+In 2017, I published a consolidating paper on the design of
+my research language in the \emph{ACM TECS}.
+
+% multimedia, games, sensor networks, embedded systems
+
+%- mobile phone game industry
+%- empresa americana
+%- Future of Programming
+%- OpenSource
+%- GSoC
+
+%\newpage
+\section{Science Outreach: The Role of IoT Software in Energy Efficiency}
+
+According to the International Energy Agency (IEA)~\cite{iea.data}, there were
+around 14 billion traditional network-connected devices in 2013 (e.g., mobile
+phones and smart TVs).
+This number is expected to increase to 50 billion by 2020 with
+the proliferation of IoT devices (e.g., smart bulbs and fitness wearables).
+%
+IoT and traditional network-connected devices already outnumber people on the
+planet by a factor of two, and the amount of data traffic is expected to grow
+at an exponential rate in the next years.
+%By 2050, the energy demands of networked devices should exceed the current
+%consumption of Germany and Canada combined, corresponding to 6\% of current
+%global electricity consumption.
+%
+However, most of the energy to power these devices is consumed while they are
+in \emph{standby mode}.
+%, i.e., when their software is neither transmitting or processing data.
+%
+The annual $CO_2$ emissions related to standby in Australia are equivalent to
+those of 1 million cars.
+%
+%This undesirable inefficiency opens opportunities for improvements in energy
+%savings closer to 65\% only considering currently available technologies.
+%
+The projected growth of IoT devices together with the surprising effects of
+standby consumption, made network standby efficiency one of the six
+pillars of G20's \emph{Energy Efficiency Action Plan}%
+\footnote{G20's Energy Efficiency Action Plan: \url{https://www.iea-4e.org/projects/g20}}.
+
+Other organizations have also reported the importance of energy savings for networked devices.
+%
+For the Internet Engineering Task Force (IETF), ``energy management is becoming an
+additional requirement for networks due to several factors including the rising
+energy costs, the increased awareness of the ecological
+impact of operating networks and devices, and the regulation of
+energy''~\cite{ietf.eman}.
+%
+For the American Council for an Energy-Efficient Economy (ACEEE),
+``the potential for new energy efficiency remains enormous, (...) we must take
+a systems-based approach to scale up energy efficiency.
+%Intelligent efficiency is a systems-based approach to efficiency that can help
+%to meet this need.
+(...) intelligent efficiency is adaptive, anticipatory, and networked''~\cite{aceee.1}.
+%
+%The pioneer \emph{ENERGY STAR} program~\cite{energystar} states that
+%``networked devices and networking equipment, as integrated systems, have the
+%potential to contribute significant net energy savings''.
+% \footnote{ENERGY STAR program \url{https://www.energystar.gov/index.cfm?c=prod_development.prod_development_epa_workshop}}
+%
+%The US Environmental Protection Agency (EPA) and Information Technology
+%Industry Council (ITI) held a workshop to explore roles for the \emph{ENERGY
+%STAR} and others program in promoting savings through intelligent energy
+%efficiency~\cite{aceee.2}.
+%, which differs from individualized
+%component-based energy efficiency in that it is adaptive, anticipatory, and
+%networked.
+
+With regard to concrete initiatives, IEA's \emph{Electronic Devices and Networks}
+focuses specifically on the issue of networked device standby%
+\footnote{EDNA initiative: \url{https://edna.iea-4e.org/}}.
+%It is one of the six fronts of G20's \emph{Energy Efficiency Action Plan}%
+%\footnote{\url{https://www.iea-4e.org/projects/g20}}.
+%Network standby refers to the minimum power a device requires to maintain its
+%connection when not communicating or computing actively.
+ACEEE's \emph{Intelligent Efficiency} promotes a systematic approach
+to optimize the behavior of cooperating devices in order to achieve energy
+savings as a whole.
+Both approaches, device and system based, involve mostly software solutions,
+since energy savings are dynamic policies that depend on the application
+demands and device battery levels at a given moment in time.
+%
+There are also low-power standards for the IoT
+infrastructure that suit different needs of range, throughput, and physical
+distribution~\cite{iot.energy.2}.
+For instance, \emph{Bluetooth Low-Energy (BLE)} is a replacement for classic
+Bluetooth and is designed for lower data throughput in personal area
+networks (PANs).
+\emph{6LoWPAN} adapts the IPv6 internet standard to low-power and
+limited-processing devices.
+%
+These technologies make radio transmissions more efficient,
+support flexible network topologies, and reduce data traffic considerably.
+They also enable sleep modes that cut energy consumption to minimum levels.
+%
+However, these technologies ultimately require software to control their
+functionalities and to wisely switch between standby and active modes in order
+to build an energy-efficient IoT.
+
+%\newpage
+\section{Scientific Summary}
+
+Effective use of low-power standby will play a fundamental role in energy
+efficiency for the expected 50 billion IoT devices by 2020~\cite{iea.data}.
+%In order to succeed in this challenge, new solutions have to scale to the
+%forthcoming mass of IoT software that must use standby modes effectively.
+%
+This research project aims to address the software challenges, as determined by
+IEA, towards an energy-efficient IoT~\cite{iea.data}:
+    to ensure that devices employ the lowest possible modes of standby, and
+    that devices remain in longest possible periods of standby.
+%
+\begin{comment}
+    \item To ensure that devices employ the lowest possible modes of standby consumption.
+    \item To ensure that devices remain in longest possible periods of standby time.
+\end{comment}
+
+Given the projected scale of the IoT and the role of low-power standby towards
+energy efficiency, this research project has the following goals:
+
+\begin{enumerate}
+    \item Address energy efficiency through extensive use of standby.
+    \item Target constrained embedded architectures that form the IoT.
+    \item Provide standby mechanisms at the programming language level that scale to all applications.
+    \item Support transparent/non-intrusive standby mechanisms that reduce barriers of adoption.
+\end{enumerate}
+
+% TODO: goal 1 and 3 are also the limitations: only standby, not holistic energy savings
+
+%\goodbreak\noindent
+Many energy-aware languages, extensions, and operating systems have been
+proposed recently.
+%
+Some proposals adjust QoS (quality of service) to reduce power consumption~\cite{os.ecosystem,lang.green,lang.enerj,lang.greenweb}.
+%(e.g., accuracy of computations)
+%os.odyssey.2,os.jouleguard,lang.lab,lang.flexjava,
+%
+Other proposals offer mechanisms to switch behaviors depending on application
+demands and battery levels~\cite{lang.eon,lang.energytypes,lang.gradual,lang.ent}.
+%(e.g., disable some functionalities)
+%
+None of these initiatives take advantage of standby modes
+when idle,
+but only adapt or eliminate computations while in active modes (not
+addressing goal 1).
+%
+%There are also specialized network protocols that make devices remain in
+%low-power standby modes for longer periods of time~\cite{wsn.energy}.
+%
+%However, protocol-based initiatives only apply to the networked parts of
+%applications and have to be programmed carefully to take
+%advantage of standby modes (not addressing goals 3 and 4).
+%(which is typically the most power hungry subsystem),
+%
+%This proposal is also unique in the aim to provide \emph{transparent
+%mechanisms} such that there are no explicit programming efforts to make
+%applications more energy efficient (goal 4 above).
+
+I have been working in the design of a new reactive programming language
+targeting resource-constrained embedded systems for the past 8 years.
+%
+The language is grounded on the synchronous concurrency model,
+%which has been
+%successfully adopted in the context of hard real-time systems such as avionics
+%and automobiles industry since the 80's~\cite{rp.twelve}.
+%
+%The synchronous model
+which trades power for reliability and has a simpler model
+of time that suits most requirements of IoT applications.
+%
+%On the one hand, this model cannot directly express time-consuming
+%computations, such as compression and cryptography algorithms, which are
+%typically either absent or delegated to auxiliary chips in the context of the
+%IoT.
+%
+%On the other hand,
+In this model, all reactions to the external world are guaranteed to be
+computed in bounded
+time, ensuring that applications always reach an idle state amenable to standby
+mode.
+%
+%Furthermore, reactions to events are part of the vocabulary of the language.
+%This way, when an application reaches an idle state, the language has precise
+%information about which events can awake that application.
+%This not only allows the application to enter standby mode, but effectively use
+%the deepest sleeping level considering all possible awaking events.
+%While in standby, only a hardware interrupt associated with the events can
+%awake the application, making it sleep for longest possible periods of time.
+%Despite the advances in energy-aware languages, embedded systems and are still
+%primarily programmed in the C language~\cite{es.c}.
+%
+%This proposal lies at the bottom of the software development
+%layers---transparent programming language mechanisms---meaning that \emph{all}
+%applications would take advantage of low-power standby modes automatically,
+%without extra programming efforts.
+%
+We expect that existing energy-unaware applications will benefit from savings
+in the order of 50\% based on IEA's estimates considering current standby
+technologies~\cite{iea.data}, and previous third-party work on transparent energy
+awareness~\cite{wsn.tos.2}.
+
+%\newpage
+\section{Scientific Project}
+
+\subsection{First Year}
+\label{sec.first}
+
+We will require a budget of R\$70k:
+R\$60k to support three students, R\$5k for equipment, and
+R\$5k for publication and travel costs.
+The details are described in the long proposal.
+
+\subsubsection{IoT Hardware Infrastructure}
+
+%The IoT infrastructure is built on top of embedded systems such as sensor
+%nodes, network routers, and other low-power microcontroller-based devices and
+%appliances.
+%
+We will use off-the-shelf Arduinos~\cite{arduino} as the main hardware IoT
+platform.
+Most Arduinos are based on low-cost microcontrollers from
+Atmel, such as the \emph{ATmega328p}~\cite{arduino.atmega328p}, supporting
+six sleeping modes that can reduce power consumption to very low levels.
+
+%Arduino is also the most popular embedded platform worldwide.
+%
+    In the academia, there is a lot of research using Arduino in the context of
+    the IoT~\cite{arduino.infra,arduino.health,arduino.home,arduino.energy}.
+% (e.g., infrastructure~\cite{arduino.infra},
+    %healthcare~\cite{arduino.health}, home automation~\cite{arduino.home}, and
+    %energy awareness~\cite{arduino.energy}).
+    %In addition to the availability of support literature,
+    The popularity of
+    Arduino will make our own research more accessible and reproducible to
+    other groups.
+%
+    In education, many University courses use Arduino~\cite{arduino.edu.1,arduino.edu.2,arduino.edu.3,arduino.edu.4}.
+    We have also been using Arduino in an undergraduate course for the
+    past 3 years,
+    %Arduino lowers the learning barrier for students, and
+    which will allow us to evaluate
+    our results with less experienced embedded programmers.
+%
+    In the hobbyists community, there is an abundance of publicly available software
+    which we can adapt to our
+    language to evaluate energy efficiency gains.
+%
+    %Among non-programmers, Arduino is also becoming popular and a lot of
+    %software will be produced by them in the near future.
+    %We are in the process of creating an interdisciplinary course targeting
+    %non-specialists (e.g., arts, design, architecture).
+    %This audience will be a good target to evaluate our transparent approach for
+    %energy efficiency.
+
+\subsubsection{IoT Software Infrastructure}
+\label{sec.method.software}
+
+The typical way to interact with the external world in Arduino is through
+polling, which samples an
+external device actively to detect changes on its state. % to take an action.
+Polling wastes CPU cycles and prevents the device to enter in standby.
+In Arduino, even basic functionality, such as timers, A/D converters, and
+SPI, uses active polling loops that waste energy in active mode.
+
+In order to provide automatic standby, applications need to be entirely
+reactive to events.
+%
+Recently, we have added support for \emph{interrupt service routines (ISRs)} as
+a primitive concept of our language, which will allow us to rebuild the IoT
+software infrastructure with standby awareness from the ground up.
+%
+This process will consist primarily of rewriting device drivers, which are the
+pieces of software that interface directly with the hardware.
+%
+%More concretely, at the lowest level, energy-efficient software depends on
+%\emph{interrupt service routines (ISRs)}, which awake the CPU from standby when
+%an external peripheral event occurs.
+%
+This approach will not affect how applications are written at higher levels,
+which will remain similar to Arduino applications.
+However, instead of wasting cycles in busy-wait loops, the applications will
+enter the deepest possible standby mode when idle.
+
+\subsubsection{IoT Applications}
+\label{sec.method.apps}
+
+In order to evaluate the gains in energy efficiency with the proposed
+infrastructure, we will need to evaluate the consumption of realistic applications.
+%
+The Arduino community has an abundance of open-source projects which can be
+rewritten in our language to take advantage of transparent standby modes.
+%
+%Also, most peripherals for Arduino ship with drivers and applications that
+%explore their functionalities (e.g., accelerometers, touch screens, GPS, etc.).
+%
+Then, we will be able to compare the original and rewritten versions in terms of energy
+consumption to draw conclusions about the effectiveness of transparent standby
+modes.
+%
+The most realistic scenarios for the IoT use radio communication extensively.
+%
+In this context, we will evaluate from simple handmade ad-hoc protocols to more
+complex energy-aware protocols and see to what extent our proposal would
+effectively contribute to energy savings.
+%
+%The \emph{RadioHead} project%
+%\footnote{RadioHead project: \url{http://www.airspayce.com/mikem/arduino/RadioHead/}}
+%supports dozens of RF (radio frequency) chipsets and provides examples that
+%explore ad-hoc mesh as well as low-power energy modes.
+%
+%We plan to support at least two chipsets, such as \emph{nRF24L01}~\cite{radio.nrf24l01}
+%and \emph{RFM69HCW}~\cite{radio.rfm69hcw}, both of which have good support for
+%low power consumption.
+%
+In the long term, we expect to make the case for
+developers to rewrite their applications in our language to take advantage of
+standby modes for free.
+%
+%Towards this direction, we will evaluate rewritten IoT applications based on the
+%following criteria:
+Towards this direction, we will evaluate the time it takes to rewrite an application and
+the real gains in energy efficiency.
+%
+\begin{comment}
+\item[Time to rewrite:]
+This criteria relates to the incentives to rewrite existing applications to
+our language.
+It is a tradeoff between the expected rewriting times and gains in energy
+efficiency as compared to standard Arduino code.
+\item[Coding ``aesthetics'':]
+To lower the adoption barrier, it is also important that the proposed
+programming style is sufficiently familiar, and, at least, as easy to write applications.
+\item[Energy consumption:]
+More importantly, rewritten applications should have significant gains in
+energy efficiency to justify a complete application rewrite.
+\end{comment}
+
+\subsubsection{\textbf{Expected Contributions}}
+
+%\begin{enumerate}
+
+%\item \textbf{An environment-aware system language:}
+    The dedicated vocabulary of our language for events raises the
+    programming abstraction to a level closer to the domain of IoT, providing
+    more safety and expressiveness to programmers.
+    As far as we know, ISR support at the language level has not been
+    tried in the past.
+    %The novel support for ISRs would complete the whole development cycle, from
+    %the application down to the hardware, without operating system support.
+
+%\item \textbf{An energy-aware system language:}
+    Our proposal aims to make all applications subject to standby modes
+    transparently.
+    Being part of the software infrastructure, only device drivers will require
+    explicit energy management, and all applications built on top of them will
+    benefit from energy efficient automatically.
+
+%\item \textbf{A realistic programming alternative for the IoT in the Arduino:}
+    Our language is a 8-year project and has a mature open-source
+    implementation that is publicly available.
+    With the adaptation to the context of energy-efficient IoT, the language
+    may become a practical alternative for Arduino in the short term.
+
+%\item \textbf{Effective energy-efficient IoT applications:}
+    %We expect substantial gains in energy efficiency for all applications that
+    %do not manage energy explicitly.
+    %Most Arduino APIs use busy-wait polling to wait for input, which are very
+    %energy inefficient, and could take advantage of transparent standby.
+    %We also expect gains in comparison to some ad-hoc energy-aware
+    %implementations---we believe that, for the most cases, a transparent
+    %solution is more effective than explicit programming efforts.
+%\end{enumerate}
+
+%\newpage
+\subsection{The Three Years to Follow}
+
+\subsubsection{Systematic Energy Awareness}
+\label{sec.method.systematic}
+
+Systematic energy awareness
+considers the IoT network as a whole, with cooperating devices trying to
+maximize energy efficiency globally.
+%
+In this context, \emph{adaptive computing}~\cite{adaptive} is the capability of
+the IoT to adapt energy consumption dynamically, based on application demands
+and levels of power supply during execution.
+%
+Ultimately, the goal is still that each device maximizes its idle
+periods to be more susceptible to standby modes.
+Hence, the research of the
+first year is a prerequisite for this phase.
+%
+We will continue to investigate how language mechanisms can aid energy
+efficiency, but now in the context of adaptive computing.
+
+The research method for systematic energy awareness will be similar to the
+one adopted for device-based awareness (as discussed in
+Section~\ref{sec.method.apps}):
+take existing energy-aware IoT protocols and applications for Arduino, rewrite
+them using non-intrusive mechanisms, and use the same evaluation criteria
+(i.e., time to rewrite, coding aesthetics, and energy consumption).
+
+\subsubsection{Complex IoT Architectures and Applications}
+\label{sec.method.complex}
+
+%The niche of constrained embedded systems, which includes Arduino, covers the
+%substantial (and increasing) portion of IoT applications.
+%They typically do not require significant computing resources but are sensitive
+%to physical dimensions and energy consumption.
+%
+%However,
+The IoT also consists of more traditional networked devices, such as
+routers, servers, and smartphones.
+%
+As of 2016, there were 3.9 billion smartphone subscriptions worldwide, and
+this number is expected to reach 6.8 billions by 2022~\cite{ericsson.mobility}.
+
+Smartphones have similar restrictions in battery consumption and could also
+take advantage of the techniques we propose for constrained embedded systems.
+%
+In order to transpose the barrier from constrained devices to smartphones for
+the IoT, we will take a similar path as presented in Section~\ref{sec.first}:
+%
+\begin{description}
+\item[Hardware Infrastructure]
+We will use the BeagleBone Black~\cite{bbb.manual}, which shares similar goals with
+Arduino, providing a cheap and open-source platform but which is suitable for rich
+applications, such as graphical user interfaces, multimedia, and games.
+\item[Software Infrastructure]
+In order to ensure automatic standby for applications, all software
+infrastructure, mostly device drivers, needs to be rebuilt from scratch using
+ISRs in our language.
+\item[Applications]
+In addition to IoT applications, typical smartphone applications, such as
+instant messaging and internet browsing, can also maximize energy efficiency
+through standby.
+We will rewrite from simple applications, such as a graphical clock, to more
+complex networked applications, such as a web browser, and evaluate their energy consumption.
+\end{description}
+
+\subsubsection{\textbf{Expected Contributions}}
+
+%\begin{enumerate}
+
+%\item \textbf{Adaptive and energy-efficient IoT applications:}
+    We expect that systematic energy awareness will take advantage of the
+    non-intrusive mechanisms of our language to be implemented at a higher
+    level of abstraction, resulting in energy-efficient applications that
+    require less programming efforts.
+
+%\item \textbf{Energy-efficient smartphones:}
+    The transition from simple mobile phones to smartphones resulted in a
+    degrading effect on battery lives.
+    %Phones used to have autonomy of weeks and now require daily recharges.
+    Most of the time, however, smartphones are sitting in our pockets wasting
+    energy.
+    We expect to increase the battery autonomy considerably while keeping the
+    functionality of a modern smartphone.
+%\end{enumerate}
+
+\begin{comment}
+%\newpage
+\section{CONCLUSION}
+
+- story
+    - environment awareness
+    - boot up a language
+    - test in the environment
+    - energy awareness
+    - ISRs
+    - test in the environment
+    - OS
+    - C is 45 years
+
+TODO
+
+- conslidated research
+- some steps already done
+- we need human resources
+
+realistic research
+    - academic results
+    - but also an open-source publicly available language that people can download and use
+        - already available
+        - all publics: research, hobbyists, students
+
+TODO: long-term research
+    - 8 years in the same project
+\end{comment}
+
+\newpage
+\bibliographystyle{abbrv}
+\bibliography{serra}
+\end{document}
