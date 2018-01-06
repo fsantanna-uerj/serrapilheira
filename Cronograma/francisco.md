@@ -4,25 +4,25 @@
 
 ### `[1-Jan]` O que será feito?
 
-    - Implementação
-        - Arquitetura SAMD
-            - [x] Funcionar no Arduino
-            - [x] Funcionar com Céu
-            - [x] Funcionar com ISRs
-            - [ ] Drivers
-                - [x] Timer
-                - [x] Pino
-                - [ ] ADC
-                - [ ] Serial
-                - [ ] SPI
+- Implementação
+    - Arquitetura SAMD
+        - [x] Funcionar no Arduino
+        - [x] Funcionar com Céu
+        - [x] Funcionar com ISRs
+        - [ ] Drivers
+            - [x] Timer
+            - [x] Pino
+            - [ ] ADC
+            - [ ] Serial
+            - [ ] SPI
 
-    - Documentação
-        - [x] Subir manuais e relatórios
-        - [ ] Apresentação UERJ
+- Documentação
+    - [x] Subir manuais e relatórios
+    - [ ] Apresentação UERJ
 
-    - Projeto
-        - Definir valores de bolsas
-        - Encontrar alunos
+- Projeto
+    - Definir valores de bolsas
+    - Encontrar alunos
 
 ### `[7-Jan]` O que foi feito?
 
