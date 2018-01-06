@@ -2,7 +2,7 @@
 1-Jan -> 7-Jan
 -------------------------------------------------------------------------------
 
-## `[1-Jan]` O que será feito?
+### `[1-Jan]` O que será feito?
 
     - Implementação
         - Arquitetura SAMD
@@ -24,7 +24,7 @@
         - Definir valores de bolsas
         - Encontrar alunos
 
-## `[7-Jan]` O que foi feito?
+### `[7-Jan]` O que foi feito?
 
 -------------------------------------------------------------------------------
 8-Jan -> 14-Jan
