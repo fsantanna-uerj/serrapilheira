@@ -61,9 +61,19 @@
         - Permite menor modo de energia possível
 
 - Projeto
-    - Apresentação na UERJ
-    - Definir valores de bolsas
-    - Encontrar alunos
+    - [ ] Apresentação na UERJ
+    - [ ] Definir alunos e valores de bolsas
+    - [ ] Multímetro
+        - Fluke 106/116
+            - https://produto.mercadolivre.com.br/MLB-682340747-multimetro-digital-fluke-106-eletricista-_JM
+            - https://produto.mercadolivre.com.br/MLB-828320010-multimetro-fluke-116-havacembalado-_JM
+        - Extech EX330
+            - https://www.adafruit.com/product/308
+            - https://www.tecnoferramentas.com.br/minimultimetro-de-12-funcoes-e-detector-de-tensao-sem-contato-extech-ex330-062654/p
+            - https://produto.mercadolivre.com.br/MLB-735629677-multimetro-digital-extech-ex330-_JM
+        - Extech 430
+            - http://www.rocketscream.com/blog/2011/04/26/mini-ultra-8-mhz-current-consumption-part-2/
+            - https://www.tecnoferramentas.com.br/multimetro-digital-profissional-true-rms-com-11-funcoes-extech-ex430-002323/p
 
 ### `[14-Jan]` O que foi feito?
 
