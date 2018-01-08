@@ -41,9 +41,10 @@
 ### `[8-Jan]` O que será feito?
 
 - Implementação
-    - [ ] Fix issues:
-            - fsantanna/ceu-arduino#11
-            - fsantanna/ceu-arduino#12
+    - Fix issues:
+            - [x] fsantanna/ceu-arduino#11
+            - [x] fsantanna/ceu-arduino#12
+            - [ ] fsantanna/ceu-arduino#13
     - [ ] Runtime com biblioteca low power da RocketScream:
         - http://www.rocketscream.com/blog/2011/07/04/lightweight-low-power-arduino-library/
         - Substituir a implementação específica para AVRs
@@ -60,10 +61,15 @@
         - Permite menor modo de energia possível
 
 - Projeto
+    - Apresentação na UERJ
     - Definir valores de bolsas
     - Encontrar alunos
 
 ### `[14-Jan]` O que foi feito?
+
+- Implementação
+    - Fix issues:
+        - OK. Reavaliar fsantanna/ceu-arduino#13, pode ser o comportamento correto.
 
 -------------------------------------------------------------------------------
 `[15-Jan] -> [21-Jan]`
