@@ -80,6 +80,8 @@
 - Implementação
     - Fix issues:
         - OK. Reavaliar fsantanna/ceu-arduino#13, pode ser o comportamento correto.
+    - Drivers do SAMD
+        - http://www.microchip.com/wwwproducts/en/atsamd20g18
 
 -------------------------------------------------------------------------------
 `[15-Jan] -> [21-Jan]`
