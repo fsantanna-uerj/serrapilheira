@@ -42,9 +42,9 @@
 
 - Implementação
     - Fix issues:
-            - [x] fsantanna/ceu-arduino#11
-            - [x] fsantanna/ceu-arduino#12
-            - [x] fsantanna/ceu-arduino#13
+        - [x] fsantanna/ceu-arduino#11
+        - [x] fsantanna/ceu-arduino#12
+        - [x] fsantanna/ceu-arduino#13
     - [x] Runtime com biblioteca low power da RocketScream:
         - http://www.rocketscream.com/blog/2011/07/04/lightweight-low-power-arduino-library/
         - Substituir a implementação específica para AVRs
@@ -63,7 +63,7 @@
 - Projeto
     - [x] Apresentação na UERJ
     - Definir alunos e valores de bolsas
-    - [ ] Multímetro
+    - [x] Multímetro
         - Fluke 106/116
             - https://produto.mercadolivre.com.br/MLB-682340747-multimetro-digital-fluke-106-eletricista-_JM
             - https://produto.mercadolivre.com.br/MLB-828320010-multimetro-fluke-116-havacembalado-_JM
@@ -107,7 +107,7 @@
 
 - Projeto
     - [ ] Definir alunos e valores de bolsas
-    - [ ] Multímetro
+    - [ ] Comprar multímetro
         - Extech 430
             - http://www.rocketscream.com/blog/2011/04/26/mini-ultra-8-mhz-current-consumption-part-2/
             - https://www.tecnoferramentas.com.br/multimetro-digital-profissional-true-rms-com-11-funcoes-extech-ex430-002323/p
