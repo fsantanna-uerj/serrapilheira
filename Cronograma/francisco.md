@@ -103,6 +103,7 @@
 - Implementação
     - [ ] Mecanismo para sleep mode ótimo
         - Testar três modos na mesma aplicação: timer, ADC, pino externo
+    - [ ] SAMD: entender modos idle (`IDLE_[0-2]`) vs standby
     - [ ] Driver watchdog. Vai permitir modo mais profundo para timer.
 
 - Projeto
