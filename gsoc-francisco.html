@@ -1,0 +1,175 @@
+<br><hr>
+<h3 id="ceu">Interrupt-based drivers in Céu-Arduino for Cortex-M0 microcontrollers</h3>
+
+<h4>Background</h4>
+
+<p>
+Currently, most operations in Arduino libraries freeze the rest of the
+application until they complete, e.g.:
+
+</p>
+
+<ul>
+<li> Reading an analog pin with
+<a href="https://www.arduino.cc/en/Reference/AnalogRead" target="_blank">
+analogRead</a> takes about 100 microseconds to complete.
+</li>
+<li> Measuring a distance with an
+<a href="http://playground.arduino.cc/Code/NewPing" target="_blank">
+ultrasonic sensor</a> takes about 30 milliseconds.
+</li>
+</ul>
+
+<p>
+The use of interrupts allows programs to remain executing while the operation
+progresses and completes.
+However, programming with interrupts is hard and error prone.
+</p>
+
+<p>
+Céu-Arduino supports the development of Arduino applications in the 
+programming language Céu:
+</p>
+
+<ul>
+<li>Source Code:
+<a href="https://github.com/fsantanna/ceu-arduino/" target="_blank">
+https://github.com/fsantanna/ceu-arduino/</a></li>
+<li>Documentation:
+<a href="http://fsantanna.github.io/ceu-arduino/" target="_blank">
+http://fsantanna.github.io/ceu-arduino/</a></li>
+<li>Chat:
+<a href="https://gitter.im/fsantanna/ceu" target="_blank">
+https://gitter.im/fsantanna/ceu</a></li>
+</ul>
+
+<p>
+Céu is a reactive language that aims to offer a higher-level and safer
+alternative to C:
+</p>
+
+<ul>
+<li>Home Page:
+<a href="http://www.ceu-lang.org/" target="_blank">
+http://www.ceu-lang.org/</a></li>
+<li>Source code:
+<a href="https://github.com/fsantanna/ceu/" target="_blank">
+https://github.com/fsantanna/ceu/</a></li>
+</ul>
+
+<p>
+Céu-Arduino empowers the development of Arduino applications with the following
+extensions:
+</p>
+
+<ul>
+<li>Awaiting events in direct/sequential style.  </li>
+<li>Parallel lines of execution with
+    <ul>
+    <li>safe abortion;</li>
+    <li>deterministic behavior (in contrast with threads).</li>
+    </ul>
+</li>
+<li>Asynchronous loops for heavy computations.</li>
+<li>Interrupt-driven operation mode.</li>
+<li>Seamless integration with standard Arduino (e.g., <code>digitalWrite</code>,
+<code>random</code>, etc).</li>
+</ul>
+
+<p>
+Céu supports
+<a href="https://github.com/fsantanna/ceu-arduino#switching-a-led-with-interrupts" target="_blank">
+interrupts</a>
+as a primitive construct, reducing programming efforts considerably.
+</p>
+
+<p>
+Céu-Arduino already provides some interrupt-based drivers for AVR
+microcontrollers, such as for
+<a href="https://github.com/fsantanna/ceu-arduino/tree/master/include/arduino/isr" target="_blank">
+external pins, timers, ADC, SPI, and the USART</a>.
+</p>
+
+<h4>The Project</h4>
+
+The project consists of developing new interrupt-based drivers for Cortex-M0
+microcontrollers, e.g.:
+
+<ul>
+    <li>ADC
+    </li>
+    <li>SPI and I2C buses
+    </li>
+    <li>EEPROM
+    </li>
+    <li>Real-time clock
+    </li>
+    <li>Some libraries built on top of these drivers (e.g.,
+        RF transceiver, ultrasonic sensor, accelerometer).
+    </li>
+</ul>
+
+<h4>Tools</h4>
+
+<ul>
+<li>
+    <a href="https://github.com/fsantanna/ceu/" target="_blank">
+Céu</a> is the programming language used in Céu-Arduino.
+</li>
+<li>
+    <a href="https://github.com/fsantanna/ceu-arduino/" target="_blank">
+Céu-Arduino</a> is the Céu binding for Arduino.
+</li>
+<li>
+    <a href="http://www.rocketscream.com/blog/docs-item/mini-ultra-pro-hookup-guide/" target="_blank">
+Mini Ultra Pro</a> is a Cortex-M0-based Arduino development board.
+</li>
+<li>
+    A sort of Arduino peripherals.
+</li>
+</ul>
+
+<h4>Prerequisites</h4>
+
+<p>
+<b>We expect the student to own an Arduino board and peripherals.</b>
+</p>
+
+We also expect the student to know <b>C</b> and
+<b>interrupt services routines</b> in Arduino microcontrollers.
+
+<p>
+We ask applicants to complete the following activities <i>before</i> the
+application period:
+</p>
+
+<ol>
+<li>
+    Install Céu and Céu-Arduino and compile and test some existing examples.
+</li>
+<li>
+    Create a simple example in Céu-Arduino using some sensors and actuators
+    (not necessarily using interrupts).
+</li>
+<li>
+    Create a simple example in C that uses interrupt-driven analog reads.
+</li>
+<li>
+    Fork our <a href="https://github.com/fsantanna/ceu-arduino/" target="_blank">
+Céu-Arduino</a>
+    project on <i>github</i> and commit the new examples.
+</li>
+</ol>
+
+<h4>Skill level</h4>
+
+<p>
+Hard
+</p>
+
+<h4>Mentor</h4>
+
+<p>
+<a href="http://www.ceu-lang.org/chico" target="_blank">Francisco Sant'Anna</a>
+</p>
+<br><hr>

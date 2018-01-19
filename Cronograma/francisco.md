@@ -101,10 +101,10 @@
 ### `[15-Jan]` O que será feito?
 
 - Implementação
-    - [ ] Mecanismo para sleep mode ótimo
+    - [x] Mecanismo para sleep mode ótimo
         - Testar três modos na mesma aplicação: timer, ADC, pino externo
     - [ ] SAMD: entender modos idle (`IDLE_[0-2]`) vs standby
-    - [ ] Driver watchdog. Vai permitir modo mais profundo para timer.
+    - [x] Driver watchdog. Vai permitir modo mais profundo para timer.
 
 - Projeto
     - [ ] Definir alunos e valores de bolsas
@@ -115,6 +115,32 @@
 
 ### `[21-Jan]` O que foi feito?
 
+- Implementação
+    - Sleep mode ótimo: OK
+    - Driver WDT: OK
+    - [-] Driver `wclock/smart` que utiliza WDT/Timer1
+        - Não funciona se não puder ler contador do WDT
+    - [x] Driver AVR/USART com suporte a PM
+    - [ ] Driver AVR/SPI com suporte a PM
+    - [ ] Todos os samples refatorados e retestados
+
+- Projeto
+    - [ ] Retomar Céu-Maker
+
 -------------------------------------------------------------------------------
 `[22-Jan] -> [29-Jan]`
 -------------------------------------------------------------------------------
+
+### `[22-Jan]` O que será feito?
+
+- Implementação
+    - AVR
+        - [ ] Driver nRF24
+        - [ ] Driver WDT, mas sem ser para *wclock*
+        - [ ] Driver SPI com suporte a PM
+    - SAMD
+        - [ ] Ajeitar implementação para nova estrutura
+        - [ ] Verificar se contador WDT pode ser lido
+    - Otimizações
+        - [ ] Diminuir tamanho do executável (comparando com exemplos em C puro)
+        - [ ] Diminuir uso da pilha
