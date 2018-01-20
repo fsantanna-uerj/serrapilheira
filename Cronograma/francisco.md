@@ -118,11 +118,12 @@
 - Implementação
     - Sleep mode ótimo: OK
     - Driver WDT: OK
-    - [-] Driver `wclock/smart` que utiliza WDT/Timer1
+    - [x] Driver `wclock/smart` que utiliza WDT/Timer1
         - Não funciona se não puder ler contador do WDT
     - [x] Driver AVR/USART com suporte a PM
-    - [ ] Driver AVR/SPI com suporte a PM
-    - [ ] Todos os samples refatorados e retestados
+    - [x] Driver AVR/SPI com suporte a PM
+    - [x] Todos os samples refatorados e retestados
+    - [x] ATMEGA-2560 (timer1, usart, adc, pin-02, SPI)
 
 - Projeto
     - [ ] Retomar Céu-Maker
@@ -137,7 +138,6 @@
     - AVR
         - [ ] Driver nRF24
         - [ ] Driver WDT, mas sem ser para *wclock*
-        - [ ] Driver SPI com suporte a PM
     - SAMD
         - [ ] Ajeitar implementação para nova estrutura
         - [ ] Verificar se contador WDT pode ser lido
