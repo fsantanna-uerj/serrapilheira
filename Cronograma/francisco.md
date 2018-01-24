@@ -129,14 +129,15 @@
     - [ ] Retomar Céu-Maker
 
 -------------------------------------------------------------------------------
-`[22-Jan] -> [29-Jan]`
+`[22-Jan] -> [28-Jan]`
 -------------------------------------------------------------------------------
 
 ### `[22-Jan]` O que será feito?
 
 - Implementação
+    - [ ] BUG do timer / async
     - AVR
-        - [ ] Driver nRF24
+        - [x] Driver nRF24
         - [ ] Driver WDT, mas sem ser para *wclock*
     - SAMD
         - [ ] Ajeitar implementação para nova estrutura
@@ -144,3 +145,16 @@
     - Otimizações
         - [ ] Diminuir tamanho do executável (comparando com exemplos em C puro)
         - [ ] Diminuir uso da pilha
+
+### `[28-Jan]` O que foi feito?
+
+- Implementação
+    - Driver nRF24L01 puramente em cima do SPI
+        - Nenhuma dependência da biblioteca original
+        - Abstrações
+        - Interrupções
+        - TODO: PM
+    - Driver SPI
+        - Suporte automático ao CSN
+        - Remoção de testes assertivos para simplificar a implementação
+        - Exemplo com "lock" para usar dois dispositivos em paralelo
