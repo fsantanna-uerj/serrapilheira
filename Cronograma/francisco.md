@@ -177,6 +177,7 @@ Com ele terminado, já podemos fazer aplicações IoT mais complexas.
 
 - Documentação
     - Artigo
+        - SCOPES (??, 9/2, Alemanha), LCTES/JSA (B2/B1, 16/02, EUA), EMSOFT/CASES (??/B1, 27/03, Itália)
 
 - Projeto
     - Comprar Multímetro
