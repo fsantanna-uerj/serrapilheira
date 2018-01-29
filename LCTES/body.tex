@@ -1,0 +1,79 @@
+\section{Introduction}
+\label{sec.introduction}
+
+According to the International Energy Agency (IEA)~\cite{iea.data}, there were
+around 14 billion traditional network-connected devices in 2013.
+% (e.g., mobile phones and smart TVs).
+This number is expected to increase to 50 billion by 2020 with
+the proliferation of IoT devices. % (e.g., smart bulbs and fitness wearables).
+%
+%IoT and traditional network-connected devices already outnumber people on the
+%planet by a factor of two, and the amount of data traffic is expected to grow
+%at an exponential rate in the next years.
+%By 2050, the energy demands of networked devices should exceed the current
+%consumption of Germany and Canada combined, corresponding to 6\% of current
+%global electricity consumption.
+%
+However, most of the energy to power these devices is consumed while they are
+in \emph{standby mode}, i.e., when their software is neither transmitting or
+processing data.
+%
+For instance, standby power accounts for 10--15\% of residential electricity
+consumption, and $CO_2$ emissions related to standby are equivalent to those of
+1 million cars~\cite{iea.data,standby.australia}.
+%
+%This undesirable inefficiency opens opportunities for improvements in energy
+%savings closer to 65\% only considering currently available technologies.
+%
+The projected growth of IoT devices together with the surprising effects of
+standby consumption, made network standby efficiency one of the six
+pillars of G20's \emph{Energy Efficiency Action Plan}%
+\footnote{G20's Energy Efficiency Action Plan: \url{https://www.iea-4e.org/projects/g20}}.
+
+In this work
+
+Synchronous language
+
+
+%
+\begin{itemize}
+    \item To ensure that devices employ the lowest possible modes of standby consumption.
+    \item To ensure that devices remain in longest possible periods of standby time.
+\end{itemize}
+
+Given the projected scale of the IoT and the role of low-power standby towards
+energy efficiency, this research project has the following goals:
+
+\begin{enumerate}
+    \item Address energy efficiency through extensive use of standby.
+    \item Target constrained embedded architectures that form the IoT.
+    \item Provide standby mechanisms at the programming language level that scale to all applications.
+    \item Support transparent/non-intrusive standby mechanisms that reduce barriers of adoption.
+\end{enumerate}
+
+% TODO: goal 1 and 3 are also the limitations: only standby, not holistic energy savings
+
+This proposal lies at the bottom of the software development
+layers---transparent programming language mechanisms---meaning that \emph{all}
+applications would take advantage of low-power standby modes automatically,
+without extra programming efforts.
+%
+We expect that existing energy-unaware applications will benefit from savings
+in the order of 50\% based on IEA's estimates considering current standby
+technologies~\cite{iea.data}, and previous third-party work on transparent energy
+awareness~\cite{wsn.tos.2}.
+
+\begin{acks}
+  The authors would like to thank Dr. Yuhua Li for providing the
+  MATLAB code of the \textit{BEPS} method.
+
+  The authors would also like to thank the anonymous referees for
+  their valuable comments and helpful suggestions. The work is
+  supported by the \grantsponsor{GS501100001809}{National Natural
+    Science Foundation of
+    China}{http://dx.doi.org/10.13039/501100001809} under Grant
+  No.:~\grantnum{GS501100001809}{61273304}
+  and~\grantnum[http://www.nnsf.cn/youngscientists]{GS501100001809}{Young
+    Scientists' Support Program}.
+
+\end{acks}
