@@ -135,7 +135,6 @@
 ### `[22-Jan]` O que será feito?
 
 - Implementação
-    - [ ] BUG do timer / async
     - AVR
         - [x] Driver nRF24
         - [ ] Driver WDT, mas sem ser para *wclock*
@@ -148,13 +147,36 @@
 
 ### `[28-Jan]` O que foi feito?
 
+Foco da semana ficou no driver nRF24.
+Com ele terminado, já podemos fazer aplicações IoT mais complexas.
+
 - Implementação
     - Driver nRF24L01 puramente em cima do SPI
         - Nenhuma dependência da biblioteca original
         - Abstrações
         - Interrupções
-        - TODO: PM
+        - PM
     - Driver SPI
-        - Suporte automático ao CSN
+        - Suporte automático ao CS/CSN
         - Remoção de testes assertivos para simplificar a implementação
         - Exemplo com "lock" para usar dois dispositivos em paralelo
+    - SPI dispositivos I/O
+        - simplificação para usar CS/CSN automático
+    - [x] Driver PCInt
+        - ATmega2560
+
+-------------------------------------------------------------------------------
+`[28-Jan] -> [04-Fev]`
+-------------------------------------------------------------------------------
+
+### `[22-Jan]` O que será feito?
+
+- Implementação
+    - Experimentos de gasto de energia
+    - Aplicação IoT disponível
+
+- Documentação
+    - Artigo
+
+- Projeto
+    - Comprar Multímetro
