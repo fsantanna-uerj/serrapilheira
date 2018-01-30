@@ -53,7 +53,30 @@ SPI, USART, nRF24L01 transceiver).
 The project is open-source.%
 \footnote{https://github.com/fsantanna/ceu-arduino/}
 
- Thank you, I will improve the page.
+- automatic power management: standby as well as enabled/disabled, powered, switched
+
+- application on IoT
+
+- results
+    - atmega 328p/2560
+    - arm cortex-m0
+    - how much efficiency?
+
+- limitations
+
+- paper structure
+
+In Section~\ref{sec.ceu}, we introduce the structured synchronous model and the
+programming language \CEU.
+In Section~\ref{sec.ext}, we present the language extensions that support
+transparent standby.
+In Section~\ref{sec.eval}, we evaluate .
+
+\section{The Structured Synchronous Programming Language \CEU}
+
+\begin{comment}
+- structured programming
+- lexical scope
 
 In summary:
 
@@ -68,37 +91,12 @@ Structured programming avoids deep nesting of callbacks letting you write progra
 In comparison to FRP/dataflow, it is more imperative supporting sequences/loops/conditionals/parallels. The notion of (multiple) program counter is explicit. Also, everything is lexically scoped, there's no GC involved.
 
 In comparison to promises/futures, it provides lexical parallel constructs, allowing the branches to share local variables and, more importantly, supporting safe abortion of code (with the "par/or").
+\end{comment}
 
-
-
-
-- application on IoT
-- gains??
-
-
-- structured programming
-- lexical scope
-- automatic power management: standby as well as enabled/disabled, powered, switched
-
-needs a requires a energy-aware driver 
-
-process for ISR bindings and
-A infra-structure programmer writes device drivers for
-Each peripheral requires a driver
-An architecture
-Infra
-Once a driver is written, all applications 
-
-- synchronous languages / \CEU
-
-- except drivers, which are also written in Ceu
-
-I have been working in the design of \CEU, a new reactive programming language
-targeting resource-constrained embedded systems, for the past 8
-years~\cite{ceu.sensys11,ceu.tr,ceu.sensys13,ceu.rem13,ceu.phd,ceu.rebls14,
-ceu.mod15,ceu.rebls15,ceu.terra,ceu.media.webmedia16,ceu.tecs17}.
+\CEU is a Esterel-based\cite{ceu.tecs17} reactive programming language
+targeting resource-constrained embedded systems~\cite{ceu.sensys13}.
 %
-\CEU is grounded on the synchronous concurrency model, which has been
+It is grounded on the synchronous concurrency model, which has been
 successfully adopted in the context of hard real-time systems such as avionics
 and automobiles industry since the 80's~\cite{rp.twelve}.
 %
@@ -111,32 +109,98 @@ typically either absent or delegated to auxiliary chips in the context of the
 IoT.
 %
 On the other hand, all reactions to the external world are guaranteed to be
-computed in bounded
-time, ensuring that applications always reach an idle state amenable to standby
-mode.
+computed in bounded time, ensuring that applications always reach an idle state
+amenable to standby mode.
 
-- results
-    - atmega 328p/2560
-    - arm cortex-m0
-    - how much efficiency?
-%
-We expect that existing energy-unaware applications will benefit from savings
-in the order of 50\% based on IEA's estimates considering current standby
-technologies~\cite{iea.data}, and previous third-party work on transparent energy
-awareness~\cite{wsn.tos.2}.
-
-- limitations
-
-- paper structure
-
-In Section~\ref{sec.ceu}, we introduce the synchronous model together with the
-programming language \CEU.
-In Section~\ref{sec.ext}, we present the language extensions that support
-transparent standby.
-In Section~\ref{sec.eval}, we evaluate .
-
-\section{The Synchronous Language CEU}
+\subsection{A Motivating Example}
 \label{sec.ceu}
+
+{\linespread{1}
+\begin{figure}[t]
+\begin{minipage}[t]{0.50\linewidth}
+\begin{lstlisting}[xrightmargin=1cm]
+digitalWrite(13, 0);
+int old = 0;
+while (1) {
+    int cur = digitalRead(2);
+    if (cur != old) {
+        digitalWrite(13, cur);
+        old = cur;
+    }
+}
+
+\end{lstlisting}
+\centering\small{[a] Active polling in C}
+\end{minipage}
+%
+\begin{minipage}[t]{0.45\linewidth}
+\begin{lstlisting}[numbers=left]
+input  int PIN_02;
+output int PIN_13;
+
+emit PIN_13(0);
+loop do
+    var int v = await PIN_02;
+    emit PIN_13(v);
+end
+.
+\end{lstlisting}
+\centering\small{[b] Reactive execution in \CEU}
+\end{minipage}
+%\rule{8.4cm}{0.37pt}
+\caption{ Controlling a LED from button state changes.
+\label{lst.basic}
+}
+\end{figure}
+}
+
+Figure~\ref{lst.basic} shows a basic program that makes a button connected
+to the microcontroller's pin 2 to control a LED connected to pin 13.
+Whenever the state of the button changes (i.e., pressed or unpressed), the
+state of the LED also changes (i.e., on or off).
+
+The implementation in C in Figure~\ref{lst.basic}.a first turns off the LED
+(ln. 1), then sets an initial state for the button (ln. 2), and then reads in a
+loop (ln. 3-9) its current state (ln. 4) as fast as possible.
+If the current state differs from the old state (ln. 5-8), the new state is
+copied to the LED (ln. 6), and is also set as the old state (ln. 7).
+%
+This approach which actively samples the state of an external device (e.g., a
+button) is known as \emph{polling} or \emph{software-driven I/O}.
+%
+On the one hand, this style does not involve dealing with the complexity of
+callbacks (as discussed in Section~\ref{sec.related}) and is widely adopted in
+Arduino, the most popular embedded platform (to be discussed in
+Section~\ref{sec.method.software}).
+On the other hand, polling wastes CPU cycles and prevents the device to enter in
+standby.
+
+The implementation in \CEU in Figure~\ref{lst.basic}.b
+uses dedicated vocabulary to handle events from I/O devices without resorting
+to callbacks.
+The pins are first declared to determine their purpose in the program, i.e.,
+\code{input} for the pin connected to the button and  \code{output} for the pin
+connected to the LED (ln 1-2).
+Then, the LED is turned off with an \code{emit} (ln. 4), which indicates an
+output operation.
+Then, the program enters in a loop to react to changes in the button (ln. 5-8).
+The \code{await} primitive accounts for the reactive nature of \CEU.
+The program literally waits for a change in the button (ln. 6) to be able to
+proceed and set the new state of the LED (ln 7).
+%
+This way, when an application reaches an idle state, the language has precise
+information about which events can awake that application.
+
+By design, all lines of execution in \CEU always reach an \code{await} at the
+end of a reaction to an event (otherwise, the application does not
+compile~\cite{ceu.sensys13}).
+%
+This not only allows the application to enter standby mode, but effectively use
+the deepest sleeping level considering all possible awaking events.
+While in standby, only a hardware interrupt associated with the events can
+awake the application, making it sleep for longest possible periods of time.
+%
+%This is still a theoretical assumption that needs to be proven in practice.
 
 \section{Transparent Standby Mechanisms}
 \label{sec.ceu}
