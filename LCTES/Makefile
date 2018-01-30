@@ -9,5 +9,5 @@ clean:
 	-rm *.bbl
 	-rm *.blg
 	-rm *.log
-	-rm *.pdf
+	#-rm *.pdf
 	-rm *.out

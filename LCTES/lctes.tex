@@ -1,7 +1,9 @@
 \documentclass[sigplan, anonymous, review]{acmart}
 
 \usepackage{booktabs} % For formal tables
+\usepackage{xspace}
 
+\newcommand{\CEU}{\textsc{C\'{e}u}\xspace}
 
 % Copyright
 %\setcopyright{none}
@@ -12,7 +14,6 @@
 %\setcopyright{usgovmixed}
 %\setcopyright{cagov}
 %\setcopyright{cagovmixed}
-
 
 % DOI
 \acmDOI{10.475/123_4}
@@ -31,14 +32,13 @@
 %\acmBadgeL[http://ctuning.org/ae/ppopp2016.html]{ae-logo}
 %\acmBadgeR[http://ctuning.org/ae/ppopp2016.html]{ae-logo}
 
-
 \begin{document}
-\title{SIG Proceedings Paper in LaTeX Format}
-\titlenote{Produces the permission block, and
-  copyright information}
-\subtitle{Extended Abstract}
-\subtitlenote{The full version of the author's guide is available as
-  \texttt{acmart.pdf} document}
+%\title{A Language-Based Approach for Standby in Embedded Systems}
+\title{Transparent Standby for Low-Power, Resource-Constrained Embedded Systems}
+\subtitle{A Programming Language-Based Approach}
+
+%\titlenote{Produces the permission block, and copyright information}
+%\subtitlenote{The full version of the author's guide is available as \texttt{acmart.pdf} document}
 
 \author{Ben Trovato}
 \authornote{Dr.~Trovato insisted his name be first.}
@@ -115,7 +115,6 @@
 % The default list of authors is too long for headers.
 \renewcommand{\shortauthors}{B. Trovato et al.}
 
-
 \begin{abstract}
 This paper provides a sample of a \LaTeX\ document which conforms,
 somewhat loosely, to the formatting guidelines for
@@ -157,15 +156,13 @@ ACM SIG Proceedings.
 \ccsdesc{Computer systems organization~Robotics}
 \ccsdesc[100]{Networks~Network reliability}
 
-
 \keywords{ACM proceedings, \LaTeX, text tagging}
 
-\begin{teaserfigure}
+%\begin{teaserfigure}
   %\includegraphics[width=\textwidth]{sampleteaser}
-  \caption{This is a teaser}
-  \label{fig:teaser}
-\end{teaserfigure}
-
+  %\caption{This is a teaser}
+  %\label{fig:teaser}
+%\end{teaserfigure}
 
 \maketitle
 
