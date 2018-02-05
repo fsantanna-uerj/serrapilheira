@@ -112,6 +112,7 @@
         - Extech 430
             - http://www.rocketscream.com/blog/2011/04/26/mini-ultra-8-mhz-current-consumption-part-2/
             - https://www.tecnoferramentas.com.br/multimetro-digital-profissional-true-rms-com-11-funcoes-extech-ex430-002323/p
+            - http://www.loja-flk-rio.com.br/p-6137870-Multimetro-Digital-Extech-EX430
 
 ### `[21-Jan]` O que foi feito?
 
@@ -169,7 +170,7 @@ Com ele terminado, já podemos fazer aplicações IoT mais complexas.
 `[28-Jan] -> [04-Fev]`
 -------------------------------------------------------------------------------
 
-### `[22-Jan]` O que será feito?
+### `[28-Jan]` O que será feito?
 
 - Implementação
     - Experimentos de gasto de energia
@@ -181,3 +182,34 @@ Com ele terminado, já podemos fazer aplicações IoT mais complexas.
 
 - Projeto
     - Comprar Multímetro
+    - [ ] (Futuro) Smart Watch
+        - ARM, RTC, 3G, Touch Screen
+        - uTCP, Jabber
+
+### `[04-Fev]` O que foi feito?
+
+- Implementação
+    - Otimizações
+        - Diminuir tamanho do executável (comparando com exemplos em C puro)
+            - Novas opções de compilação para permitir otimizações (--ceu-features)
+            - Alguns avanços, mas o principal vai ser eliminar o número de
+              trails para chamadas a `await Code()`
+
+- Documentação
+    - Artigo
+        - [x] Reviver artigo da semântica de Céu. Mandar para o LCTES.
+
+-------------------------------------------------------------------------------
+`[05-Fev] -> [11-Fev]`
+-------------------------------------------------------------------------------
+
+### `[05-Jan]` O que será feito?
+
+- Implementação
+    - Otimizações
+        - Diminuir tamanho do executável (comparando com exemplos em C puro)
+
+- Documentação
+    - Artigos LCTES
+        - Semântica
+        - Gerenciamento de Energia
