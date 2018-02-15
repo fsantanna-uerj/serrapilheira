@@ -211,5 +211,59 @@ Com ele terminado, já podemos fazer aplicações IoT mais complexas.
 
 - Documentação
     - Artigos LCTES
+        - [ ] Semântica
+        - [ ] Gerenciamento de Energia
+
+- Feriado (Carnaval)
+
+### `[11-Jan]` O que foi feito?
+
+- Implementação
+    - Otimizações
+        - Diminuir tamanho do executável (comparando com exemplos em C puro)
+            - Compilação opcional de algumas features de Céu:
+                - Memória dinâmica
+                - Suporte a pools
+                - Assertiva global
+
+```
+$ make CEU_SRC=samples/nrf24l01-02.ceu ARD_PORT=/dev/ttyACM1 ARD_BOARD=mega CEU_ISR=true
+<...>
+Sketch uses 85010 bytes (33%) of program storage space. Maximum is 253952 bytes.
+Global variables use 1470 bytes (17%) of dynamic memory, leaving 6722 bytes for local variables. Maximum is 8192 bytes.
+-- dynamic
+Sketch uses 85066 bytes (33%) of program storage space. Maximum is 253952 bytes.
+Global variables use 1470 bytes (17%) of dynamic memory, leaving 6722 bytes for local variables. Maximum is 8192 bytes.
+-- ceu_assert
+Sketch uses 79608 bytes (31%) of program storage space. Maximum is 253952 bytes.
+Global variables use 1470 bytes (17%) of dynamic memory, leaving 6722 bytes for local variables. Maximum is 8192 bytes.
+-- pool
+Sketch uses 78476 bytes (30%) of program storage space. Maximum is 253952 bytes.
+Global variables use 1444 bytes (17%) of dynamic memory, leaving 6748 bytes for local variables. Maximum is 8192 bytes.
+```
+
+- Documentação
+    - Artigos LCTES
         - Semântica
-        - Gerenciamento de Energia
+            - Artigo ressuscitado e readaptado para nova submissão
+                - https://github.com/fsantanna-no/lctes-semantica
+            - Muitas revisões
+
+-------------------------------------------------------------------------------
+`[12-Fev] -> [18-Fev]`
+-------------------------------------------------------------------------------
+
+### `[12-Jan]` O que será feito?
+
+- Implementação
+    - Otimizações
+        - Diminuir tamanho do executável (comparando com exemplos em C puro)
+            - [ ] A principal ineficiência é a maneira conservadora em que as trilhas são disparadas em Céu (spawn/await)
+        - Diminuir uso da pilha
+            - [ ] Trocar chamadas em C pelo uso anterior de *STACKED*, o que também vai refletir melhor a semântica formal de Céu
+
+- Documentação
+    - Artigos LCTES
+        - [ ] Submeter abstracts
+
+- Feriado (Carnaval)
