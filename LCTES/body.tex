@@ -296,15 +296,15 @@ output (int pin) ANALOG_REQUEST do
     <...>   // port manipulation to start the conversion
 end
 
-spawn async/isr [CEU_ADC_IRQ_N, 0] do
+async/isr ADC_vect_num do
     var int value = <...>; // port with the value read
     emit ANALOG_DONE(value);
 end
 
 code AnalogRead (var int pin) -> int do
-    {ceu_pm_set(CEU_PM_ANALOG, 1);}
+    {PM_SET(PM_ANALOG, 1);}
     do finalize with
-        {ceu_pm_set(CEU_PM_ANALOG, 0);}
+        {PM_SET(PM_ANALOG, 0);}
     end
 
     emit ANALOG_REQUEST(pin);
@@ -316,6 +316,30 @@ end
 %\rule{8.4cm}{0.37pt}
 \caption{ \CEU driver for the A/D converter.
 \label{lst.adc}
+}
+\end{figure}
+
+\begin{figure}[t]
+\begin{lstlisting}[numbers=left]
+#define PM_GET(peripheral)       bitRead(pm, peripheral)
+#define PM_SET(peripheral,state) bitWrite(pm, peripheral, state);
+
+static u32 pm = 0;
+
+void pm_sleep (void) {
+  if (PM_GET(PM_TIMER1) || PM_GET(PM_USART) || PM_GET(PM_SPI)) {
+      LowPower.idle(PM_GET(PM_ADC),...)
+    } else if (PM_GET(PM_ADC)) {
+      LowPower.adcNoiseReduction(...);
+    } else {
+      LowPower.powerDown(...);
+    }
+  }
+}
+\end{lstlisting}
+%\rule{8.4cm}{0.37pt}
+\caption{ Power management module for the ATmega328p microcontroller.
+\label{lst.pm}
 }
 \end{figure}
 
