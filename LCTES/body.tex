@@ -51,7 +51,7 @@ As a proof of concept, we provide an open source SDK %
 %\footnote{https://github.com/fsantanna/ceu-arduino/}
 with support for 8-bit
 \emph{AVR/ATmega} and 32-bit \emph{ARM/Cortex-M0} microcontrollers, and a
-variety of peripherals, such as GPIO, ADC, USART, SPI, and the nRF24L01
+variety of peripherals, such as GPIO, A/D converter, USART, SPI, and the nRF24L01
 transceiver.
 
 We developed a number of applications using these peripherals concurrently and
@@ -172,7 +172,7 @@ end
 Figure~\ref{lst.direct}.a shows a simple, easy-to-read program chunk in Arduino
 that executes forever in a loop a sequence of operations as follows:
     waits for 1 second (ln. 2),
-    performs an analog to digital conversion (ln. 3--4), and
+    performs an A/D conversion (ln. 3--4), and
     broadcasts the value read (ln. 5).
 %
 Figure~\ref{lst.direct}.b shows the same chunk in \CEU, with a noteworthy
@@ -273,31 +273,19 @@ end
 \subsection*{Standby Considerations}
 \label{sec.ceu.standby}
 
-Another advantage of the example in Figure~\ref{lst.inversion}.b is that the
-structure of the program indicates which peripherals are active at a given
-time.
+The structure of the program in Figure~\ref{lst.inversion}.b also indicates
+which peripherals are active at a given time.
 %
 For instance, when the program is awaiting concurrently in lines 2 and 7,
-only the radio and ADC can awake the program.
+only the radio transceiver and A/D converter can awake the program.
 Hence, the language runtime can choose the most energy-efficient sleep mode
-that allows these peripherals to awake the microcontroller from appropriate
+that allows these peripherals to awake the microcontroller from associated
 interrupts.
 %
-Since the semantics of \CEU forces the program to always reach \code{await}
+Since the semantics of \CEU enforces the program to always reach \code{await}
 statements in all active lines of execution, it is always possible to put the
-microcontroller into the optimal sleep mode.
-
-This way, when an application reaches an idle state, the language has precise
-information about which events can awake that application.
-
-By design, all lines of execution in \CEU always reach an \code{await} at the
-end of a reaction to an event (otherwise, the application does not
-compile~\cite{ceu.sensys13}).
-%
-This not only allows the application to enter standby mode, but effectively use
-the deepest sleeping level considering all possible awaking events.
-While in standby, only a hardware interrupt associated with the events can
-awake the application, making it sleep for longest possible periods of time.
+microcontroller into the optimal sleep mode after each reaction to the
+environment.
 
 \section{Transparent Standby Mechanisms}
 \label{sec.ceu}
@@ -326,7 +314,7 @@ code AnalogRead (var int pin) -> int do
 end
 \end{lstlisting}
 %\rule{8.4cm}{0.37pt}
-\caption{ \CEU driver for the analog-to-digital converter.
+\caption{ \CEU driver for the A/D converter.
 \label{lst.adc}
 }
 \end{figure}
