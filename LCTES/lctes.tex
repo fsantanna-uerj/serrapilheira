@@ -4,44 +4,30 @@
 \usepackage{xspace}
 
 \usepackage{listings}
-\usepackage{color}
-    \definecolor{light}{gray}{0.97}
-    \definecolor{dark}{gray}{0.30}
+\lstdefinelanguage{ceu}{%
+  language=C,
+  morekeywords={%
+    and, uint32_t, code,
+    await, bool, call, class, data, define, deterministic, do, each, else,
+    emit, end, escape, event, every, finalize, hor, implementation, in,
+    input, interface, loop, min, native, new, nohold, not, or, output, par,
+    pool, pure, return, signal, spawn, tag, then, this, traverse, until,
+    var, watching, when, with},
+}
 \lstset{
-%columns=fullflexible,
-%basicstyle=\ttfamily,
-escapeinside={||},
-    %mathescape=true,
-    language=C, % choose the language of the code
-    basicstyle=\fontfamily{pcr}\selectfont\scriptsize\color{black},
-    keywordstyle=\color{black}\bfseries, % style for keywords
-    numbers=none, % where to put the line-numbers
-    numberstyle=\tiny, % the size of the fonts that are used for the line-numbers
-    backgroundcolor=\color{light},
-    showspaces=false, % show spaces adding particular underscores
-    showstringspaces=false, % underline spaces within strings
-    showtabs=false, % show tabs within strings adding particular underscores
-    %frame=single, % adds a frame around the code
-    tabsize=2, % sets default tabsize to 2 spaces
-    %rulesepcolor=\color{gray}
-    captionpos=b, % sets the caption-position to bottom
-    breaklines=false, % sets automatic line breaking
-    %breakatwhitespace=false,
-    numbersep=2em,
-    % C was used in the blocksworld example to refer to block C and nowhere else
-    emph={par,or,hor,do,end,loop,code,await,pause,emit,input,event,call,with,%
-          var,and,then,else,return,pure,deterministic,nohold,finalize,%
-          class, every, FOREVER, this, spawn, in, pool, watching, until, 
-          interface, each, abort, when, signal, PROC, CHAN, SIGNAL, PAR, not,
-          bool, tag, escape, traverse,implementation,output,true,false,
-          native,@const,@pure,@safe,define,public,private,none},
-    emphstyle={\bfseries},
-    commentstyle=\color{dark}\scriptsize,
-    %xleftmargin=20pt,
-    %xrightmargin=20pt,
-    framesep=20pt,
-    %upquote=true,
-    %aboveskip={1.5\baselineskip},
+  basicstyle=\ttfamily,
+  captionpos=b,
+  columns=flexible,
+  commentstyle=\rmfamily\itshape,
+  escapeinside={||},
+  frame=tb,
+  keepspaces=true,
+  keywordstyle=\bfseries,
+  language=ceu,
+  mathescape=true,
+  numbersep=4pt,
+  numberstyle=\scriptsize,
+  upquote=true,
 }
 
 \newcommand{\CEU}{\textsc{C\'{e}u}\xspace}
@@ -158,9 +144,21 @@ escapeinside={||},
 \renewcommand{\shortauthors}{B. Trovato et al.}
 
 \begin{abstract}
-This paper provides a sample of a \LaTeX\ document which conforms,
-somewhat loosely, to the formatting guidelines for
-ACM SIG Proceedings.
+Standby efficiency for connected devices is one of the priorities of the G20's
+\emph{Energy Efficiency Action Plan}.
+%
+We propose transparent programming language mechanisms to enforce that
+applications remain in deepest standby modes for longest periods of time.
+%
+We extend the synchronous programming language \CEU with support for interrupt
+service routines and with a simple power management runtime.
+%
+We developed device drivers based on these primitives on top of which
+applications can be built to take advantage of standby automatically.
+%
+We also show that programs in \CEU can keep a sequential structure to lower the
+barrier of adoption, even when applications require non-trivial concurrent
+behaviors.
 \end{abstract}
 
 %
@@ -211,6 +209,6 @@ ACM SIG Proceedings.
 \input{body}
 
 \bibliographystyle{ACM-Reference-Format}
-\bibliography{serra,my,standby}
+\bibliography{my,standby,other}
 
 \end{document}

@@ -1,9 +1,8 @@
-\section{Introduction}
 \label{sec.introduction}
 
 According to the International Energy Agency (IEA), the number of
-network-connected devices is expected to reach to 50 billion by 2020 with
-the expansion of the Internet of Things (IoT).~\cite{iea.data}
+network-connected devices is expected to reach 50 billion by 2020 with the
+expansion of the Internet of Things (IoT)~\cite{iea.data}.
 %
 However, most of the energy to power these devices will be consumed in
 \emph{standby mode}, i.e., when they are neither transmitting or processing
@@ -15,7 +14,7 @@ to those of 1 million cars~\cite{iea.data,standby.australia}.
 %
 The projected growth of IoT devices, together with the surprising effects of
 standby consumption, made network standby efficiency one of the six
-pillars of G20's \emph{Energy Efficiency Action Plan}%
+pillars of the G20's \emph{Energy Efficiency Action Plan}%
 \footnote{G20's Energy Efficiency Action Plan: \url{https://www.iea-4e.org/projects/g20}}.
 
 Given the projected scale of the IoT and the role of low-power standby towards
@@ -32,45 +31,52 @@ energy efficiency, this paper has the following goals:
 \end{enumerate}
 
 Our approach lies at the bottom of the software development
-layers---transparent programming language mechanisms---meaning that \emph{all}
-applications take advantage of low-power standby modes automatically, without
-extra programming efforts.
+layers---programming language mechanisms---meaning that \emph{all} applications
+take advantage of low-power standby modes automatically, without extra
+programming efforts.
 %
 We extend the synchronous programming language
-\CEU~\cite{ceu.sensys13,ceu.tecs17} with interrupt service routines (ISRs) and
-a simple power management runtime (PMR).
+\CEU~\cite{ceu.sensys13,ceu.tecs17} with support for interrupt service routines
+(ISRs) and with a simple power management runtime (PMR).
 %
 Each supported microcontroller requires bindings in C for the ISRs and PMR, and
 each peripheral requires a driver in \CEU.
-This is a one-time process and is typically packaged and distributed in a SDK.
+These are a one-time procedures and are typically packaged and distributed in a
+software development kit (SDK).
 %
-All new applications built on top of these drivers will take advantage of
+Then, all new applications built on top of these drivers take advantage of
 standby automatically.
 %
-As a proof of concept, we support the 8-bit \emph{AVR/ATmega} and 32-bit
-\emph{ARM/Cortex-M0} microcontrollers, and a variety of peripherals (e.g., ADC,
-SPI, USART, nRF24L01 transceiver).
-The project is open-source.%
-\footnote{https://github.com/fsantanna/ceu-arduino/}
+As a proof of concept, we provide an open source SDK %
+%\footnote{https://github.com/fsantanna/ceu-arduino/}
+with support for 8-bit
+\emph{AVR/ATmega} and 32-bit \emph{ARM/Cortex-M0} microcontrollers, and a
+variety of peripherals, such as GPIO, ADC, USART, SPI, and the nRF24L01
+transceiver.
 
-- automatic power management: standby as well as enabled/disabled, powered, switched
+We developed a number of applications using these peripherals concurrently and
+could verify that the applications remain in deepest standby modes for longest
+periods of time.
+%
+We also compare the structure of programs in \CEU and
+Arduino~\cite{arduino.book}, whose primary goal is to reduce the barrier of
+adoption for non-technical users (e.g., designers and artists).
+We show that we can keep the intended sequential reasoning of Arduino even when
+applications require non-trivial concurrent behaviors.
 
-- application on IoT
+% - standby as well as enabled/disabled, powered, switched
+% - application on IoT
+% - results
+%   - atmega 328p/2560
+%   - arm cortex-m0
+%   - how much efficiency?
+% - limitations
 
-- results
-    - atmega 328p/2560
-    - arm cortex-m0
-    - how much efficiency?
-
-- limitations
-
-- paper structure
-
-In Section~\ref{sec.ceu}, we introduce the structured synchronous model and the
-programming language \CEU.
-In Section~\ref{sec.ext}, we present the language extensions that support
-transparent standby.
-In Section~\ref{sec.eval}, we evaluate .
+%In Section~\ref{sec.ceu}, we introduce the structured synchronous model and the
+%programming language \CEU.
+%In Section~\ref{sec.apps}, we evaluate .
+%In Section~\ref{sec.ext}, we present the language extensions that support
+%transparent standby.
 
 \section{The Structured Synchronous Programming Language \CEU}
 
@@ -111,83 +117,176 @@ IoT.
 On the other hand, all reactions to the external world are guaranteed to be
 computed in bounded time, ensuring that applications always reach an idle state
 amenable to standby mode.
+%
+Overall, \CEU aims to offer a concurrent, safe, and expressive alternative to C
+with the characteristics that follow:
+%
+\begin{description}
+\item [Reactive:] code only executes in reactions to events.
+\item [Structured:] programs use structured control mechanisms, such as
+    \code{await} (to suspend a line of execution), and \code{par} (to combine
+    multiple lines of execution).
+\item [Synchronous:] reactions run atomically and to completion on each line of
+    execution, i.e., there's no implicit preemption or real parallelism.
+\end{description}
+%
+Structured reactive programming lets developers write code in direct style,
+recovering from the inversion of control imposed by event-driven
+execution~\cite{rp.deprecating,rp.rescala,sync_async.cooperative}.
 
-\subsection{A Motivating Example}
-\label{sec.ceu}
+\subsection*{A Motivating Example}
+\label{sec.ceu.example}
 
 {\linespread{1}
 \begin{figure}[t]
-\begin{minipage}[t]{0.50\linewidth}
-\begin{lstlisting}[xrightmargin=1cm]
-digitalWrite(13, 0);
-int old = 0;
+\begin{minipage}[t]{0.49\linewidth}
+\begin{lstlisting}[xrightmargin=0.5cm]
 while (1) {
-    int cur = digitalRead(2);
-    if (cur != old) {
-        digitalWrite(13, cur);
-        old = cur;
-    }
+  delay(1000);
+  int v =
+    analogRead(A0);
+  radioWrite(v);
 }
-
 \end{lstlisting}
-\centering\small{[a] Active polling in C}
+\centering\small{[a] Version in Arduino}
 \end{minipage}
 %
-\begin{minipage}[t]{0.45\linewidth}
-\begin{lstlisting}[numbers=left]
-input  int PIN_02;
-output int PIN_13;
-
-emit PIN_13(0);
+\begin{minipage}[t]{0.49\linewidth}
+\begin{lstlisting}[numbers=left,xleftmargin=-0.2cm]
 loop do
-    var int v = await PIN_02;
-    emit PIN_13(v);
+  await 1s;
+  var int v =
+    await AnalogRead(A0);
+  await RadioWrite(v);
 end
-.
 \end{lstlisting}
-\centering\small{[b] Reactive execution in \CEU}
+\centering\small{[b] Version in \CEU}
 \end{minipage}
 %\rule{8.4cm}{0.37pt}
-\caption{ Controlling a LED from button state changes.
-\label{lst.basic}
+\caption{ Sequence of I/O operations running in a loop.
+\label{lst.direct}
 }
 \end{figure}
 }
 
-Figure~\ref{lst.basic} shows a basic program that makes a button connected
-to the microcontroller's pin 2 to control a LED connected to pin 13.
-Whenever the state of the button changes (i.e., pressed or unpressed), the
-state of the LED also changes (i.e., on or off).
+Figure~\ref{lst.direct}.a shows a simple, easy-to-read program chunk in Arduino
+that executes forever in a loop a sequence of operations as follows:
+    waits for 1 second (ln. 2),
+    performs an analog to digital conversion (ln. 3--4), and
+    broadcasts the value read (ln. 5).
+%
+Figure~\ref{lst.direct}.b shows the same chunk in \CEU, with a noteworthy
+difference that operations that interact with the environment and take time use
+the \code{await} keyword. % and can be easily identified in the program.
+%
+The traditional structured paradigm encouraged in Arduino (with blocks, loops,
+and sequences) allows for simple and readable code, avoiding the complexity of
+dealing with ISRs.
+%
+However, the use of blocking operations, such as \code{delay(1000)}, prevents
+that other operations execute concurrently.
 
-The implementation in C in Figure~\ref{lst.basic}.a first turns off the LED
-(ln. 1), then sets an initial state for the button (ln. 2), and then reads in a
-loop (ln. 3-9) its current state (ln. 4) as fast as possible.
-If the current state differs from the old state (ln. 5-8), the new state is
-copied to the LED (ln. 6), and is also set as the old state (ln. 7).
+Suppose we now want that, at any time, receiving a message via radio should
+immediately abort the loop in Figure~\ref{lst.direct}.a.
 %
-This approach which actively samples the state of an external device (e.g., a
-button) is known as \emph{polling} or \emph{software-driven I/O}.
+Since the message might arrive concurrently with any of the blocking
+operations, we need to change the structure of the program.
 %
-On the one hand, this style does not involve dealing with the complexity of
-callbacks (as discussed in Section~\ref{sec.related}) and is widely adopted in
-Arduino, the most popular embedded platform (to be discussed in
-Section~\ref{sec.method.software}).
-On the other hand, polling wastes CPU cycles and prevents the device to enter in
-standby.
+Figure~\ref{lst.inversion}.a changes the blocking operation \code{delay} to the
+polling operation \code{millis}, which immediately returns the number of
+milliseconds since the reset.
+Now, we start by registering the current time (ln. 1--2) and, on each loop
+iteration, we recheck the time to see if one second has elapsed (ln. 7--9).
+Since these operations are non-blocking, we can intercalate the execution with
+checks for message arrivals (ln. 4--6).
+If the time is up, we start counting it again (ln. 10) before proceeding to the
+original operations in sequence (ln. 11--13).
+%
+The original structured style has been drastically violated to accommodate
+concurrency.
+In the example, we only adapted the \code{delay} operation, but the other
+blocking operations (\code{analogRead} and \code{radioWrite}) would also need
+to be changed to achieve maximum concurrency.
+%
+Alternatively, we could resort to ISRs or implement an event-driven
+scheduler to handle the operations~\cite{tos.nesc}, but ultimately, the
+program readability would still be compromised.
 
-The implementation in \CEU in Figure~\ref{lst.basic}.b
-uses dedicated vocabulary to handle events from I/O devices without resorting
-to callbacks.
-The pins are first declared to determine their purpose in the program, i.e.,
-\code{input} for the pin connected to the button and  \code{output} for the pin
-connected to the LED (ln 1-2).
-Then, the LED is turned off with an \code{emit} (ln. 4), which indicates an
-output operation.
-Then, the program enters in a loop to react to changes in the button (ln. 5-8).
-The \code{await} primitive accounts for the reactive nature of \CEU.
-The program literally waits for a change in the button (ln. 6) to be able to
-proceed and set the new state of the LED (ln 7).
+The program in Figure~\ref{lst.inversion}.b in \CEU extends the one in
+Figure~\ref{lst.direct}.b to accommodate concurrency.
 %
+The original code remains unmodified (ln. 4--9) and concurrency is achieved
+through the \code{par/or} construct, which creates two lines of execution and
+terminates when either of them terminates, aborting the other automatically.
+%
+This approach preserves the sequential, easy-to-read style while accommodating
+concurrency seamlessly.
+
+\begin{figure}[t]
+\begin{minipage}[t]{0.49\linewidth}
+\begin{lstlisting}[xrightmargin=0.5cm]
+uint32_t prv =
+  millis();
+while (1) {
+  if (radioAvail()) {
+    break;
+  }
+  uint32_t cur =
+    millis();
+  if (cur>prv+1000) {
+    prv = cur;
+    int v =
+      analogRead(A0);
+    radioWrite(v);
+  }
+}
+\end{lstlisting}
+\centering\small{[a] Version in Arduino}
+\end{minipage}
+%
+\begin{minipage}[t]{0.49\linewidth}
+\begin{lstlisting}[numbers=left,xleftmargin=-0.2cm]
+par/or do
+  await RadioAvail();
+with
+  loop do
+    await 1s;
+    var int v =
+      await AnalogRead(A0);
+    await RadioWrite(v);
+  end
+end
+
+
+
+
+.
+\end{lstlisting}
+\centering\small{[b] Version in \CEU}
+\end{minipage}
+%\rule{8.4cm}{0.37pt}
+\caption{ Achieving concurrency between I/O operations.
+\label{lst.inversion}
+}
+\end{figure}
+
+\subsection*{Standby Considerations}
+\label{sec.ceu.standby}
+
+Another advantage of the example in Figure~\ref{lst.inversion}.b is that the
+structure of the program indicates which peripherals are active at a given
+time.
+%
+For instance, when the program is awaiting concurrently in lines 2 and 7,
+only the radio and ADC can awake the program.
+Hence, the language runtime can choose the most energy-efficient sleep mode
+that allows these peripherals to awake the microcontroller from appropriate
+interrupts.
+%
+Since the semantics of \CEU forces the program to always reach \code{await}
+statements in all active lines of execution, it is always possible to put the
+microcontroller into the optimal sleep mode.
+
 This way, when an application reaches an idle state, the language has precise
 information about which events can awake that application.
 
@@ -199,11 +298,39 @@ This not only allows the application to enter standby mode, but effectively use
 the deepest sleeping level considering all possible awaking events.
 While in standby, only a hardware interrupt associated with the events can
 awake the application, making it sleep for longest possible periods of time.
-%
-%This is still a theoretical assumption that needs to be proven in practice.
 
 \section{Transparent Standby Mechanisms}
 \label{sec.ceu}
+
+\begin{figure}[t]
+\begin{lstlisting}[numbers=left]
+output (int pin) ANALOG_REQUEST do
+    <...>   // port manipulation to start the conversion
+end
+
+spawn async/isr [CEU_ADC_IRQ_N, 0] do
+    var int value = <...>; // port with the value read
+    emit ANALOG_DONE(value);
+end
+
+code AnalogRead (var int pin) -> int do
+    {ceu_pm_set(CEU_PM_ANALOG, 1);}
+    do finalize with
+        {ceu_pm_set(CEU_PM_ANALOG, 0);}
+    end
+
+    emit ANALOG_REQUEST(pin);
+    var int value = await ANALOG_DONE;
+
+    escape value;
+end
+\end{lstlisting}
+%\rule{8.4cm}{0.37pt}
+\caption{ \CEU driver for the analog-to-digital converter.
+\label{lst.adc}
+}
+\end{figure}
+
 
 \begin{acks}
   The authors would like to thank Dr. Yuhua Li for providing the
