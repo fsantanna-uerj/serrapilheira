@@ -14,7 +14,7 @@ to those of 1 million cars~\cite{iea.data,standby.australia}.
 %
 The projected growth of IoT devices, together with the surprising effects of
 standby consumption, made network standby efficiency one of the six
-pillars of the G20's \emph{Energy Efficiency Action Plan}%
+pillars of the \emph{G20's Energy Efficiency Action Plan}%
 \footnote{G20's Energy Efficiency Action Plan: \url{https://www.iea-4e.org/projects/g20}}.
 
 Given the projected scale of the IoT and the role of low-power standby towards
@@ -51,18 +51,18 @@ As a proof of concept, we provide an open source SDK %
 %\footnote{https://github.com/fsantanna/ceu-arduino/}
 with support for 8-bit
 \emph{AVR/ATmega} and 32-bit \emph{ARM/Cortex-M0} microcontrollers, and a
-variety of peripherals, such as GPIO, A/D converter, USART, SPI, and the nRF24L01
-transceiver.
+variety of peripherals, such as for GPIO, A/D converter, USART, SPI, and the
+nRF24L01 transceiver.
 %
 We developed a number of simple applications using these peripherals
-concurrently and could verify that the applications remain in deepest standby
-modes for longest periods of time.
+concurrently and could verify that the applications remain in the deepest
+standby modes for the longest periods of time.
 
 In Section~\ref{sec.ceu}, we compare the structure of programs in \CEU and
 Arduino~\cite{arduino.book}, whose primary goal is to reduce the barrier of
-adoption for non-technical users (e.g., designers and artists).
+adoption for a non-technical audience (e.g., designers and artists).
 We show that we can keep the intended sequential reasoning of Arduino even when
-applications require non-trivial concurrent behaviors.
+applications require non-trivial concurrent behavior.
 %
 In Section~\ref{sec.standby}, we discuss the software infrastructure that
 allows for unmmodified programs in \CEU to take advantage of standby
@@ -106,7 +106,7 @@ In comparison to FRP/dataflow, it is more imperative supporting sequences/loops/
 In comparison to promises/futures, it provides lexical parallel constructs, allowing the branches to share local variables and, more importantly, supporting safe abortion of code (with the "par/or").
 \end{comment}
 
-\CEU is a Esterel-based\cite{ceu.tecs17} reactive programming language
+\CEU is a Esterel-based~\cite{ceu.tecs17} reactive programming language
 targeting resource-constrained embedded systems~\cite{ceu.sensys13}.
 %
 It is grounded on the synchronous concurrency model, which has been
@@ -121,9 +121,9 @@ computations, such as compression and cryptography algorithms, which are
 typically either absent or delegated to auxiliary chips in the context of the
 IoT.
 %
-On the other hand, all reactions to the external world are guaranteed to be
-computed in bounded time, ensuring that applications always reach an idle state
-amenable to standby mode.
+On the other hand, all reactions to the external environment are guaranteed to
+be computed in bounded time, ensuring that applications always reach an idle
+state amenable to standby mode.
 %
 Overall, \CEU aims to offer a concurrent, safe, and expressive alternative to C
 with the characteristics that follow:
@@ -176,13 +176,13 @@ end
 \end{figure}
 }
 
-Figure~\ref{lst.direct}.a shows a simple, easy-to-read program chunk in Arduino
-that executes forever in a loop a sequence of operations as follows:
+Figure~\ref{lst.direct}.a shows a straightforward, easy-to-read program chunk
+in Arduino that executes forever in a loop a sequence of operations as follows:
     waits for 1 second (ln. 2),
     performs an A/D conversion (ln. 3--4), and
-    broadcasts the value read (ln. 5).
+    broadcasts the read value (ln. 5).
 %
-Figure~\ref{lst.direct}.b shows the same chunk in \CEU, with a noteworthy
+Figure~\ref{lst.direct}.b shows the same chunk in \CEU, with the noteworthy
 difference that operations that interact with the environment and take time use
 the \code{await} keyword. % and can be easily identified in the program.
 %
@@ -190,22 +190,22 @@ The traditional structured paradigm encouraged in Arduino (with blocks, loops,
 and sequences) allows for simple and readable code, avoiding the complexity of
 dealing with ISRs.
 %
-However, the use of blocking operations, such as \code{delay(1000)}, prevents
-that other operations execute concurrently.
+However, the use of blocking operations, such as \code{delay(1000)} (ln. 2),
+prevents that other operations execute concurrently.
 
-Suppose we now want that, at any time, receiving a message via radio should
-immediately abort the loop in Figure~\ref{lst.direct}.a.
+Suppose that we now want to immediately abort the loop in
+Figure~\ref{lst.direct}.a at any time, as soon as a radio message arrives.
 %
 Since the message might arrive concurrently with any of the blocking
 operations, we need to change the structure of the program.
 %
-Figure~\ref{lst.inversion}.a changes the blocking operation \code{delay} to the
-polling operation \code{millis}, which immediately returns the number of
-milliseconds since the reset.
+Figure~\ref{lst.inversion}.a changes the blocking \code{delay} to the polling
+\code{millis}, which immediately returns the number of milliseconds since the
+reset.
 Now, we start by registering the current time (ln. 1--2) and, on each loop
 iteration, we recheck the time to see if one second has elapsed (ln. 7--9).
-Since these operations are non-blocking, we can intercalate the execution with
-checks for message arrivals (ln. 4--6).
+Since these operations are non-blocking, we can intercalate their execution
+with checks for message arrivals (ln. 4--6).
 If the time is up, we start counting it again (ln. 10) before proceeding to the
 original operations in sequence (ln. 11--13).
 %
@@ -226,7 +226,7 @@ The original code remains unmodified (ln. 4--9) and concurrency is achieved
 through the \code{par/or} construct, which creates two lines of execution and
 terminates when either of them terminates, aborting the other automatically.
 %
-This approach preserves the sequential, easy-to-read style while accommodating
+This approach preserves the sequential, easy-to-read style while introducing
 concurrency seamlessly.
 
 \begin{figure}[t]
@@ -298,10 +298,10 @@ environment.
 \label{sec.standby}
 
 In order to empower the example in Figure~\ref{lst.inversion}.b with automatic
-standby, we had to make some modifications and extensions to \CEU:
+standby, we developed some extensions to \CEU:
 %
 \begin{itemize}
-\item Modify the runtime of \CEU to be interrupt driven and to put the
+\item Make the runtime of \CEU to be interrupt driven and to put the
       microcontroller in standby after each reaction to the environment.
 \item Provide operations for the drivers to indicate which interrupts can awake
       the program.
@@ -320,7 +320,8 @@ Output events are triggered with the \code{emit} keyword (ln. 29), while input
 events are captured with the \code{await} keyword (ln. 30).
 %
 The output event \code{ADC\_REQUEST} (ln. 9--15) enables ADC interrupts and
-starts an analog-to-digital conversion in the single channel \code{A0}.
+starts an analog-to-digital conversion asynchronously in the preipheral for
+the single channel \code{A0}.
 Any code in between \code{\{} and \code{\}} is treated as an inline $C$ chunk,
 allowing for easy integration with $C$ for low-level operations.
 
@@ -330,18 +331,17 @@ Only ISRs can emit input events to the program.
 In the example, we define an ISR to handle \code{ADC} interrupts which fire
 whenever a conversion is complete (ln. 17--21).
 %
-Although the ISR block executes asynchronously on interrupts, the input
-emission (ln. 20) only takes effect on a subsequent reaction, when the
-synchronous part of the program becomes idle.
+Although the ISR body executes asynchronously on interrupts, the input emission
+(ln. 20) only takes effect on a subsequent reaction, when the synchronous part
+of the program is idle.
 %
-This way, race conditions are only possible within \code{async/isr} blocks,
-which are typically hidden inside device drivers.
+This way, race conditions are only possible with \code{async/isr} blocks, which
+are typically hidden inside device drivers.
 \CEU also provides an \code{atomic} primitive to protect critical sections of
 code.
 
 The low-level events are the pieces that vary among platforms.
-A driver can also offer a higher-level portable abstraction to be exposed to
-client code.
+A driver can also expose a higher-level portable abstraction to client code.
 %
 In the example, the \code{AnalogRead} abstraction (ln. 23--33) takes care of
 starting and awaiting the conversion (ln. 29--30), as well as dealing with the
@@ -351,9 +351,9 @@ The \code{PM\_SET(PM\_ADC,1)} (ln. 24) tells the system that, when entering in
 sleep mode, the \code{ADC} must be kept running.
 %
 The \code{PM\_SET(PM\_ADC,0)} inside the \code{finalize} clause (ln. 25--27)
-releases the \code{ADC} subsystem.
+releases the \code{ADC} subsystem from the PMR.
 
-The \code{finalize} construct of \CEU executes the nested code whenever the
+The \code{finalize} construct of \CEU executes the nested code whenever its
 enclosing block terminates or is aborted externally.
 %
 The example of Figure~\ref{lst.inversion}.b invokes the \code{AnalogRead}
@@ -395,7 +395,7 @@ code AnalogRead (void) -> int do
       {PM_SET(PM_ADC, 0);}
   end
 
-  emit ADC_REQUEST(pin);
+  emit ADC_REQUEST;
   var int value = await ADC_DONE;
 
   escape value;
@@ -431,9 +431,9 @@ use the least efficient mode%
 In the best case, e.g., if only external interrupts are required, the
 microcontroller can use the most efficient mode (ln. 18).
 
-With all the standby infrastructure set, the program in
-Figure~\ref{lst.inversion}.b will automatically take advantage of the longest
-periods of time and deepest sleep modes possible.
+With all the standby infrastructure set, the unmodified program of
+Figure~\ref{lst.inversion}.b will automatically take advantage of the deepest
+sleep modes for the longest periods of time possible.
 
 \begin{figure}[t]
 \begin{lstlisting}[numbers=left]
@@ -488,7 +488,7 @@ proposed infrastructure, we will evaluate the consumption of realistic
 applications.
 %
 The Arduino community has an abundance of open-source projects which can be
-rewritten in \CEU take advantage of transparent standby modes.
+rewritten in \CEU to take advantage of transparent standby.
 %
 In this scenario, we can evaluate the time to rewrite, the resulting program
 structure, and the actual energy consumption efficiency.
