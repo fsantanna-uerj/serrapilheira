@@ -144,7 +144,7 @@ execution~\cite{rp.deprecating,rp.rescala,sync_async.cooperative}.
 while (1) {
   delay(1000);
   int v =
-    analogRead(A0);
+    analogRead();
   radioWrite(v);
 }
 \end{lstlisting}
@@ -156,7 +156,7 @@ while (1) {
 loop do
   await 1s;
   var int v =
-    await AnalogRead(A0);
+    await AnalogRead();
   await RadioWrite(v);
 end
 \end{lstlisting}
@@ -236,7 +236,7 @@ while (1) {
   if (cur>prv+1000) {
     prv = cur;
     int v =
-      analogRead(A0);
+      analogRead();
     radioWrite(v);
   }
 }
@@ -252,7 +252,7 @@ with
   loop do
     await 1s;
     var int v =
-      await AnalogRead(A0);
+      await AnalogRead();
     await RadioWrite(v);
   end
 end
@@ -288,29 +288,50 @@ microcontroller into the optimal sleep mode after each reaction to the
 environment.
 
 \section{Transparent Standby Mechanisms}
-\label{sec.ceu}
+\label{sec.standby}
+
+In order to empower the example in Figure~\ref{lst.inversion}.b with automatic
+standby, we had to make some modifications and extensions to \CEU:
+%
+\begin{itemize}
+\item Modify the runtime of \CEU to be interrupt driven and to put the
+      microcontroller in standby after each reaction to the environment.
+\item Provide operations for the drivers to indicate which interrupts can awake
+      the program.
+\item Support ISRs in \CEU to generate input events to the program.
+\end{itemize}
+
+Figure~\ref{lst.adc} shows the driver for .
 
 \begin{figure}[t]
 \begin{lstlisting}[numbers=left]
-output (int pin) ANALOG_REQUEST do
-    <...>   // port manipulation to start the conversion
+// Exposed driver functionality
+
+output void ANALOG_REQUEST;    // low-level request
+input  int  ANALOG_DONE;       // low-level response
+code AnalogRead (void) -> int; // high-level abstraction
+
+// Driver implementation
+
+output void ANALOG_REQUEST do
+  <...>   // port manipulation to start the conversion
 end
 
 async/isr ADC_vect_num do
-    var int value = <...>; // port with the value read
-    emit ANALOG_DONE(value);
+  var int value = <...>; // register with the value read
+  emit ANALOG_DONE(value);
 end
 
-code AnalogRead (var int pin) -> int do
-    {PM_SET(PM_ANALOG, 1);}
-    do finalize with
-        {PM_SET(PM_ANALOG, 0);}
-    end
+code AnalogRead (void) -> int do
+  {PM_SET(PM_ANALOG, 1);}
+  do finalize with
+      {PM_SET(PM_ANALOG, 0);}
+  end
 
-    emit ANALOG_REQUEST(pin);
-    var int value = await ANALOG_DONE;
+  emit ANALOG_REQUEST(pin);
+  var int value = await ANALOG_DONE;
 
-    escape value;
+  escape value;
 end
 \end{lstlisting}
 %\rule{8.4cm}{0.37pt}
@@ -321,8 +342,10 @@ end
 
 \begin{figure}[t]
 \begin{lstlisting}[numbers=left]
-#define PM_GET(peripheral)       bitRead(pm, peripheral)
-#define PM_SET(peripheral,state) bitWrite(pm, peripheral, state);
+#define PM_GET(peripheral) \
+        bitRead(pm, peripheral)
+#define PM_SET(peripheral,state) \
+        bitWrite(pm, peripheral, state)
 
 static u32 pm = 0;
 
