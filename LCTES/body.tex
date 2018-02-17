@@ -38,10 +38,10 @@ programming efforts.
 We extend the synchronous programming language
 \CEU~\cite{ceu.sensys13,ceu.tecs17} with support for interrupt service routines
 (ISRs) and with a simple power management runtime (PMR).
-%
+
 Each supported microcontroller requires bindings in C for the ISRs and PMR, and
 each peripheral requires a driver in \CEU.
-These are a one-time procedures and are typically packaged and distributed in a
+These are write-once code that are typically packaged and distributed in a
 software development kit (SDK).
 %
 Then, all new applications built on top of these drivers take advantage of
@@ -53,16 +53,22 @@ with support for 8-bit
 \emph{AVR/ATmega} and 32-bit \emph{ARM/Cortex-M0} microcontrollers, and a
 variety of peripherals, such as GPIO, A/D converter, USART, SPI, and the nRF24L01
 transceiver.
-
-We developed a number of applications using these peripherals concurrently and
-could verify that the applications remain in deepest standby modes for longest
-periods of time.
 %
-We also compare the structure of programs in \CEU and
+We developed a number of simple applications using these peripherals
+concurrently and could verify that the applications remain in deepest standby
+modes for longest periods of time.
+
+In Section~\ref{sec.ceu}, we compare the structure of programs in \CEU and
 Arduino~\cite{arduino.book}, whose primary goal is to reduce the barrier of
 adoption for non-technical users (e.g., designers and artists).
 We show that we can keep the intended sequential reasoning of Arduino even when
 applications require non-trivial concurrent behaviors.
+%
+In Section~\ref{sec.standby}, we discuss the software infrastructure that
+allows for unmmodified programs in \CEU to take advantage of standby
+automatically.
+%
+In Section~\ref{sec.conclusion}, we discuss future work and conclude the paper.
 
 % - standby as well as enabled/disabled, powered, switched
 % - application on IoT
@@ -79,6 +85,7 @@ applications require non-trivial concurrent behaviors.
 %transparent standby.
 
 \section{The Structured Synchronous Programming Language \CEU}
+\label{sec.ceu}
 
 \begin{comment}
 - structured programming
@@ -358,12 +365,6 @@ to abort abruptly.
 In either case, the \code{finalize} clause executes and puts the PMR in a
 consistent state.
 
-Client code for the driver
-
-
- chunk,
-
-
 \begin{figure}[t]
 \begin{lstlisting}[numbers=left]
 // Exposed driver functionality
@@ -401,10 +402,38 @@ code AnalogRead (void) -> int do
 end
 \end{lstlisting}
 %\rule{8.4cm}{0.37pt}
-\caption{ \CEU driver for the A/D converter.
+\caption{ \CEU driver for the \emph{ATmega328p} A/D converter.
 \label{lst.adc}
 }
 \end{figure}
+
+The PMR also expects a platform-specific power management module to be able to
+put the microcontroller into the most efficient sleep mode possible.
+%
+Figure~\ref{lst.pm} implements the \code{pm\_sleep} function for the
+\emph{ATmega328p} microcontroller which the PMR calls when the program is idle.
+%
+Each device has an associated index (ln. 6--10) in the \code{pm} bit vector
+(ln. 4).
+%
+The driver manipulates its device's index to indicate its state
+(Figure~\ref{lst.adc}, ln. 24,26).
+%
+The \code{pm\_sleep} queries the vector to choose the appropriate sleep mode.
+In the example, if the timer is active (ln. 13), the microcontroller can only
+use the least efficient mode%
+\footnote{
+    We use an external library for the sleep modes:
+    \url{http://www.rocketscream.com/blog/2011/07/04/lightweight-low-power-arduino-library/}
+}
+(ln. 14).
+%
+In the best case, e.g., if only external interrupts are required, the
+microcontroller can use the most efficient mode (ln. 18).
+
+With all the standby infrastructure set, the program in
+Figure~\ref{lst.inversion}.b will automatically take advantage of the longest
+periods of time and deepest sleep modes possible.
 
 \begin{figure}[t]
 \begin{lstlisting}[numbers=left]
@@ -413,16 +442,19 @@ end
 
 static u32 pm = 0;
 
+enum {
+  CEU_PM_ADC = 0,
+  CEU_PM_TIMER1,
+  <...>,
+};
+
 void pm_sleep (void) {
-  if (PM_GET(PM_TIMER1) ||
-      PM_GET(PM_USART)  ||
-      PM_GET(PM_SPI))
-  {
-      LowPower.idle(PM_GET(PM_ADC),...)
+  if (PM_GET(PM_TIMER1) || <...>) {
+      LowPower.idle(PM_GET(PM_ADC),<...>)
     } else if (PM_GET(PM_ADC)) {
-      LowPower.adcNoiseReduction(...);
+      LowPower.adcNoiseReduction(<...>);
     } else {
-      LowPower.powerDown(...);
+      LowPower.powerDown(<...>);
     }
   }
 }
@@ -433,6 +465,33 @@ void pm_sleep (void) {
 }
 \end{figure}
 
+\section{Conclusion and Future Work}
+\label{sec.conclusion}
+
+In this work, we address standby efficiency for embedded devices at the level
+of programming languages.
+%
+We propose a software infrastructure for the programming language \CEU that
+encompass a power management runtime and support for interrupt service routines
+in the language.
+%
+Our approach relies on the synchronous semantics of the language which enforces
+that reactions to the environment always reach an idle state amenable to
+standby.
+%
+We then take energy-unaware programs in \CEU and show that, using the proposed
+infrastructure, they can take advantage of the longest periods of time and
+deepest sleep modes possible.
+
+In future work, in order to evaluate the gains in energy efficiency with the
+proposed infrastructure, we will evaluate the consumption of realistic
+applications.
+%
+The Arduino community has an abundance of open-source projects which can be
+rewritten in \CEU take advantage of transparent standby modes.
+%
+In this scenario, we can evaluate the time to rewrite, the resulting program
+structure, and the actual energy consumption efficiency.
 
 \begin{acks}
   The authors would like to thank Dr. Yuhua Li for providing the
