@@ -301,7 +301,13 @@ standby, we had to make some modifications and extensions to \CEU:
 \item Support ISRs in \CEU to generate input events to the program.
 \end{itemize}
 
-Figure~\ref{lst.adc} shows the driver for .
+Figure~\ref{lst.adc} shows the driver for the A/D converter in \CEU.
+For simplicity, we assume in the paper that the converter has a single channel
+to avoid having to deal with multiplexing.
+%
+The driver exposes raw I/O events (ln. 3--4) that only deal with low-level
+port manipulation in the microcontroller.
+The output event (ln. 9--11)
 
 \begin{figure}[t]
 \begin{lstlisting}[numbers=left]
@@ -314,11 +320,16 @@ code AnalogRead (void) -> int; // high-level abstraction
 // Driver implementation
 
 output void ANALOG_REQUEST do
-  <...>   // port manipulation to start the conversion
+  {
+    ADMUX = 0x40 | (A0 & 0x07);
+    bitSet(ADCSRA, ADIE); // enables interrupt
+    bitSet(ADCSRA, ADSC); // starts the conversion
+  }
 end
 
 async/isr ADC_vect_num do
-  var int value = <...>; // register with the value read
+  { bitClear(ADCSRA, ADIE); } // disables interrupt
+  var int value = {ADC}; // register with the value read
   emit ANALOG_DONE(value);
 end
 
@@ -342,15 +353,16 @@ end
 
 \begin{figure}[t]
 \begin{lstlisting}[numbers=left]
-#define PM_GET(peripheral) \
-        bitRead(pm, peripheral)
-#define PM_SET(peripheral,state) \
-        bitWrite(pm, peripheral, state)
+#define PM_GET(dev)   bitRead(pm,dev)
+#define PM_SET(dev,v) bitWrite(pm,dev,v)
 
 static u32 pm = 0;
 
 void pm_sleep (void) {
-  if (PM_GET(PM_TIMER1) || PM_GET(PM_USART) || PM_GET(PM_SPI)) {
+  if (PM_GET(PM_TIMER1) ||
+      PM_GET(PM_USART)  ||
+      PM_GET(PM_SPI))
+  {
       LowPower.idle(PM_GET(PM_ADC),...)
     } else if (PM_GET(PM_ADC)) {
       LowPower.adcNoiseReduction(...);
