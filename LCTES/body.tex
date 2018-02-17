@@ -209,7 +209,7 @@ blocking operations (\code{analogRead} and \code{radioWrite}) would also need
 to be changed to achieve maximum concurrency.
 %
 Alternatively, we could resort to ISRs or implement an event-driven
-scheduler to handle the operations~\cite{tos.nesc}, but ultimately, the
+scheduler to handle the operations~\cite{wsn.nesc}, but ultimately, the
 program readability would still be compromised.
 
 The program in Figure~\ref{lst.inversion}.b in \CEU extends the one in
@@ -287,7 +287,7 @@ statements in all active lines of execution, it is always possible to put the
 microcontroller into the optimal sleep mode after each reaction to the
 environment.
 
-\section{Transparent Standby Mechanisms}
+\section{Standby Infrastructure}
 \label{sec.standby}
 
 In order to empower the example in Figure~\ref{lst.inversion}.b with automatic
@@ -302,24 +302,79 @@ standby, we had to make some modifications and extensions to \CEU:
 \end{itemize}
 
 Figure~\ref{lst.adc} shows the driver for the A/D converter in \CEU.
+This code is specific to the \emph{ATmega328p} microcontroller and must be
+adapted to work in other platforms.
 For simplicity, we assume in the paper that the converter has a single channel
 to avoid having to deal with multiplexing.
-%
+
 The driver exposes raw I/O events (ln. 3--4) that only deal with low-level
 port manipulation in the microcontroller.
-The output event (ln. 9--11)
+Output events are triggered with the \code{emit} keyword (ln. 29), while input
+events are captured with the \code{await} keyword (ln. 30).
+%
+The output event \code{ADC\_REQUEST} (ln. 9--15) enables ADC interrupts and
+starts an analog-to-digital conversion in the single channel \code{A0}.
+Any code in between \code{\{} and \code{\}} is treated as an inline $C$ chunk,
+allowing for easy integration with $C$ for low-level operations.
+
+The \code{async/isr} construct of \CEU defines an ISR which executes
+asynchronously with the program when the specified interrupt occurs.
+Only ISRs can emit input events to the program.
+In the example, we define an ISR to handle \code{ADC} interrupts which fire
+whenever a conversion is complete (ln. 17--21).
+%
+Although the ISR block executes asynchronously on interrupts, the input
+emission (ln. 20) only takes effect on a subsequent reaction, when the
+synchronous part of the program becomes idle.
+%
+This way, race conditions are only possible within \code{async/isr} blocks,
+which are typically hidden inside device drivers.
+\CEU also provides an \code{atomic} primitive to protect critical sections of
+code.
+
+The low-level events are the pieces that vary among platforms.
+A driver can also offer a higher-level portable abstraction to be exposed to
+client code.
+%
+In the example, the \code{AnalogRead} abstraction (ln. 23--33) takes care of
+starting and awaiting the conversion (ln. 29--30), as well as dealing with the
+power management runtime (PMR).
+%
+The \code{PM\_SET(PM\_ADC,1)} (ln. 24) tells the system that, when entering in
+sleep mode, the \code{ADC} must be kept running.
+%
+The \code{PM\_SET(PM\_ADC,0)} inside the \code{finalize} clause (ln. 25--27)
+releases the \code{ADC} subsystem.
+
+The \code{finalize} construct of \CEU executes the nested code whenever the
+enclosing block terminates or is aborted externally.
+%
+The example of Figure~\ref{lst.inversion}.b invokes the \code{AnalogRead}
+abstraction (ln. 7) concurrently with \code{RadioAvail} (ln. 2).
+%
+It is possible that the \code{AnalogRead} terminates normally or that a radio
+message arrives during the A/D conversion, which causes the \code{AnalogRead}
+to abort abruptly.
+In either case, the \code{finalize} clause executes and puts the PMR in a
+consistent state.
+
+Client code for the driver
+
+
+ chunk,
+
 
 \begin{figure}[t]
 \begin{lstlisting}[numbers=left]
 // Exposed driver functionality
 
-output void ANALOG_REQUEST;    // low-level request
-input  int  ANALOG_DONE;       // low-level response
+output void ADC_REQUEST; // low-level request
+input  int  ADC_DONE;    // low-level response
 code AnalogRead (void) -> int; // high-level abstraction
 
 // Driver implementation
 
-output void ANALOG_REQUEST do
+output void ADC_REQUEST do
   {
     ADMUX = 0x40 | (A0 & 0x07);
     bitSet(ADCSRA, ADIE); // enables interrupt
@@ -327,20 +382,20 @@ output void ANALOG_REQUEST do
   }
 end
 
-async/isr ADC_vect_num do
+async/isr {ADC_vect_num} do
   { bitClear(ADCSRA, ADIE); } // disables interrupt
-  var int value = {ADC}; // register with the value read
-  emit ANALOG_DONE(value);
+  var int value = {ADC}; // reads register with the value
+  emit ADC_DONE(value);
 end
 
 code AnalogRead (void) -> int do
-  {PM_SET(PM_ANALOG, 1);}
+  {PM_SET(PM_ADC, 1);}
   do finalize with
-      {PM_SET(PM_ANALOG, 0);}
+      {PM_SET(PM_ADC, 0);}
   end
 
-  emit ANALOG_REQUEST(pin);
-  var int value = await ANALOG_DONE;
+  emit ADC_REQUEST(pin);
+  var int value = await ADC_DONE;
 
   escape value;
 end
@@ -373,7 +428,7 @@ void pm_sleep (void) {
 }
 \end{lstlisting}
 %\rule{8.4cm}{0.37pt}
-\caption{ Power management module for the ATmega328p microcontroller.
+\caption{ Power management module for the \emph{ATmega328p} microcontroller.
 \label{lst.pm}
 }
 \end{figure}
