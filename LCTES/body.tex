@@ -8,9 +8,9 @@ However, most of the energy to power these devices will be consumed in
 \emph{standby mode}, i.e., when they are neither transmitting or processing
 data.
 %
-For instance, standby power currently accounts for 10--15\% of residential
-electricity consumption, and $CO_2$ emissions related to standby are equivalent
-to those of 1 million cars~\cite{iea.data,standby.australia}.
+For instance, standby power currently accounts for approximately 10--15\% of
+residential electricity consumption, and $CO_2$ emissions related to standby
+are equivalent to those of 1 million cars~\cite{iea.data,standby.australia}.
 %
 The projected growth of IoT devices, together with the surprising effects of
 standby consumption, made network standby efficiency one of the six
@@ -129,7 +129,8 @@ Overall, \CEU aims to offer a concurrent, safe, and expressive alternative to C
 with the characteristics that follow:
 %
 \begin{description}
-\item [Reactive:] code only executes in reactions to events.
+\item [Reactive:] code only executes in reactions to events and is idle most of
+    the time.
 \item [Structured:] programs use structured control mechanisms, such as
     \code{await} (to suspend a line of execution), and \code{par} (to combine
     multiple lines of execution).
@@ -301,11 +302,12 @@ In order to empower the example in Figure~\ref{lst.inversion}.b with automatic
 standby, we developed some extensions to \CEU:
 %
 \begin{itemize}
-\item Make the runtime of \CEU to be interrupt driven and to put the
-      microcontroller in standby after each reaction to the environment.
-\item Provide operations for the drivers to indicate which interrupts can awake
-      the program.
-\item Support ISRs in \CEU to generate input events to the program.
+\item We made the runtime of \CEU interrupt driven and put the microcontroller
+      in standby after each reaction to the environment.
+\item We provided operations for the drivers to indicate which interrupts can
+      awake the program.
+\item We included support for ISRs in \CEU to generate input events to the
+      program.
 \end{itemize}
 
 Figure~\ref{lst.adc} shows the driver for the A/D converter in \CEU.
@@ -320,10 +322,10 @@ Output events are triggered with the \code{emit} keyword (ln. 29), while input
 events are captured with the \code{await} keyword (ln. 30).
 %
 The output event \code{ADC\_REQUEST} (ln. 9--15) enables ADC interrupts and
-starts an analog-to-digital conversion asynchronously in the preipheral for
+starts an analog-to-digital conversion asynchronously in the peripheral for
 the single channel \code{A0}.
-Any code in between \code{\{} and \code{\}} is treated as an inline $C$ chunk,
-allowing for easy integration with $C$ for low-level operations.
+In \CEU, any code in between \code{\{} and \code{\}} is treated as an inline
+$C$ chunk, allowing for easy integration with $C$ for low-level operations.
 
 The \code{async/isr} construct of \CEU defines an ISR which executes
 asynchronously with the program when the specified interrupt occurs.
@@ -359,9 +361,8 @@ enclosing block terminates or is aborted externally.
 The example of Figure~\ref{lst.inversion}.b invokes the \code{AnalogRead}
 abstraction (ln. 7) concurrently with \code{RadioAvail} (ln. 2).
 %
-It is possible that the \code{AnalogRead} terminates normally or that a radio
-message arrives during the A/D conversion, which causes the \code{AnalogRead}
-to abort abruptly.
+The \code{AnalogRead} may terminate normally or a radio message may arrive
+during the A/D conversion, causing the \code{AnalogRead} to abort abruptly.
 In either case, the \code{finalize} clause executes and puts the PMR in a
 consistent state.
 
@@ -440,7 +441,7 @@ sleep modes for the longest periods of time possible.
 #define PM_GET(dev)   bitRead(pm,dev)
 #define PM_SET(dev,v) bitWrite(pm,dev,v)
 
-static u32 pm = 0;
+static u32 pm = 0; // up to 32 peripherals
 
 enum {
   CEU_PM_ADC = 0,
@@ -472,16 +473,15 @@ In this work, we address standby efficiency for embedded devices at the level
 of programming languages.
 %
 We propose a software infrastructure for the programming language \CEU that
-encompass a power management runtime and support for interrupt service routines
-in the language.
+encompasses a power management runtime and support for interrupt service
+routines in the language.
 %
 Our approach relies on the synchronous semantics of the language which enforces
 that reactions to the environment always reach an idle state amenable to
 standby.
 %
-We then take energy-unaware programs in \CEU and show that, using the proposed
-infrastructure, they can take advantage of the longest periods of time and
-deepest sleep modes possible.
+This way, application written in \CEU can take advantage of the longest periods
+of time and deepest sleep modes possible without extra programming efforts.
 
 In future work, in order to evaluate the gains in energy efficiency with the
 proposed infrastructure, we will evaluate the consumption of realistic
