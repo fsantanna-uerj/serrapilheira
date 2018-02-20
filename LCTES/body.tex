@@ -18,7 +18,7 @@ pillars of the \emph{G20's Energy Efficiency Action Plan}%
 \footnote{G20's Energy Efficiency Action Plan: \url{https://www.iea-4e.org/projects/g20}}.
 
 Given the projected scale of the IoT and the role of low-power standby towards
-energy efficiency, this paper has the following goals:
+energy efficiency, our research has the following goals:
 
 \begin{enumerate}
 \item Address energy efficiency through extensive use of standby.
@@ -32,7 +32,7 @@ energy efficiency, this paper has the following goals:
 
 Our approach lies at the bottom of the software development
 layers---programming language mechanisms---meaning that \emph{all} applications
-take advantage of low-power standby modes automatically, without extra
+should take advantage of low-power standby modes automatically, without extra
 programming efforts.
 %
 We extend the synchronous programming language
@@ -177,13 +177,13 @@ end
 \end{figure}
 }
 
-Figure~\ref{lst.direct}.a shows a straightforward, easy-to-read program chunk
+Figure~\ref{lst.direct}.a shows a straightforward, easy-to-read code snippet
 in Arduino that executes forever in a loop a sequence of operations as follows:
     waits for 1 second (ln. 2),
     performs an A/D conversion (ln. 3--4), and
     broadcasts the read value (ln. 5).
 %
-Figure~\ref{lst.direct}.b shows the same chunk in \CEU, with the noteworthy
+Figure~\ref{lst.direct}.b shows the same code in \CEU, with the noteworthy
 difference that operations that interact with the environment and take time use
 the \code{await} keyword. % and can be easily identified in the program.
 %
@@ -210,8 +210,8 @@ with checks for message arrivals (ln. 4--6).
 If the time is up, we start counting it again (ln. 10) before proceeding to the
 original operations in sequence (ln. 11--13).
 %
-The original structured style has been drastically violated to accommodate
-concurrency.
+The original structured style in Figure~\ref{lst.direct}.a has been drastically
+violated to accommodate concurrency in Figure~\ref{lst.inversion}.a.
 In the example, we only adapted the \code{delay} operation, but the other
 blocking operations (\code{analogRead} and \code{radioWrite}) would also need
 to be changed to achieve maximum concurrency.
@@ -223,7 +223,8 @@ program readability would still be compromised.
 The program in Figure~\ref{lst.inversion}.b in \CEU extends the one in
 Figure~\ref{lst.direct}.b to accommodate concurrency.
 %
-The original code remains unmodified (ln. 4--9) and concurrency is achieved
+In contrast with the Arduino version, the original code in \CEU remains
+unmodified (Figure~\ref{lst.inversion}.b, ln. 4--9) and concurrency is achieved
 through the \code{par/or} construct, which creates two lines of execution and
 terminates when either of them terminates, aborting the other automatically.
 %
@@ -411,8 +412,9 @@ end
 The PMR also expects a platform-specific power management module to be able to
 put the microcontroller into the most efficient sleep mode possible.
 %
-Figure~\ref{lst.pm} implements the \code{pm\_sleep} function for the
-\emph{ATmega328p} microcontroller which the PMR calls when the program is idle.
+The code in Figure~\ref{lst.pm} implements the \code{pm\_sleep} function for
+the \emph{ATmega328p} microcontroller which the PMR calls when the program is
+idle.
 %
 Each device has an associated index (ln. 6--10) in the \code{pm} bit vector
 (ln. 4).
