@@ -16,28 +16,38 @@ The projected growth of IoT devices, together with the surprising effects of
 standby consumption, made network standby efficiency one of the six
 pillars of the \emph{G20's Energy Efficiency Action Plan}%
 \footnote{G20's Energy Efficiency Action Plan: \url{https://www.iea-4e.org/projects/g20}}.
+%
+However, making effective use of standby requires software-related efforts in
+order to detect idle periods of activity in the device, identify peripherals
+that must remain functional, and apply appropriate sleep mode levels in the
+microcontroller.
 
-Given the projected scale of the IoT and the role of low-power standby towards
-energy efficiency, our research has the following goals:
-
-\begin{enumerate}
-\item Address energy efficiency through extensive use of standby.
-\item Target low-power, resource-constrained embedded architectures that form
-      the IoT.
-\item Provide standby mechanisms at the programming language level that scale
-      to all applications.
-\item Support transparent/non-intrusive standby mechanisms that reduce barriers
+Given the projected scale of the IoT, the role of low-power standby towards
+energy efficiency, and the posed software-related challenges, our research has
+the following goals:
+%
+%\begin{enumerate}
+(i)   address energy efficiency through meticulous use of standby;
+(ii)  target low-power, resource-constrained embedded architectures that form
+      the IoT;
+(iii) provide standby mechanisms at the programming language level that scale
+      to all applications; and
+(iv)  support transparent/non-intrusive standby mechanisms that reduce barriers
       of adoption.
-\end{enumerate}
+%\end{enumerate}
 
 Our approach lies at the bottom of the software development
 layers---programming language mechanisms---meaning that \emph{all} applications
 should take advantage of low-power standby modes automatically, without extra
 programming efforts.
 %
-We extend the synchronous programming language
-\CEU~\cite{ceu.sensys13,ceu.tecs17} with support for interrupt service routines
-(ISRs) and with a simple power management runtime (PMR).
+We extend the programming language \CEU~\cite{ceu.sensys13,ceu.tecs17} with
+support for interrupt service routines (ISRs) and with a simple power
+management runtime (PMR).
+%
+Our approach relies on the synchronous semantics of the language which enforces
+that reactions to the environment always reach an idle state amenable to
+standby.
 
 Each supported microcontroller requires bindings in C for the ISRs and PMR, and
 each peripheral requires a driver in \CEU.
@@ -65,7 +75,7 @@ We show that we can keep the intended sequential reasoning of Arduino even when
 applications require non-trivial concurrent behavior.
 %
 In Section~\ref{sec.standby}, we discuss the software infrastructure that
-allows for unmmodified programs in \CEU to take advantage of standby
+allows for unmodified programs in \CEU to take advantage of standby
 automatically.
 %
 In Section~\ref{sec.conclusion}, we discuss future work and conclude the paper.

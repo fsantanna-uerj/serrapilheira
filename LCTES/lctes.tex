@@ -152,15 +152,19 @@ We propose transparent programming language mechanisms to enforce that
 applications remain in the deepest standby modes for the longest periods of
 time.
 %
-We extend the synchronous programming language \CEU with support for interrupt
-service routines and with a simple power management runtime.
+We extend the programming language \CEU with support for interrupt service
+routines and with a simple power management runtime.
 %
-We provide device drivers based on these primitives on top of which
+We also provide device drivers based on these primitives on top of which
 applications can be built to take advantage of standby automatically.
 %
-We also show that programs in \CEU can keep a sequential structure, even when
-applications require non-trivial concurrent behavior, to lower the barrier of
-adoption.
+Our approach relies on the synchronous semantics of the language which enforces
+that reactions to the environment always reach an idle state amenable to
+standby.
+%
+In addition, we show that programs in \CEU can keep a sequential structure,
+even when applications require non-trivial concurrent behavior, to lower the
+barrier of adoption.
 \end{abstract}
 
 %
