@@ -45,9 +45,9 @@ We extend the programming language \CEU~\cite{ceu.sensys13,ceu.tecs17} with
 support for interrupt service routines (ISRs) and with a simple power
 management runtime (PMR).
 %
-Our approach relies on the synchronous semantics of the language which enforces
-that reactions to the environment always reach an idle state amenable to
-standby.
+In contrast with other concurrency models (e.g., thread and actor based), the
+the synchronous semantics of \CEU guarantees that reactions to the environment
+always reach an idle state amenable to standby.
 
 Each supported microcontroller requires bindings in C for the ISRs and PMR, and
 each peripheral requires a driver in \CEU.
@@ -488,9 +488,9 @@ We propose a software infrastructure for the programming language \CEU that
 encompasses a power management runtime and support for interrupt service
 routines in the language.
 %
-Our approach relies on the synchronous semantics of the language which enforces
-that reactions to the environment always reach an idle state amenable to
-standby.
+Our approach relies on the synchronous semantics of the language which
+guarantees that reactions to the environment always reach an idle state
+amenable to standby.
 %
 This way, application written in \CEU can take advantage of the longest periods
 of time and deepest sleep modes possible without extra programming efforts.

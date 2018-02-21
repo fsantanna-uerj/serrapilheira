@@ -155,12 +155,12 @@ time.
 We extend the programming language \CEU with support for interrupt service
 routines and with a simple power management runtime.
 %
-We also provide device drivers based on these primitives on top of which
-applications can be built to take advantage of standby automatically.
+Based on these primitives, we also provide device drivers that allow
+applications to take advantage of standby automatically.
 %
-Our approach relies on the synchronous semantics of the language which enforces
-that reactions to the environment always reach an idle state amenable to
-standby.
+Our approach relies on the synchronous semantics of the language which
+guarantees that reactions to the environment always reach an idle state
+amenable to standby.
 %
 In addition, we show that programs in \CEU can keep a sequential structure,
 even when applications require non-trivial concurrent behavior, to lower the
