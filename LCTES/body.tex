@@ -27,7 +27,7 @@ energy efficiency, and the posed software-related challenges, our research has
 the following goals:
 %
 %\begin{enumerate}
-(i)   address energy efficiency through meticulous use of standby;
+(i)   address energy efficiency through rigorous use of standby;
 (ii)  target low-power, resource-constrained embedded architectures that form
       the IoT;
 (iii) provide standby mechanisms at the programming language level that scale
@@ -36,7 +36,7 @@ the following goals:
       of adoption.
 %\end{enumerate}
 
-Our approach lies at the bottom of the software development
+Our proposal lies at the bottom of the software development
 layers---programming language mechanisms---meaning that \emph{all} applications
 should take advantage of low-power standby modes automatically, without extra
 programming efforts.
@@ -49,9 +49,9 @@ In contrast with other concurrency models (e.g., thread and actor based), the
 the synchronous semantics of \CEU guarantees that reactions to the environment
 always reach an idle state amenable to standby.
 
-Each supported microcontroller requires bindings in C for the ISRs and PMR, and
-each peripheral requires a driver in \CEU.
-These are write-once code that are typically packaged and distributed in a
+In our approach, each supported microcontroller requires bindings in C for the
+ISRs and PMR, and each peripheral requires a driver in \CEU.
+These are write-once code that is typically packaged and distributed in a
 software development kit (SDK).
 %
 Then, all new applications built on top of these drivers take advantage of
@@ -204,43 +204,6 @@ dealing with ISRs.
 However, the use of blocking operations, such as \code{delay(1000)} (ln. 2),
 prevents that other operations execute concurrently.
 
-Suppose that we now want to immediately abort the loop in
-Figure~\ref{lst.direct}.a at any time, as soon as a radio message arrives.
-%
-Since the message might arrive concurrently with any of the blocking
-operations, we need to change the structure of the program.
-%
-Figure~\ref{lst.inversion}.a changes the blocking \code{delay} to the polling
-\code{millis}, which immediately returns the number of milliseconds since the
-reset.
-Now, we start by registering the current time (ln. 1--2) and, on each loop
-iteration, we recheck the time to see if one second has elapsed (ln. 7--9).
-Since these operations are non-blocking, we can intercalate their execution
-with checks for message arrivals (ln. 4--6).
-If the time is up, we start counting it again (ln. 10) before proceeding to the
-original operations in sequence (ln. 11--13).
-%
-The original structured style in Figure~\ref{lst.direct}.a has been drastically
-violated to accommodate concurrency in Figure~\ref{lst.inversion}.a.
-In the example, we only adapted the \code{delay} operation, but the other
-blocking operations (\code{analogRead} and \code{radioWrite}) would also need
-to be changed to achieve maximum concurrency.
-%
-Alternatively, we could resort to ISRs or implement an event-driven
-scheduler to handle the operations~\cite{wsn.nesc}, but ultimately, the
-program readability would still be compromised.
-
-The program in Figure~\ref{lst.inversion}.b in \CEU extends the one in
-Figure~\ref{lst.direct}.b to accommodate concurrency.
-%
-In contrast with the Arduino version, the original code in \CEU remains
-unmodified (Figure~\ref{lst.inversion}.b, ln. 4--9) and concurrency is achieved
-through the \code{par/or} construct, which creates two lines of execution and
-terminates when either of them terminates, aborting the other automatically.
-%
-This approach preserves the sequential, easy-to-read style while introducing
-concurrency seamlessly.
-
 \begin{figure}[t]
 \begin{minipage}[t]{0.49\linewidth}
 \begin{lstlisting}[xrightmargin=0.5cm]
@@ -289,6 +252,43 @@ end
 }
 \end{figure}
 
+Suppose that we now want to immediately abort the loop in
+Figure~\ref{lst.direct}.a at any time, as soon as a radio message arrives.
+%
+Since the message might arrive concurrently with any of the blocking
+operations, we need to change the structure of the program.
+%
+Figure~\ref{lst.inversion}.a changes the blocking \code{delay} to the polling
+\code{millis}, which immediately returns the number of milliseconds since the
+reset.
+Now, we start by registering the current time (ln. 1--2) and, on each loop
+iteration, we recheck the time to see if one second has elapsed (ln. 7--9).
+Since these operations are non-blocking, we can intercalate their execution
+with checks for message arrivals (ln. 4--6).
+If the time is up, we start counting it again (ln. 10) before proceeding to the
+original operations in sequence (ln. 11--13).
+%
+The original structured style in Figure~\ref{lst.direct}.a has been drastically
+violated to accommodate concurrency in Figure~\ref{lst.inversion}.a.
+Furthermore, we only adapted the \code{delay} operation, but the other blocking
+operations (\code{analogRead} and \code{radioWrite}) would also need to be
+changed to achieve maximum concurrency.
+%
+Alternatively, we could resort to ISRs or implement an event-driven
+scheduler to handle the operations~\cite{wsn.nesc}, but ultimately, the
+program readability would still be compromised.
+
+The program in Figure~\ref{lst.inversion}.b in \CEU extends the one in
+Figure~\ref{lst.direct}.b to accommodate concurrency.
+%
+In contrast with the Arduino version, the original code in \CEU remains
+unmodified (Figure~\ref{lst.inversion}.b, ln. 4--9) and concurrency is achieved
+through the \code{par/or} construct, which creates two lines of execution and
+terminates when either of them terminates, aborting the other automatically.
+%
+This approach preserves the sequential, easy-to-read style while introducing
+concurrency seamlessly.
+
 \subsection*{Standby Considerations}
 \label{sec.ceu.standby}
 
@@ -318,8 +318,50 @@ standby, we developed some extensions to \CEU:
 \item We provided operations for the drivers to indicate which interrupts can
       awake the program.
 \item We included support for ISRs in \CEU to generate input events to the
-      program.
+      program and awake the microcontroller.
 \end{itemize}
+
+\begin{figure}[t]
+\begin{lstlisting}[numbers=left]
+// Exposed driver functionality
+
+output void ADC_REQUEST; // low-level request
+input  int  ADC_DONE;    // low-level response
+code AnalogRead (void) -> int; // high-level abstraction
+
+// Driver implementation
+
+output void ADC_REQUEST do
+  {
+    ADMUX = 0x40 | (A0 & 0x07); // selects channel A0
+    bitSet(ADCSRA, ADIE);       // enables interrupt
+    bitSet(ADCSRA, ADSC);       // starts the conversion
+  }
+end
+
+async/isr {ADC_vect_num} do
+  { bitClear(ADCSRA, ADIE); } // disables interrupt
+  var int value = {ADC}; // reads register with the value
+  emit ADC_DONE(value);
+end
+
+code AnalogRead (void) -> int do
+  {PM_SET(PM_ADC, 1);}
+  do finalize with
+      {PM_SET(PM_ADC, 0);}
+  end
+
+  emit ADC_REQUEST;
+  var int value = await ADC_DONE;
+
+  escape value;
+end
+\end{lstlisting}
+%\rule{8.4cm}{0.37pt}
+\caption{ \CEU driver for the \emph{ATmega328p} A/D converter.
+\label{lst.adc}
+}
+\end{figure}
 
 Figure~\ref{lst.adc} shows the driver for the A/D converter in \CEU.
 This code is specific to the \emph{ATmega328p} microcontroller and must be
@@ -346,7 +388,7 @@ whenever a conversion is complete (ln. 17--21).
 %
 Although the ISR body executes asynchronously on interrupts, the input emission
 (ln. 20) only takes effect on a subsequent reaction, when the synchronous part
-of the program is idle.
+of the program becomes idle.
 %
 This way, race conditions are only possible with \code{async/isr} blocks, which
 are typically hidden inside device drivers.
@@ -377,54 +419,12 @@ during the A/D conversion, causing the \code{AnalogRead} to abort abruptly.
 In either case, the \code{finalize} clause executes and puts the PMR in a
 consistent state.
 
-\begin{figure}[t]
-\begin{lstlisting}[numbers=left]
-// Exposed driver functionality
-
-output void ADC_REQUEST; // low-level request
-input  int  ADC_DONE;    // low-level response
-code AnalogRead (void) -> int; // high-level abstraction
-
-// Driver implementation
-
-output void ADC_REQUEST do
-  {
-    ADMUX = 0x40 | (A0 & 0x07);
-    bitSet(ADCSRA, ADIE); // enables interrupt
-    bitSet(ADCSRA, ADSC); // starts the conversion
-  }
-end
-
-async/isr {ADC_vect_num} do
-  { bitClear(ADCSRA, ADIE); } // disables interrupt
-  var int value = {ADC}; // reads register with the value
-  emit ADC_DONE(value);
-end
-
-code AnalogRead (void) -> int do
-  {PM_SET(PM_ADC, 1);}
-  do finalize with
-      {PM_SET(PM_ADC, 0);}
-  end
-
-  emit ADC_REQUEST;
-  var int value = await ADC_DONE;
-
-  escape value;
-end
-\end{lstlisting}
-%\rule{8.4cm}{0.37pt}
-\caption{ \CEU driver for the \emph{ATmega328p} A/D converter.
-\label{lst.adc}
-}
-\end{figure}
-
 The PMR also expects a platform-specific power management module to be able to
 put the microcontroller into the most efficient sleep mode possible.
 %
 The code in Figure~\ref{lst.pm} implements the \code{pm\_sleep} function for
-the \emph{ATmega328p} microcontroller which the PMR calls when the program is
-idle.
+the \emph{ATmega328p} microcontroller which the PMR calls when the program
+becomes idle.
 %
 Each device has an associated index (ln. 6--10) in the \code{pm} bit vector
 (ln. 4).
