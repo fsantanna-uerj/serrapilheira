@@ -253,7 +253,7 @@ Global variables use 1444 bytes (17%) of dynamic memory, leaving 6748 bytes for 
 `[12-Fev] -> [18-Fev]`
 -------------------------------------------------------------------------------
 
-### `[12-Jan]` O que será feito?
+### `[12-Fev]` O que será feito?
 
 - Implementação
     - Otimizações
@@ -264,6 +264,28 @@ Global variables use 1444 bytes (17%) of dynamic memory, leaving 6748 bytes for 
 
 - Documentação
     - Artigos LCTES
-        - [ ] Submeter abstracts
+        - [x] Submeter abstracts
 
 - Feriado (Carnaval)
+
+### `[18-Fev]` O que foi feito?
+
+- Implementação
+    - Nada foi feito.
+
+- Documentação
+    - Artigos LCTES: foco da semana ficou por conta dos artigos
+        - Full
+        - Short
+
+- Feriado (Carnaval)
+
+-------------------------------------------------------------------------------
+`[19-Fev] -> [25-Fev]`
+-------------------------------------------------------------------------------
+
+### `[19-Fev]` O que será feito?
+
+- Documentação
+    - Artigos LCTES
+        - [x] Terminar e submeter os artigos
