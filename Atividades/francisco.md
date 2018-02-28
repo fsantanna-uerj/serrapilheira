@@ -226,22 +226,6 @@ Com ele terminado, já podemos fazer aplicações IoT mais complexas.
                 - Suporte a pools
                 - Assertiva global
 
-```
-$ make CEU_SRC=samples/nrf24l01-02.ceu ARD_PORT=/dev/ttyACM1 ARD_BOARD=mega CEU_ISR=true
-<...>
-Sketch uses 85010 bytes (33%) of program storage space. Maximum is 253952 bytes.
-Global variables use 1470 bytes (17%) of dynamic memory, leaving 6722 bytes for local variables. Maximum is 8192 bytes.
--- dynamic
-Sketch uses 85066 bytes (33%) of program storage space. Maximum is 253952 bytes.
-Global variables use 1470 bytes (17%) of dynamic memory, leaving 6722 bytes for local variables. Maximum is 8192 bytes.
--- ceu_assert
-Sketch uses 79608 bytes (31%) of program storage space. Maximum is 253952 bytes.
-Global variables use 1470 bytes (17%) of dynamic memory, leaving 6722 bytes for local variables. Maximum is 8192 bytes.
--- pool
-Sketch uses 78476 bytes (30%) of program storage space. Maximum is 253952 bytes.
-Global variables use 1444 bytes (17%) of dynamic memory, leaving 6748 bytes for local variables. Maximum is 8192 bytes.
-```
-
 - Documentação
     - Artigos LCTES
         - Semântica
@@ -258,7 +242,7 @@ Global variables use 1444 bytes (17%) of dynamic memory, leaving 6748 bytes for 
 - Implementação
     - Otimizações
         - Diminuir tamanho do executável (comparando com exemplos em C puro)
-            - [ ] A principal ineficiência é a maneira conservadora em que as trilhas são disparadas em Céu (spawn/await)
+            - [x] A principal ineficiência é a maneira conservadora em que as trilhas são disparadas em Céu (spawn/await)
         - Diminuir uso da pilha
             - [ ] Trocar chamadas em C pelo uso anterior de *STACKED*, o que também vai refletir melhor a semântica formal de Céu
 
@@ -289,3 +273,44 @@ Global variables use 1444 bytes (17%) of dynamic memory, leaving 6748 bytes for 
 - Documentação
     - Artigos LCTES
         - [x] Terminar e submeter os artigos
+
+### `[25-Fev]` O que foi feito?
+
+- Implementação
+    - Otimizações
+        - Diminuir tamanho do executável (comparando com exemplos em C puro)
+            - Resolvido. De fato, esse era o problema.
+
+```
+$ make CEU_SRC=samples/nrf24l01-02.ceu ARD_PORT=/dev/ttyACM1 ARD_BOARD=mega CEU_ISR=true
+<...>
+Sketch uses 85010 bytes (33%) of program storage space. Maximum is 253952 bytes.
+Global variables use 1470 bytes (17%) of dynamic memory, leaving 6722 bytes for local variables. Maximum is 8192 bytes.
+-- dynamic
+Sketch uses 85066 bytes (33%) of program storage space. Maximum is 253952 bytes.
+Global variables use 1470 bytes (17%) of dynamic memory, leaving 6722 bytes for local variables. Maximum is 8192 bytes.
+-- ceu_assert
+Sketch uses 79608 bytes (31%) of program storage space. Maximum is 253952 bytes.
+Global variables use 1470 bytes (17%) of dynamic memory, leaving 6722 bytes for local variables. Maximum is 8192 bytes.
+-- pool
+Sketch uses 78476 bytes (30%) of program storage space. Maximum is 253952 bytes.
+Global variables use 1444 bytes (17%) of dynamic memory, leaving 6748 bytes for local variables. Maximum is 8192 bytes.
+-- await/abs
+Sketch uses 45358 bytes (17%) of program storage space. Maximum is 253952 bytes.
+Global variables use 1214 bytes (14%) of dynamic memory, leaving 6978 bytes for local
+```
+
+- Documentação
+    - Artigos LCTES
+        - Artigos submetidos!
+
+-------------------------------------------------------------------------------
+`[26-Fev] -> [04-Mar]`
+-------------------------------------------------------------------------------
+
+### `[26-Fev]` O que será feito?
+
+- Implementação
+    - [ ] Bug ADC
+        - Usar contador de referências para `PM_ADC`
+    - [ ] Escalonador baseado na semântica formal de Céu
