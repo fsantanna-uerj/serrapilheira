@@ -1,38 +1,223 @@
 -------------------------------------------------------------------------------
-`[1-Jan] -> [7-Jan]`
+`[26-Fev] -> [04-Mar]`
 -------------------------------------------------------------------------------
 
-### `[1-Jan]` O que será feito?
+### `[26-Fev]` O que será feito?
 
 - Implementação
-    - Arquitetura SAMD
-        - [x] Funcionar no Arduino
-        - [x] Funcionar com Céu
-        - [x] Funcionar com ISRs
-        - [ ] Drivers
-            - [x] Timer, Pinos, ADC
-            - [ ] Serial, SPI
+    - [ ] Bug ADC
+        - Usar contador de referências para `PM_ADC`
+    - [ ] Escalonador baseado na semântica formal de Céu
+
+-------------------------------------------------------------------------------
+`[19-Fev] -> [25-Fev]`
+-------------------------------------------------------------------------------
+
+### `[19-Fev]` O que será feito?
 
 - Documentação
-    - [x] Subir manuais e relatórios
-    - [x] Apresentação UERJ
+    - Artigos LCTES
+        - [x] Terminar e submeter os artigos
 
-- Projeto
-    - Definir valores de bolsas
-    - Encontrar alunos
-
-### `[7-Jan]` O que foi feito?
+### `[25-Fev]` O que foi feito?
 
 - Implementação
-    - Sem problemas com SAMD
-    - Fiz os drivers de timers e pinos
-    - Os outros drivers vão ficar mais para frente
+    - Otimizações
+        - Diminuir tamanho do executável (comparando com exemplos em C puro)
+            - Resolvido. De fato, esse era o problema.
+
+```
+$ make CEU_SRC=samples/nrf24l01-02.ceu ARD_PORT=/dev/ttyACM1 ARD_BOARD=mega CEU_ISR=true
+<...>
+Sketch uses 85010 bytes (33%) of program storage space. Maximum is 253952 bytes.
+Global variables use 1470 bytes (17%) of dynamic memory, leaving 6722 bytes for local variables. Maximum is 8192 bytes.
+-- dynamic
+Sketch uses 85066 bytes (33%) of program storage space. Maximum is 253952 bytes.
+Global variables use 1470 bytes (17%) of dynamic memory, leaving 6722 bytes for local variables. Maximum is 8192 bytes.
+-- ceu_assert
+Sketch uses 79608 bytes (31%) of program storage space. Maximum is 253952 bytes.
+Global variables use 1470 bytes (17%) of dynamic memory, leaving 6722 bytes for local variables. Maximum is 8192 bytes.
+-- pool
+Sketch uses 78476 bytes (30%) of program storage space. Maximum is 253952 bytes.
+Global variables use 1444 bytes (17%) of dynamic memory, leaving 6748 bytes for local variables. Maximum is 8192 bytes.
+-- await/abs
+Sketch uses 45358 bytes (17%) of program storage space. Maximum is 253952 bytes.
+Global variables use 1214 bytes (14%) of dynamic memory, leaving 6978 bytes for local
+```
 
 - Documentação
-    - Tarefas feitas
+    - Artigos LCTES
+        - Artigos submetidos!
+
+-------------------------------------------------------------------------------
+`[12-Fev] -> [18-Fev]`
+-------------------------------------------------------------------------------
+
+### `[12-Fev]` O que será feito?
+
+- Implementação
+    - Otimizações
+        - Diminuir tamanho do executável (comparando com exemplos em C puro)
+            - [x] A principal ineficiência é a maneira conservadora em que as trilhas são disparadas em Céu (spawn/await)
+        - Diminuir uso da pilha
+            - [ ] Trocar chamadas em C pelo uso anterior de *STACKED*, o que também vai refletir melhor a semântica formal de Céu
+
+- Documentação
+    - Artigos LCTES
+        - [x] Submeter abstracts
+
+- Feriado (Carnaval)
+
+### `[18-Fev]` O que foi feito?
+
+- Implementação
+    - Nada foi feito.
+
+- Documentação
+    - Artigos LCTES: foco da semana ficou por conta dos artigos
+        - Full
+        - Short
+
+- Feriado (Carnaval)
+
+-------------------------------------------------------------------------------
+`[05-Fev] -> [11-Fev]`
+-------------------------------------------------------------------------------
+
+### `[05-Jan]` O que será feito?
+
+- Implementação
+    - Otimizações
+        - Diminuir tamanho do executável (comparando com exemplos em C puro)
+
+- Documentação
+    - Artigos LCTES
+        - [ ] Semântica
+        - [ ] Gerenciamento de Energia
+
+- Feriado (Carnaval)
+
+### `[11-Jan]` O que foi feito?
+
+- Implementação
+    - Otimizações
+        - Diminuir tamanho do executável (comparando com exemplos em C puro)
+            - Compilação opcional de algumas features de Céu:
+                - Memória dinâmica
+                - Suporte a pools
+                - Assertiva global
+
+- Documentação
+    - Artigos LCTES
+        - Semântica
+            - Artigo ressuscitado e readaptado para nova submissão
+                - https://github.com/fsantanna-no/lctes-semantica
+            - Muitas revisões
+
+-------------------------------------------------------------------------------
+`[28-Jan] -> [04-Fev]`
+-------------------------------------------------------------------------------
+
+### `[28-Jan]` O que será feito?
+
+- Implementação
+    - Experimentos de gasto de energia
+    - Aplicação IoT disponível
+
+- Documentação
+    - Artigo
+        - SCOPES (??, 9/2, Alemanha), LCTES/JSA (B2/B1, 16/02, EUA), EMSOFT/CASES (??/B1, 27/03, Itália)
 
 - Projeto
-    - Ficou para a próxima semana
+    - Comprar Multímetro
+    - [ ] (Futuro) Smart Watch
+        - ARM, RTC, 3G, Touch Screen
+        - uTCP, Jabber
+
+### `[04-Fev]` O que foi feito?
+
+- Implementação
+    - Otimizações
+        - Diminuir tamanho do executável (comparando com exemplos em C puro)
+            - Novas opções de compilação para permitir otimizações (--ceu-features)
+            - Alguns avanços, mas o principal vai ser eliminar o número de
+              trails para chamadas a `await Code()`
+
+- Documentação
+    - Artigo
+        - [x] Reviver artigo da semântica de Céu. Mandar para o LCTES.
+
+-------------------------------------------------------------------------------
+`[22-Jan] -> [28-Jan]`
+-------------------------------------------------------------------------------
+
+### `[22-Jan]` O que será feito?
+
+- Implementação
+    - AVR
+        - [x] Driver nRF24
+        - [ ] Driver WDT, mas sem ser para *wclock*
+    - SAMD
+        - [ ] Ajeitar implementação para nova estrutura
+        - [ ] Verificar se contador WDT pode ser lido
+    - Otimizações
+        - [ ] Diminuir tamanho do executável (comparando com exemplos em C puro)
+        - [ ] Diminuir uso da pilha
+
+### `[28-Jan]` O que foi feito?
+
+Foco da semana ficou no driver nRF24.
+Com ele terminado, já podemos fazer aplicações IoT mais complexas.
+
+- Implementação
+    - Driver nRF24L01 puramente em cima do SPI
+        - Nenhuma dependência da biblioteca original
+        - Abstrações
+        - Interrupções
+        - PM
+    - Driver SPI
+        - Suporte automático ao CS/CSN
+        - Remoção de testes assertivos para simplificar a implementação
+        - Exemplo com "lock" para usar dois dispositivos em paralelo
+    - SPI dispositivos I/O
+        - simplificação para usar CS/CSN automático
+    - [x] Driver PCInt
+        - ATmega2560
+
+-------------------------------------------------------------------------------
+`[15-Jan] -> [21-Jan]`
+-------------------------------------------------------------------------------
+
+### `[15-Jan]` O que será feito?
+
+- Implementação
+    - [x] Mecanismo para sleep mode ótimo
+        - Testar três modos na mesma aplicação: timer, ADC, pino externo
+    - [ ] SAMD: entender modos idle (`IDLE_[0-2]`) vs standby
+    - [x] Driver watchdog. Vai permitir modo mais profundo para timer.
+
+- Projeto
+    - [ ] Definir alunos e valores de bolsas
+    - [ ] Comprar multímetro
+        - Extech 430
+            - http://www.rocketscream.com/blog/2011/04/26/mini-ultra-8-mhz-current-consumption-part-2/
+            - https://www.tecnoferramentas.com.br/multimetro-digital-profissional-true-rms-com-11-funcoes-extech-ex430-002323/p
+            - http://www.loja-flk-rio.com.br/p-6137870-Multimetro-Digital-Extech-EX430
+
+### `[21-Jan]` O que foi feito?
+
+- Implementação
+    - Sleep mode ótimo: OK
+    - Driver WDT: OK
+    - [x] Driver `wclock/smart` que utiliza WDT/Timer1
+        - Não funciona se não puder ler contador do WDT
+    - [x] Driver AVR/USART com suporte a PM
+    - [x] Driver AVR/SPI com suporte a PM
+    - [x] Todos os samples refatorados e retestados
+    - [x] ATMEGA-2560 (timer1, usart, adc, pin-02, SPI)
+
+- Projeto
+    - [ ] Retomar Céu-Maker
 
 -------------------------------------------------------------------------------
 `[8-Jan] -> [14-Jan]`
@@ -95,222 +280,39 @@
     - O resto ficou para a próxima semana
 
 -------------------------------------------------------------------------------
-`[15-Jan] -> [21-Jan]`
+`[1-Jan] -> [7-Jan]`
 -------------------------------------------------------------------------------
 
-### `[15-Jan]` O que será feito?
+### `[1-Jan]` O que será feito?
 
 - Implementação
-    - [x] Mecanismo para sleep mode ótimo
-        - Testar três modos na mesma aplicação: timer, ADC, pino externo
-    - [ ] SAMD: entender modos idle (`IDLE_[0-2]`) vs standby
-    - [x] Driver watchdog. Vai permitir modo mais profundo para timer.
+    - Arquitetura SAMD
+        - [x] Funcionar no Arduino
+        - [x] Funcionar com Céu
+        - [x] Funcionar com ISRs
+        - [ ] Drivers
+            - [x] Timer, Pinos, ADC
+            - [ ] Serial, SPI
+
+- Documentação
+    - [x] Subir manuais e relatórios
+    - [x] Apresentação UERJ
 
 - Projeto
-    - [ ] Definir alunos e valores de bolsas
-    - [ ] Comprar multímetro
-        - Extech 430
-            - http://www.rocketscream.com/blog/2011/04/26/mini-ultra-8-mhz-current-consumption-part-2/
-            - https://www.tecnoferramentas.com.br/multimetro-digital-profissional-true-rms-com-11-funcoes-extech-ex430-002323/p
-            - http://www.loja-flk-rio.com.br/p-6137870-Multimetro-Digital-Extech-EX430
+    - Definir valores de bolsas
+    - Encontrar alunos
 
-### `[21-Jan]` O que foi feito?
+### `[7-Jan]` O que foi feito?
 
 - Implementação
-    - Sleep mode ótimo: OK
-    - Driver WDT: OK
-    - [x] Driver `wclock/smart` que utiliza WDT/Timer1
-        - Não funciona se não puder ler contador do WDT
-    - [x] Driver AVR/USART com suporte a PM
-    - [x] Driver AVR/SPI com suporte a PM
-    - [x] Todos os samples refatorados e retestados
-    - [x] ATMEGA-2560 (timer1, usart, adc, pin-02, SPI)
+    - Sem problemas com SAMD
+    - Fiz os drivers de timers e pinos
+    - Os outros drivers vão ficar mais para frente
+
+- Documentação
+    - Tarefas feitas
 
 - Projeto
-    - [ ] Retomar Céu-Maker
+    - Ficou para a próxima semana
 
--------------------------------------------------------------------------------
-`[22-Jan] -> [28-Jan]`
--------------------------------------------------------------------------------
 
-### `[22-Jan]` O que será feito?
-
-- Implementação
-    - AVR
-        - [x] Driver nRF24
-        - [ ] Driver WDT, mas sem ser para *wclock*
-    - SAMD
-        - [ ] Ajeitar implementação para nova estrutura
-        - [ ] Verificar se contador WDT pode ser lido
-    - Otimizações
-        - [ ] Diminuir tamanho do executável (comparando com exemplos em C puro)
-        - [ ] Diminuir uso da pilha
-
-### `[28-Jan]` O que foi feito?
-
-Foco da semana ficou no driver nRF24.
-Com ele terminado, já podemos fazer aplicações IoT mais complexas.
-
-- Implementação
-    - Driver nRF24L01 puramente em cima do SPI
-        - Nenhuma dependência da biblioteca original
-        - Abstrações
-        - Interrupções
-        - PM
-    - Driver SPI
-        - Suporte automático ao CS/CSN
-        - Remoção de testes assertivos para simplificar a implementação
-        - Exemplo com "lock" para usar dois dispositivos em paralelo
-    - SPI dispositivos I/O
-        - simplificação para usar CS/CSN automático
-    - [x] Driver PCInt
-        - ATmega2560
-
--------------------------------------------------------------------------------
-`[28-Jan] -> [04-Fev]`
--------------------------------------------------------------------------------
-
-### `[28-Jan]` O que será feito?
-
-- Implementação
-    - Experimentos de gasto de energia
-    - Aplicação IoT disponível
-
-- Documentação
-    - Artigo
-        - SCOPES (??, 9/2, Alemanha), LCTES/JSA (B2/B1, 16/02, EUA), EMSOFT/CASES (??/B1, 27/03, Itália)
-
-- Projeto
-    - Comprar Multímetro
-    - [ ] (Futuro) Smart Watch
-        - ARM, RTC, 3G, Touch Screen
-        - uTCP, Jabber
-
-### `[04-Fev]` O que foi feito?
-
-- Implementação
-    - Otimizações
-        - Diminuir tamanho do executável (comparando com exemplos em C puro)
-            - Novas opções de compilação para permitir otimizações (--ceu-features)
-            - Alguns avanços, mas o principal vai ser eliminar o número de
-              trails para chamadas a `await Code()`
-
-- Documentação
-    - Artigo
-        - [x] Reviver artigo da semântica de Céu. Mandar para o LCTES.
-
--------------------------------------------------------------------------------
-`[05-Fev] -> [11-Fev]`
--------------------------------------------------------------------------------
-
-### `[05-Jan]` O que será feito?
-
-- Implementação
-    - Otimizações
-        - Diminuir tamanho do executável (comparando com exemplos em C puro)
-
-- Documentação
-    - Artigos LCTES
-        - [ ] Semântica
-        - [ ] Gerenciamento de Energia
-
-- Feriado (Carnaval)
-
-### `[11-Jan]` O que foi feito?
-
-- Implementação
-    - Otimizações
-        - Diminuir tamanho do executável (comparando com exemplos em C puro)
-            - Compilação opcional de algumas features de Céu:
-                - Memória dinâmica
-                - Suporte a pools
-                - Assertiva global
-
-- Documentação
-    - Artigos LCTES
-        - Semântica
-            - Artigo ressuscitado e readaptado para nova submissão
-                - https://github.com/fsantanna-no/lctes-semantica
-            - Muitas revisões
-
--------------------------------------------------------------------------------
-`[12-Fev] -> [18-Fev]`
--------------------------------------------------------------------------------
-
-### `[12-Fev]` O que será feito?
-
-- Implementação
-    - Otimizações
-        - Diminuir tamanho do executável (comparando com exemplos em C puro)
-            - [x] A principal ineficiência é a maneira conservadora em que as trilhas são disparadas em Céu (spawn/await)
-        - Diminuir uso da pilha
-            - [ ] Trocar chamadas em C pelo uso anterior de *STACKED*, o que também vai refletir melhor a semântica formal de Céu
-
-- Documentação
-    - Artigos LCTES
-        - [x] Submeter abstracts
-
-- Feriado (Carnaval)
-
-### `[18-Fev]` O que foi feito?
-
-- Implementação
-    - Nada foi feito.
-
-- Documentação
-    - Artigos LCTES: foco da semana ficou por conta dos artigos
-        - Full
-        - Short
-
-- Feriado (Carnaval)
-
--------------------------------------------------------------------------------
-`[19-Fev] -> [25-Fev]`
--------------------------------------------------------------------------------
-
-### `[19-Fev]` O que será feito?
-
-- Documentação
-    - Artigos LCTES
-        - [x] Terminar e submeter os artigos
-
-### `[25-Fev]` O que foi feito?
-
-- Implementação
-    - Otimizações
-        - Diminuir tamanho do executável (comparando com exemplos em C puro)
-            - Resolvido. De fato, esse era o problema.
-
-```
-$ make CEU_SRC=samples/nrf24l01-02.ceu ARD_PORT=/dev/ttyACM1 ARD_BOARD=mega CEU_ISR=true
-<...>
-Sketch uses 85010 bytes (33%) of program storage space. Maximum is 253952 bytes.
-Global variables use 1470 bytes (17%) of dynamic memory, leaving 6722 bytes for local variables. Maximum is 8192 bytes.
--- dynamic
-Sketch uses 85066 bytes (33%) of program storage space. Maximum is 253952 bytes.
-Global variables use 1470 bytes (17%) of dynamic memory, leaving 6722 bytes for local variables. Maximum is 8192 bytes.
--- ceu_assert
-Sketch uses 79608 bytes (31%) of program storage space. Maximum is 253952 bytes.
-Global variables use 1470 bytes (17%) of dynamic memory, leaving 6722 bytes for local variables. Maximum is 8192 bytes.
--- pool
-Sketch uses 78476 bytes (30%) of program storage space. Maximum is 253952 bytes.
-Global variables use 1444 bytes (17%) of dynamic memory, leaving 6748 bytes for local variables. Maximum is 8192 bytes.
--- await/abs
-Sketch uses 45358 bytes (17%) of program storage space. Maximum is 253952 bytes.
-Global variables use 1214 bytes (14%) of dynamic memory, leaving 6978 bytes for local
-```
-
-- Documentação
-    - Artigos LCTES
-        - Artigos submetidos!
-
--------------------------------------------------------------------------------
-`[26-Fev] -> [04-Mar]`
--------------------------------------------------------------------------------
-
-### `[26-Fev]` O que será feito?
-
-- Implementação
-    - [ ] Bug ADC
-        - Usar contador de referências para `PM_ADC`
-    - [ ] Escalonador baseado na semântica formal de Céu
