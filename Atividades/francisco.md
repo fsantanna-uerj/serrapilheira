@@ -1,4 +1,22 @@
 -------------------------------------------------------------------------------
+`[05-Mar] -> [11-Mar]`
+-------------------------------------------------------------------------------
+
+### `[05-Mar]` O que será feito?
+
+- Implementação
+    - [ ] Nova versão Céu
+    - [ ] Experimentos de gasto de energia
+    - [ ] Aplicação IoT disponível
+    - Bug ADC
+        - Usar contador de referências para `PM_ADC`
+    - Verificar otimizações (ver 22-Jan)
+        - Diminuir tamanho do executável (comparando com exemplos em C puro)
+        - Diminuir uso da pilha
+
+### `[11-Mar]` O que foi feito?
+
+-------------------------------------------------------------------------------
 `[26-Fev] -> [04-Mar]`
 -------------------------------------------------------------------------------
 
@@ -7,24 +25,11 @@
 - Implementação
     - [ ] Bug ADC
         - Usar contador de referências para `PM_ADC`
-    - [ ] Escalonador baseado na semântica formal de Céu
+    - [x] Escalonador baseado na semântica formal de Céu
 
--------------------------------------------------------------------------------
-`[19-Fev] -> [25-Fev]`
--------------------------------------------------------------------------------
-
-### `[19-Fev]` O que será feito?
-
-- Documentação
-    - Artigos LCTES
-        - [x] Terminar e submeter os artigos
-
-### `[25-Fev]` O que foi feito?
-
-- Implementação
-    - Otimizações
-        - Diminuir tamanho do executável (comparando com exemplos em C puro)
-            - Resolvido. De fato, esse era o problema.
+### `[04-Mar]` O que foi feito?
+    - Escalonador OK
+        - Redução de 45k para 31k.
 
 ```
 $ make CEU_SRC=samples/nrf24l01-02.ceu ARD_PORT=/dev/ttyACM1 ARD_BOARD=mega CEU_ISR=true
@@ -43,7 +48,27 @@ Global variables use 1444 bytes (17%) of dynamic memory, leaving 6748 bytes for 
 -- await/abs
 Sketch uses 45358 bytes (17%) of program storage space. Maximum is 253952 bytes.
 Global variables use 1214 bytes (14%) of dynamic memory, leaving 6978 bytes for local
+-- scheduler
+Sketch uses 31342 bytes (12%) of program storage space. Maximum is 253952 bytes.
+Global variables use 1782 bytes (21%) of dynamic memory, leaving 6410 bytes for local variables. Maximum is 8192 bytes.
 ```
+
+-------------------------------------------------------------------------------
+`[19-Fev] -> [25-Fev]`
+-------------------------------------------------------------------------------
+
+### `[19-Fev]` O que será feito?
+
+- Documentação
+    - Artigos LCTES
+        - [x] Terminar e submeter os artigos
+
+### `[25-Fev]` O que foi feito?
+
+- Implementação
+    - Otimizações
+        - Diminuir tamanho do executável (comparando com exemplos em C puro)
+            - Resolvido. De fato, esse era o problema.
 
 - Documentação
     - Artigos LCTES
@@ -60,7 +85,7 @@ Global variables use 1214 bytes (14%) of dynamic memory, leaving 6978 bytes for 
         - Diminuir tamanho do executável (comparando com exemplos em C puro)
             - [x] A principal ineficiência é a maneira conservadora em que as trilhas são disparadas em Céu (spawn/await)
         - Diminuir uso da pilha
-            - [ ] Trocar chamadas em C pelo uso anterior de *STACKED*, o que também vai refletir melhor a semântica formal de Céu
+            - [x] Trocar chamadas em C pelo uso anterior de *STACKED*, o que também vai refletir melhor a semântica formal de Céu
 
 - Documentação
     - Artigos LCTES
@@ -92,8 +117,8 @@ Global variables use 1214 bytes (14%) of dynamic memory, leaving 6978 bytes for 
 
 - Documentação
     - Artigos LCTES
-        - [ ] Semântica
-        - [ ] Gerenciamento de Energia
+        - [x] Semântica
+        - [x] Gerenciamento de Energia
 
 - Feriado (Carnaval)
 
