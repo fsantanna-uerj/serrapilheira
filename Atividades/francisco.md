@@ -1,4 +1,27 @@
 -------------------------------------------------------------------------------
+`[12-Mar] -> [18-Mar]`
+-------------------------------------------------------------------------------
+
+### `[12-Mar]` O que será feito?
+
+- Implementação
+    - [ ] Adaptar nova versão de Céu para as plataformas SDL, Arduino, e libuv
+
+- Projeto
+    - [x] Workshop LAAS-CNRS
+        - apresentação e participação durante 3 dias
+    - [ ] Assinatura do contrato por parte do Reitor
+    - [ ] Preparação de texto para divulgação científica
+
+### `[18-Mar]` O que foi feito?
+
+- Implementação
+    - Ainda correções de bugs em Céu
+
+- Projeto
+    - LAAS-CNRS ok
+
+-------------------------------------------------------------------------------
 `[05-Mar] -> [11-Mar]`
 -------------------------------------------------------------------------------
 
@@ -15,6 +38,11 @@
         - Diminuir uso da pilha
 
 ### `[11-Mar]` O que foi feito?
+
+- Implementação
+    - Diversos bugs foram consertados em Céu
+
+As atividades foram transferidas para as próximas semanas.
 
 -------------------------------------------------------------------------------
 `[26-Fev] -> [04-Mar]`
