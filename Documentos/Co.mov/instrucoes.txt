@@ -1,0 +1,32 @@
+- crianca de 5 anos
+- academico fora do meio
+- academico pos-doc da minha área
+
+- texto
+    - acadêmico fora
+    - 3 parágrafos, meia página
+        - quem sou eu o que faco
+        - qual é a minha pesquisa
+        - porque as pessoas devem saber e o que ela soluciona 
+
+Sou professor e pesquisador da UERJ no Departamento de Ciência da Computação.
+Tenho como principal linha de pesquisa o estudo e projeto de linguagens de
+programação.
+Atualmente, estou projetando uma linguagem de programação que seja capaz de
+detectar quando dispositivos eletrônicos estão ociosas de modo a colocá-los em
+modo de espera ("standby") automaticamente.
+O uso efetivo do modo em espera terá papel fundamental na eficiência energética
+dos 50 bilhões de dispositivos da Internet das Coisas esperados até 2020.
+
+
+
+O projeto de pesquisa proposto visa enfrentar os desafios de software
+relacionados ao modo em espera, conforme determinados pela Agência
+Internacional de Energia: Garantir que os dispositivos usem os níveis mais profundos de modo em espera e pelo maior tempo possível. A solução desenhada vai prover ao programador de dispositivos de IoT a melhor economia de energia possível, de forma transparente, e em alto nível de abstração.
+
+
+O uso efetivo do modo em espera em eletrônicos ("modo standby") terá papel fundamental na eficiência energética dos 50 bilhões de dispositivos da Internet das Coisas esperados até 2020.
+Esse projeto de pesquisa visa enfrentar os desafios de software relacionados ao modo em espera, conforme determinados pela Agência Internacional de Energia:
+Garantir que os dispositivos usem os níveis mais profundos de modo em espera e pelo maior tempo possível.
+
+
