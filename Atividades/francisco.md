@@ -10,8 +10,8 @@
 - Projeto
     - [x] Workshop LAAS-CNRS
         - apresentação e participação durante 3 dias
-    - [ ] Assinatura do contrato por parte do Reitor
     - [x] Preparação de texto para divulgação científica
+    - [ ] Assinatura do contrato por parte do Reitor
 
 ### `[18-Mar]` O que foi feito?
 
@@ -19,9 +19,14 @@
     - Ainda correções de bugs em Céu
     - Atualização de todas as plataformas ok
 
+- Documentação
+    - Artigos LCTES provavelmente aceitos
+        - [ ] Preparar rebuttals
+
 - Projeto
     - LAAS-CNRS ok
     - Texto ok
+    - O contrato está no jurídico da UERJ
 
 -------------------------------------------------------------------------------
 `[05-Mar] -> [11-Mar]`
