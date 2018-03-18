@@ -1,0 +1,150 @@
+LCTES'18 Paper #2 Reviews and Comments
+===========================================================================
+Paper #16 WIP: Transparent Standby for Low-Power, Resource-Constrained
+Embedded Systems: A Programming Language-Based Approach
+
+
+Review #16A
+===========================================================================
+
+Overall merit
+-------------
+4. Accept
+
+Reviewer expertise
+------------------
+3. Knowledgeable
+
+Paper summary
+-------------
+The paper makes contribution by introducing the par/or keyword into CEU.  The par/or keyword triggers creation of two lines of execution.  In so doing, the user code structure is preserved in its form.  Further, the await keyword notifies the runtime the specific peripheral that is awaiting an event.  Knowing specifically which peripheral awaiting an event, the runtime can put the device to different levels of sleep but still allow the device to be waken up should event arrives for that peripheral.   It applies the async/isr keyword from CEU to define ISR in the driver. (Interrupt service routine may executes asynchronously)  The finalize keyword is also introduced into the driver to allow proper cleanup of the line of execution.  The driver further calls down to the power management runtime which determines the best power saving strategy.
+
+Comments for author
+-------------------
+Applying the par/or keyword to the application code in order to preserve program structure is nice.   It is also clever to use the await keyword to convey the peripheral information to the runtime.
+
+Questions for authors
+---------------------
+I would appreciate getting a size estimate of the user code, runtime, driver, power management module as the cortex-m0 is very small in ROM/RAM.  I would also appreciate knowing the amount of power saved with this approach on some real life application.  Perhaps what is illustrated in Fig 1 is a real life example?  If so, may we get a bulk estimate of the amount of power saved?
+
+
+
+Review #16B
+===========================================================================
+
+Overall merit
+-------------
+3. Weak accept
+
+Reviewer expertise
+------------------
+3. Knowledgeable
+
+Paper summary
+-------------
+This paper extends the programming language CEU to enforce an IoT device remains in the deepest standby mode for the longest period of time. It relies on the synchronous semantics of the CEU language which guarantees that reactions to the environment always reach an idle state amenable to stand by.
+
+Comments for author
+-------------------
+This is an interesting framework for IoT devices where power is the first order consideration. It is not clear to me how the timing requirement can be met under this framework.  Also, a quantitative analysis on the performance and energy for real applications is needed to show this work’s value in practice.
+
+
+
+Review #16C
+===========================================================================
+
+Overall merit
+-------------
+3. Weak accept
+
+Reviewer expertise
+------------------
+3. Knowledgeable
+
+Paper summary
+-------------
+Work in progress paper.
+
+The authors describe their work in progress on extending the Ceu programming language with support for managing low power and standby modes at the application level.  They implement it for the ATmega328p (Arduino).
+
+Comments for author
+-------------------
+strengths
+- interesting use of a synchronous language
+- power savings is still hard to do and important
+- sufficiently interesting for a work in progress paper (proper length)
+- implemented for the ATmega328p
+
+weaknesses
+- very simple language extension, unclear what the novel contribution is here
+OK b/c of this being a work-in-progress paper
+    - no empirical evaluation or comparison to existing work
+    - no discussion of related work
+    - no evaluation of the overhead imposed by the use of the language 
+- doesn't this place an extra burden on programmers and a level of expertise beyond that novices to control at the program level?
+- Why was Ceu chosen here?  Can we not do something similar
+and simpler via libraries and wrappers using existing low level languages? its unclear to me that synchronous semantics have a clear adoption advantage given the cost/overhead of its implementation
+
+other things
+- the intro over does it a bit in my opinion with the emphasis on the G20 action plan.  this isn't appropriate for a technical conference.
+
+Questions for authors
+---------------------
+Please address the weaknesses above
+
+
+
+Review #16D
+===========================================================================
+
+Overall merit
+-------------
+3. Weak accept
+
+Reviewer expertise
+------------------
+4. Expert
+
+Paper summary
+-------------
+The paper proposes a transparent standby mechanism for low-power resource-constrained embedded systems.
+
+Comments for author
+-------------------
+Making effective use of standby mode is important. The authors propose to provide standby mechanisms at the programming language level. While it is possible to integrate this approach with CEU, which is based on synchronous concurrency model, it is not clear whether the approach can be extended to regular programming languages. Moreover, the benefit of this approach in real systems has not been evaluated.
+
+
+
+Review #16E
+===========================================================================
+* Updated: 18 Mar 2018 10:04:01am EDT
+
+Overall merit
+-------------
+4. Accept
+
+Reviewer expertise
+------------------
+3. Knowledgeable
+
+Paper summary
+-------------
+The paper proposes a programming abstract and runtime framework that allows the system to take advantage of the longest periods of time and deepest sleep modes possible for power-constrained IoT devices without complicated programming efforts. The crux of the technique is to expose standby semantics at the language semantics level (i.e., await and exploiting asynchronous event handling semantics) for app developers, to expose I/O operations that may affect the standby mode  at the language semantics level (e.g., emit, output, input) for driver developers, and device the runtime system (interrupt system) to take advantage of such semantics for longest standby mode. This is a very neat abstraction
+
+Comments for author
+-------------------
+Pros:
+
++ Identified an important problem for an emerging application domain (IoT & standby power)
+
+The paper made a strong motivation on why standby power saving is important for IoT devices, which is an area where not much  programming and systems research have been done. It is important to bring important new problems to the community.
+
++ Proposed solution is novel and the use of language technologies to abstract the problem is appropriate
+
+I like the clean design of the CEU language semantics for both App and Driver. It seems a nice way to formulate the standby problem.
+
+Cons:
+
+- Expressiveness of the DSL in representing real IoT app/driver semantics not demonstrated
+
+The paper lacks real wokload. A major hurdle of a practical DSL is its expressiveness, i.e., whether real-world considerations can be expressed in a well-defined abstraction. I understand this is an WIP, but would strongly encourage the authors to look for some real IoT scenarios to validate this design.

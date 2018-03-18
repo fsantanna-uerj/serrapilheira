@@ -1,0 +1,137 @@
+We would like to thank the reviewers for the thoughtful comments, questions,
+and criticism.
+We will accommodate all clarifications and answers in a final version of the
+paper.
+Each comment is addressed individually as follows.
+
+References:
+
+`[1]`: *Francisco Sant'Anna and others. 2013. Safe System-level Concurrency on
+        Resource-Constrained Nodes. In Proceedings of ACM SenSys'13.*
+`[2]`: *Adriano Branco and others. 2015. Terra: Flexibility and Safety in
+        Wireless Sensor Networks. In ACM Transactions on Sensor Networks.*
+
+Review #16A
+===========
+
+> I would appreciate getting a size estimate of the user code, runtime, driver,
+> power management module as the cortex-m0 is very small in ROM/RAM.
+
+All code is compiled together into a single binary image, but the runtime is in
+the order of a few kilobytes (<5Kb).
+Previous work `[1]` shows an overhead of around 10% for ROM and 5% for RAM for
+complete applications in comparison to equivalent implementations in C (network
+protocols, radio driver, etc.).
+
+> I would also appreciate knowing the amount of power saved with this approach
+> on some real life application.
+> If so, may we get a bulk estimate of the amount of power saved?
+
+Even though the examples in the paper use standby effectively, they are too
+simple to draw any conclusions about power savings in real-world applications.
+That said, our approach is optimal in the sense that the language ensures idle
+states and the runtime can always figure out the most efficient sleeping mode
+possible.
+Nonetheless, this is a work in progress and we acknowledge the importance of a
+quantitative evaluation in the conclusion of the paper as future work.
+The evaluation will have to be quite extensive to cover typical passive/active
+patterns in IoT applications.
+
+Review #16B
+===========
+
+> It is not clear to me how the timing requirement can be met under this
+> framework.
+
+Timing requirements can be addressed in two levels of guarantees.
+For soft real-time requirements, synchronous reactions (i.e., code outside
+ISRs) are safer and more straightforward to use because they support rich
+control abstractions (e.g., `par/or`), prevent race conditions, and are
+guaranteed to terminate in bounded time.
+However, since reactions run atomically and cannot interrupt each other, a
+non-negligible delay in starting times is possible.
+For hard real-time requirements, ISRs (i.e., code inside `async/isr`) are
+asynchronous and can perform sensitive operations immediately (such as filling
+a serial buffer) while synchronous code is active.
+
+> Also, a quantitative analysis on the performance and energy for real
+> applications is needed to show this work’s value in practice.
+
+A quantitative analysis for real applications will be done in future work.
+Please, see last comment in `Review #16A`.
+
+Review #16C
+===========
+
+>    - no empirical evaluation or comparison to existing work
+>    ...
+>    - no discussion of related work
+
+Empirical evaluation and comparison to existing work will be done in future
+work.
+Please, see last comment in `Review #16A`.
+
+>    - no evaluation of the overhead imposed by the use of the language 
+>   <...>
+>   its unclear to me that synchronous semantics have a clear adoption
+>   advantage given the cost/overhead of its implementation
+
+The overhead is very little.
+Please, see first comment in `Review #16A`.
+
+> - doesn't this place an extra burden on programmers and a level of expertise
+>   beyond that novices to control at the program level?
+>   <...>
+> - Can we not do something similar and simpler via libraries and wrappers
+>   using existing low level languages?
+
+The burden to deal with standby is mostly on the device drivers, which *"are
+write-once code that is typically packaged and distributed in a software
+development kit (SDK)."* `[Introduction]`
+By transferring the work from the applications to the language level, the idea
+is that novice programmers never have to deal with standby explicitly.
+In general-purpose languages, by exposing libraries and wrappers, the
+programmers would still have to call them explicitly, which is exactly what our
+proposal intends to avoid.
+
+Furthermore, we show in Figure 2 that, when introducing concurrency, the
+structure of the program remains sequential and amenable to inference of the
+appropriate sleep mode.
+In comparison with Arduino, whose main goal is to lower the entry barrier for
+embedded development, Céu also preserves the sequential structure for
+concurrent applications.
+
+> - the intro over does it a bit in my opinion with the emphasis on the G20
+>   action plan.
+
+OK. We will also discuss the motivations from an academic perspective.
+
+Review #16D
+===========
+
+> While it is possible to integrate this approach with CEU, <...>, it is not
+> clear whether the approach can be extended to regular programming languages.
+
+Céu preserves a sequential programming structure for complex concurrent
+applications.
+Please, see third comment in `Review #16C`.
+
+> The benefit of this approach in real systems has not been evaluated.
+
+The evaluations of the benefits in real systems will be done in future work.
+Please, see last comment in `Review #16A`.
+
+Review #16E
+===========
+
+> Cons:
+>  - Expressiveness of the DSL in representing real IoT app/driver semantics
+>    not demonstrated
+> <...> A major hurdle of a practical DSL is its expressiveness, <...>.
+> I <...> would strongly encourage the authors to look for some real IoT
+> scenarios to validate this design.
+
+Although we have not evaluated the energy efficiency aspects (see last comment
+in `Review #16A`), previous work [1,2] evaluates the expressiveness of Céu in
+the context of Wireless Sensor Networks and discusses the development of
+drivers, network protocols, and full applications in Céu.
