@@ -4,7 +4,17 @@
 
 ### `[19-Mar]` O que será feito?
 
+- Implementação
+    - Nova versão Céu
+    - [x] Try Céu Online
+
+- Documentação
+    - [x] Nova versão de Céu
+
 ### `[25-Mar]` O que foi feito?
+
+- Projeto
+    - Versão em português do projeto para análise do jurídico da UERJ.
 
 -------------------------------------------------------------------------------
 `[12-Mar] -> [18-Mar]`
@@ -43,7 +53,7 @@
 ### `[05-Mar]` O que será feito?
 
 - Implementação
-    - [ ] Nova versão Céu
+    - [x] Nova versão Céu
     - [ ] Experimentos de gasto de energia
     - [ ] Aplicação IoT disponível
     - Bug ADC
