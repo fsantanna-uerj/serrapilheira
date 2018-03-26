@@ -1,4 +1,15 @@
 -------------------------------------------------------------------------------
+`[26-Mar] -> [01-Abr]`
+-------------------------------------------------------------------------------
+
+### `[26-Mar]` O que será feito?
+
+- Implementação
+    - SAMD
+        - entender modos standby
+        - começar driver de rádio
+
+-------------------------------------------------------------------------------
 `[19-Mar] -> [25-Mar]`
 -------------------------------------------------------------------------------
 
@@ -14,7 +25,12 @@
 ### `[25-Mar]` O que foi feito?
 
 - Projeto
-    - Versão em português do projeto para análise do jurídico da UERJ.
+    - Versão em português do projeto para análise do jurídico da UERJ
+    - PC Chair do REBLS'18
+        - envio de convites para o comitê de programa
+    - Multímetro comprado
+        - https://www.dutramaquinas.com.br/p/multimetro-digital-portatil-17b-43-4404231
+
 
 -------------------------------------------------------------------------------
 `[12-Mar] -> [18-Mar]`
@@ -276,7 +292,7 @@ Com ele terminado, já podemos fazer aplicações IoT mais complexas.
 
 - Projeto
     - [ ] Definir alunos e valores de bolsas
-    - [ ] Comprar multímetro
+    - [x] Comprar multímetro
         - Extech 430
             - http://www.rocketscream.com/blog/2011/04/26/mini-ultra-8-mhz-current-consumption-part-2/
             - https://www.tecnoferramentas.com.br/multimetro-digital-profissional-true-rms-com-11-funcoes-extech-ex430-002323/p
