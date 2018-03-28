@@ -1,0 +1,5 @@
+make INO_SRC=/data/UERJ/Serrapilheira/Code/spi-example-io/spi-example-io.ino c
+make CEU_ISR=true ARD_PORT=/dev/ttyACM0 ARD_BOARD=mega CEU_SRC=samples/spi-05.ceu
+make ARD_ARCH=samd ARD_BOARD=arduino_zero_native INO_SRC=/data/UERJ/Serrapilheira/Code/spi-example-io/spi-example-io.ino c
+
+/home/chico/.arduino15/packages/arduino/tools/bossac/1.7.0/bossac -i -d --port=ttyACM0 -U true -i -e -w -v /tmp/arduino_build_645042/spi-example-io.ino.bin -R
