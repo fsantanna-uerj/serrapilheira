@@ -1,16 +1,18 @@
 #include <SPI.h>
 
-#if 0
-#define S Serial
-#else
+#define SAMD
+
+#ifdef SAMD
 #define S SerialUSB
+#else
+#define S Serial
 #endif
 
 void setup (void) {
   S.begin(9600);
   digitalWrite(SS, HIGH);
   SPI.begin ();
-  //SPI.setClockDivider(SPI_CLOCK_DIV8);
+  SPI.setClockDivider(SPI_CLOCK_DIV8);
 }
 
 void loop (void)
