@@ -1,4 +1,16 @@
 -------------------------------------------------------------------------------
+`[02-Abr] -> [08-Abr]`
+-------------------------------------------------------------------------------
+
+### `[02-Abr]` O que será feito?
+
+- Implementação
+    - SAMD
+        - driver SPI
+
+### `[08-Abr]` O que foi feito?
+
+-------------------------------------------------------------------------------
 `[26-Mar] -> [01-Abr]`
 -------------------------------------------------------------------------------
 
@@ -6,8 +18,21 @@
 
 - Implementação
     - SAMD
-        - entender modos standby
+        - [ ] entender modos standby
         - começar driver de rádio
+
+### `[01-Abr]` O que foi feito?
+
+- Implementação
+    - SAMD
+        - driver SPI em andamento
+            - testes Arduino (master/slave)
+
+- Projeto
+    - Textos de divulgação científica
+    - Contrato enviado novamente à UERJ
+
+- Feriado (Páscoa)
 
 -------------------------------------------------------------------------------
 `[19-Mar] -> [25-Mar]`
@@ -30,7 +55,6 @@
         - envio de convites para o comitê de programa
     - Multímetro comprado
         - https://www.dutramaquinas.com.br/p/multimetro-digital-portatil-17b-43-4404231
-
 
 -------------------------------------------------------------------------------
 `[12-Mar] -> [18-Mar]`
