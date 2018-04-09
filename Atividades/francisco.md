@@ -1,4 +1,27 @@
 -------------------------------------------------------------------------------
+`[09-Abr] -> [15-Abr]`
+-------------------------------------------------------------------------------
+
+### `[09-Abr]` O que será feito?
+
+- Documentação
+    - Artigo LCTES
+        - [ ] Artifact Evaluation
+
+- Projeto
+    - Encontro Serrapilheira
+        - [ ] 3 vídeos
+        - [ ] 3 textos
+        - [ ] 1 slide
+    - [ ] Contrato no jurídico da UERJ
+
+- Extras
+    - Preparação REBLS'17
+        - [ ] Call for papers
+
+### `[15-Abr]` O que foi feito?
+
+-------------------------------------------------------------------------------
 `[02-Abr] -> [08-Abr]`
 -------------------------------------------------------------------------------
 
@@ -9,6 +32,17 @@
         - driver SPI
 
 ### `[08-Abr]` O que foi feito?
+
+- Implementação
+    - Céu
+        - correções de bugs
+    - SAMD
+        - driver SPI em andamento
+            - envia e recebe
+
+- Extras
+    - Preparação REBLS'17
+        - comitê de programa
 
 -------------------------------------------------------------------------------
 `[26-Mar] -> [01-Abr]`
@@ -321,6 +355,8 @@ Com ele terminado, já podemos fazer aplicações IoT mais complexas.
             - http://www.rocketscream.com/blog/2011/04/26/mini-ultra-8-mhz-current-consumption-part-2/
             - https://www.tecnoferramentas.com.br/multimetro-digital-profissional-true-rms-com-11-funcoes-extech-ex430-002323/p
             - http://www.loja-flk-rio.com.br/p-6137870-Multimetro-Digital-Extech-EX430
+        - Fluke 17b+
+            - https://www.dutramaquinas.com.br/p/multimetro-digital-portatil-17b-43-4404231
 
 ### `[21-Jan]` O que foi feito?
 
