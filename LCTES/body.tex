@@ -48,6 +48,13 @@ management runtime (PMR).
 In contrast with other concurrency models (e.g., thread and actor based), the
 the synchronous semantics of \CEU guarantees that reactions to the environment
 always reach an idle state amenable to standby.
+%
+Previous work~\cite{ceu.sensys13} evaluates the expressiveness of \CEU in the
+context of Wireless Sensor Networks and discusses the development of drivers,
+network protocols, and full applications in the language.
+In addition, \CEU incurs a small overhead of memory in comparison to C (around
+5-10\%), thus being a suitable alternative for constrained devices.
+The language runtime is in the order of a few kilobytes (less than 5Kb).
 
 In our approach, each supported microcontroller requires bindings in C for the
 ISRs and PMR, and each peripheral requires a driver in \CEU.
@@ -67,6 +74,14 @@ nRF24L01 transceiver.
 We developed a number of simple applications using these peripherals
 concurrently and could verify that the applications remain in the deepest
 standby modes for the longest periods of time.
+
+Even though the examples in the paper use standby effectively, they are too
+simple to draw any conclusions about power savings in real-world applications.
+That said, our approach is optimal in the sense that the language ensures idle
+states and the runtime can always figure out the most efficient sleeping mode
+possible.
+Nonetheless, this is a work in progress and we acknowledge the importance of a
+quantitative evaluation in the conclusion of the paper as future work.
 
 In Section~\ref{sec.ceu}, we compare the structure of programs in \CEU and
 Arduino~\cite{arduino.book}, whose primary goal is to reduce the barrier of
@@ -478,6 +493,28 @@ void pm_sleep (void) {
 }
 \end{figure}
 
+\section{Discussion}
+
+Note that the application of Figure~\ref{lst.inversion}.b relies on the driver
+of Figure~\ref{lst.adc} to achieve transparent standby.
+%
+In \CEU, the burden to deal with standby is transferred to the device drivers,
+which are write-once code written by specialists distributed with an SDK.
+By transferring the work from the applications to the language level, novice
+programmers never have to deal with standby explicitly.
+
+In contrast, general-purpose languages typically provide low-power libraries to
+deal with standby.
+However, programmers still have to call these libraries explicitly,
+characterizing a manual and error-prone mechanism.
+
+Furthermore, we show in Figure~\ref{lst.inversion}.b that, when introducing
+concurrency, the structure of the program remains sequential and amenable to
+inference of the appropriate sleep mode.
+In comparison with Arduino, whose main goal is to lower the entry barrier for
+embedded development, \CEU also preserves the sequential structure for
+concurrent applications.
+
 \section{Conclusion and Future Work}
 \label{sec.conclusion}
 
@@ -506,16 +543,6 @@ In this scenario, we can evaluate the time to rewrite, the resulting program
 structure, and the actual energy consumption efficiency.
 
 \begin{acks}
-  The authors would like to thank Dr. Yuhua Li for providing the
-  MATLAB code of the \textit{BEPS} method.
-
-  The authors would also like to thank the anonymous referees for
-  their valuable comments and helpful suggestions. The work is
-  supported by the \grantsponsor{GS501100001809}{National Natural
-    Science Foundation of
-    China}{http://dx.doi.org/10.13039/501100001809} under Grant
-  No.:~\grantnum{GS501100001809}{61273304}
-  and~\grantnum[http://www.nnsf.cn/youngscientists]{GS501100001809}{Young
-    Scientists' Support Program}.
-
+The authors would like to thank Guilherme Simas for the initial explorations
+with the language extensions and development of some of the device drivers.
 \end{acks}
