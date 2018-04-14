@@ -18,8 +18,8 @@ pillars of the \emph{G20's Energy Efficiency Action Plan}%
 \footnote{G20's Energy Efficiency Action Plan: \url{https://www.iea-4e.org/projects/g20}}.
 %
 However, making effective use of standby requires software-related efforts in
-order to detect idle periods of activity in the device, identify peripherals
-that must remain functional, and apply appropriate sleep mode levels in the
+order to detect idle periods of activity in a device, identify peripherals
+that must remain functional, and apply appropriate sleep mode levels in its
 microcontroller.
 
 Given the projected scale of the IoT, the role of low-power standby towards
@@ -46,7 +46,7 @@ support for interrupt service routines (ISRs) and with a simple power
 management runtime (PMR).
 %
 In contrast with other concurrency models (e.g., thread and actor based), the
-the synchronous semantics of \CEU guarantees that reactions to the environment
+synchronous semantics of \CEU guarantees that reactions to the environment
 always reach an idle state amenable to standby.
 %
 Previous work~\cite{ceu.sensys13} evaluates the expressiveness of \CEU in the
@@ -54,9 +54,9 @@ context of Wireless Sensor Networks and discusses the development of drivers,
 network protocols, and full applications in the language.
 In addition, \CEU incurs a small overhead of memory in comparison to C (around
 5-10\%), thus being a suitable alternative for constrained devices.
-The language runtime is in the order of a few kilobytes (less than 5Kb).
+The language runtime is in the order of a few kilobytes only (less than 5Kb).
 
-In our approach, each supported microcontroller requires bindings in C for the
+In our approach, each supported microcontroller requires hooks in C for the
 ISRs and PMR, and each peripheral requires a driver in \CEU.
 These are write-once code that is typically packaged and distributed in a
 software development kit (SDK).
@@ -75,17 +75,17 @@ We developed a number of simple applications using these peripherals
 concurrently and could verify that the applications remain in the deepest
 standby modes for the longest periods of time.
 
-Even though the examples in the paper use standby effectively, they are too
-simple to draw any conclusions about power savings in real-world applications.
-That said, our approach is optimal in the sense that the language ensures idle
-states and the runtime can always figure out the most efficient sleeping mode
-possible.
-Nonetheless, this is a work in progress and we acknowledge the importance of a
-quantitative evaluation in the conclusion of the paper as future work.
+%Even though the examples in this paper use standby effectively, they are too
+%simple to draw any conclusions about power savings in real-world applications.
+%That said, our approach is optimal in the sense that the language ensures idle
+%states and the runtime can always figure out the most efficient sleeping mode
+%possible.
+%Nonetheless, this is a work in progress and we acknowledge the importance of a
+%quantitative evaluation in the conclusion of the paper as future work.
 
 In Section~\ref{sec.ceu}, we compare the structure of programs in \CEU and
-Arduino~\cite{arduino.book}, whose primary goal is to reduce the barrier of
-adoption for a non-technical audience (e.g., designers and artists).
+Arduino~\cite{arduino.book}, whose primary goal is to reduce the programming
+barrier of adoption for a non-technical audience (e.g., designers and artists).
 We show that we can keep the intended sequential reasoning of Arduino even when
 applications require non-trivial concurrent behavior.
 %
@@ -271,9 +271,9 @@ Suppose that we now want to immediately abort the loop in
 Figure~\ref{lst.direct}.a at any time, as soon as a radio message arrives.
 %
 Since the message might arrive concurrently with any of the blocking
-operations, we need to change the structure of the program.
+operations, we need to modify the structure of the program in Arduino.
 %
-Figure~\ref{lst.inversion}.a changes the blocking \code{delay} to the polling
+Figure~\ref{lst.inversion}.a replaces the blocking \code{delay} to the polling
 \code{millis}, which immediately returns the number of milliseconds since the
 reset.
 Now, we start by registering the current time (ln. 1--2) and, on each loop
@@ -291,7 +291,7 @@ changed to achieve maximum concurrency.
 %
 Alternatively, we could resort to ISRs or implement an event-driven
 scheduler to handle the operations~\cite{wsn.nesc}, but ultimately, the
-program readability would still be compromised.
+program readability would still be compromised in the same way.
 
 The program in Figure~\ref{lst.inversion}.b in \CEU extends the one in
 Figure~\ref{lst.direct}.b to accommodate concurrency.
@@ -313,7 +313,7 @@ which peripherals are active at a given time.
 For instance, when the program is awaiting concurrently in lines 2 and 7,
 only the radio transceiver and A/D converter can awake the program.
 Hence, the language runtime can choose the most energy-efficient sleep mode
-that allows these peripherals to awake the microcontroller from associated
+that allows these two peripherals to awake the microcontroller from associated
 interrupts.
 %
 Since the semantics of \CEU enforces the program to always reach \code{await}
@@ -325,12 +325,12 @@ environment.
 \label{sec.standby}
 
 In order to empower the example in Figure~\ref{lst.inversion}.b with automatic
-standby, we developed some extensions to \CEU:
+standby, we have developed some extensions to \CEU as follows:
 %
 \begin{itemize}
 \item We made the runtime of \CEU interrupt driven and put the microcontroller
       in standby after each reaction to the environment.
-\item We provided operations for the drivers to indicate which interrupts can
+\item We provided operations for the drivers to indicate which interrupts might
       awake the program.
 \item We included support for ISRs in \CEU to generate input events to the
       program and awake the microcontroller.
@@ -384,14 +384,14 @@ adapted to work in other platforms.
 For simplicity, we assume in the paper that the converter has a single channel
 to avoid having to deal with multiplexing.
 
-The driver exposes raw I/O events (ln. 3--4) that only deal with low-level
+The driver exposes raw I/O events (ln. 3--4) that will only deal with low-level
 port manipulation in the microcontroller.
 Output events are triggered with the \code{emit} keyword (ln. 29), while input
 events are captured with the \code{await} keyword (ln. 30).
 %
-The output event \code{ADC\_REQUEST} (ln. 9--15) enables ADC interrupts and
-starts an analog-to-digital conversion asynchronously in the peripheral for
-the single channel \code{A0}.
+The output event \code{ADC\_REQUEST} actual implementation (ln. 9--15) enables
+ADC interrupts and starts an analog-to-digital conversion asynchronously in the
+peripheral for the single channel \code{A0}.
 In \CEU, any code in between \code{\{} and \code{\}} is treated as an inline
 $C$ chunk, allowing for easy integration with $C$ for low-level operations.
 
@@ -499,23 +499,23 @@ The application of Figure~\ref{lst.inversion}.b relies solely on the driver of
 Figure~\ref{lst.adc} to achieve transparent standby.
 %
 In \CEU, the burden to deal with standby is transferred to the device drivers,
-which are write-once code written by specialists distributed with an SDK.
-By transferring the work from the applications to the language level, novice
-programmers never have to deal with standby explicitly.
+which are write-once code written by specialists and distributed with an SDK.
+By transferring the work from the applications to the language level, novice or
+domain programmers never have to deal with standby explicitly.
 %
 In contrast, general-purpose languages typically provide low-power libraries to
 deal with standby.
 However, programmers still have to call these libraries explicitly,
-characterizing a manual and error-prone mechanism.
+characterizing a mechanism that is manual and error prone.
 
-In Figure~\ref{lst.inversion}.b that, when introducing concurrency, the
-structure of the program remains sequential and amenable to inference of the
-appropriate sleep mode.
+In Figure~\ref{lst.inversion}.b, when introducing concurrency, the structure of
+the program remains sequential and amenable to inference of the appropriate
+sleep mode.
 In comparison with Arduino, whose main goal is to lower the entry barrier for
 embedded development, \CEU also preserves the sequential structure for
 concurrent applications.
 
-The synchronous model of \CEU provides logical parallelism for proper
+The synchronous model of \CEU provides logical parallelism to enable proper
 separation of concerns, while avoiding the hassle of explicit synchronization
 primitives (e.g., locks and mutexes).
 %
@@ -547,7 +547,7 @@ The Arduino community has an abundance of open-source projects which can be
 rewritten in \CEU to take advantage of transparent standby.
 %
 In this scenario, we can evaluate the time to rewrite, the resulting program
-structure, and the actual energy consumption efficiency.
+structure, and the actual energy efficiency.
 
 \begin{acks}
 The authors would like to thank Guilherme Simas for the initial explorations
