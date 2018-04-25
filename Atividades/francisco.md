@@ -1,4 +1,46 @@
 -------------------------------------------------------------------------------
+`[23-Abr] -> [29-Abr]`
+-------------------------------------------------------------------------------
+
+### `[23-Abr]` O que será feito?
+
+- Projeto
+    - [ ] Contratação de Estagiário
+    - [ ] Compra de Passagem
+    - [ ] Pontapé inicial GSoC
+
+- Implementação
+    - [ ] Protocolo RFNetwork em Céu
+        - experimento de energia
+        - deve levar algumas semanas
+
+### `[29-Abr]` O que foi feito?
+
+-------------------------------------------------------------------------------
+`[16-Abr] -> [22-Abr]`
+-------------------------------------------------------------------------------
+
+### `[16-Abr]` O que será feito?
+
+- Projeto
+    - Encontro Serrapilheira
+        - 3 vídeos
+        - Presencial
+    - [x] Iniciar com FUNARBE
+
+- Implementação
+    - Experimentos de gasto de energia
+        - [ ] Mini-Ultra 8MHz
+
+### `[22-Abr]` O que foi feito?
+
+- Implementação
+    - Correção de bug crítico na inicialização de `code/await` de Céu
+
+- Projeto
+    - Evento de 3 dias Início do Serrapilheira
+
+-------------------------------------------------------------------------------
 `[09-Abr] -> [15-Abr]`
 -------------------------------------------------------------------------------
 
@@ -6,20 +48,43 @@
 
 - Documentação
     - Artigo LCTES
-        - [ ] Artifact Evaluation
+        - [x] Artifact Evaluation
 
 - Projeto
     - Encontro Serrapilheira
-        - [ ] 3 vídeos
-        - [ ] 3 textos
-        - [ ] 1 slide
-    - [ ] Contrato no jurídico da UERJ
+        - [x] 3 vídeos
+        - [x] 3 textos
+        - [x] 1 slide
+    - [x] Contrato no jurídico da UERJ
 
 - Extras
     - Preparação REBLS'17
-        - [ ] Call for papers
+        - [x] Call for papers
 
 ### `[15-Abr]` O que foi feito?
+
+- Documentação
+    - Artigos LCTES
+        - Artifact submetido
+        - Versões camera-ready dos dois artigos aceitos
+
+- Projeto
+    - Encontro Serrapilheira
+        - Ainda faltam os vídeos
+    - Contrato finalmente assinado
+
+- Implementação
+    - Experimentos de gasto de energia
+        - nrf-tx-rf-seq
+
+```
+            UNO     MEGA    PRO
+Arduino     43.3    55.4    20
+Céu (timer) 35      32      16.24
+Céu (recv)  23      26      2.89
+---------------------------------
+Blink                       3.8-4.6
+```
 
 -------------------------------------------------------------------------------
 `[02-Abr] -> [08-Abr]`
@@ -128,7 +193,7 @@
 
 - Implementação
     - [x] Nova versão Céu
-    - [ ] Experimentos de gasto de energia
+    - [x] Experimentos de gasto de energia
     - [ ] Aplicação IoT disponível
     - Bug ADC
         - Usar contador de referências para `PM_ADC`
