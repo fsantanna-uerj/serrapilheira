@@ -1,7 +1,12 @@
 \documentclass[sigplan]{acmart}
 
+% TODO-FULL
+%\linespread{0.96}
+\setlength{\belowcaptionskip}{-10pt}
+
 \usepackage{booktabs} % For formal tables
 \usepackage{xspace}
+\usepackage{balance}
 
 \usepackage{listings}
 \lstdefinelanguage{ceu}{%
@@ -15,7 +20,7 @@
     var, watching, when, with},
 }
 \lstset{
-  basicstyle=\ttfamily,
+  basicstyle=\small\ttfamily,
   captionpos=b,
   columns=flexible,
   commentstyle=\rmfamily\itshape,
@@ -38,28 +43,32 @@
 %\setcopyright{none}
 %\setcopyright{acmcopyright}
 %\setcopyright{acmlicensed}
-\setcopyright{rightsretained}
+%\setcopyright{rightsretained}
 %\setcopyright{usgov}
 %\setcopyright{usgovmixed}
 %\setcopyright{cagov}
 %\setcopyright{cagovmixed}
 
-% DOI
-\acmDOI{10.475/123_4}
-
-% ISBN
-\acmISBN{123-4567-24-567/08/06}
-
-%Conference
-%\acmConference[WOODSTOCK'97]{ACM Woodstock conference}{July 1997}{El Paso, Texas USA}
-\acmConference[LCTES'18]{ACM SIGPLAN/SIGBED}{June 2018}{Philadelphia, USA}
-%\acmYear{1997}
-%\copyrightyear{2016}
-
-%\acmPrice{15.00}
-
 %\acmBadgeL[http://ctuning.org/ae/ppopp2016.html]{ae-logo}
 %\acmBadgeR[http://ctuning.org/ae/ppopp2016.html]{ae-logo}
+
+%%% If you see 'ACMUNKNOWN' in the 'setcopyright' statement below,
+%%% please first submit your publishing-rights agreement with ACM (follow link on submission page).
+%%% Then please update our instructions page and copy-and-paste the NEW commands into your article.
+%%% Please contact us in case of questions; allow up to 10 min for the system to propagate the information.
+%%%
+%%% The following is specific to LCTES'18 and the paper
+%%% 'Transparent Standby for Low-Power, Resource-Constrained Embedded Systems: A Programming Language-Based Approach (Short WIP Paper)'
+%%% by Francisco Sant'Anna, Alexandre Sztajnberg, and Noemi Rodrigues.
+%%%
+%\setcopyright{ACMUNKNOWN}
+\setcopyright{acmcopyright}
+\acmPrice{15.00}
+\acmDOI{10.1145/3211332.3211337}
+\acmYear{2018}
+\copyrightyear{2018}
+\acmISBN{978-1-4503-5803-3/18/06}
+\acmConference[LCTES'18]{19th ACM SIGPLAN/SIGBED Conference on Languages, Compilers, and Tools for Embedded Systems}{June 19--20, 2018}{Philadelphia, PA, USA}
 
 \begin{document}
 %\title{A Language-Based Approach for Standby in Embedded Systems}
@@ -106,8 +115,8 @@ Our approach relies on the synchronous semantics of the language which
 guarantees that reactions to the environment always reach an idle state
 amenable to standby.
 %
-In addition, to lower the programming barrier of adoption, we show that
-programs in \CEU can keep a sequential syntactic structure, even when
+In addition, in order to lower the programming barrier of adoption, we show
+that programs in \CEU can keep a sequential syntactic structure, even when
 applications require non-trivial concurrent behavior.
 \end{abstract}
 

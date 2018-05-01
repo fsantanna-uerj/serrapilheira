@@ -1,5 +1,7 @@
 \label{sec.introduction}
 
+% TODO-FULL: voltar c/ artigo completo
+\begin{comment}
 According to the International Energy Agency (IEA), the number of
 network-connected devices is expected to reach 50 billion by 2020 with the
 expansion of the Internet of Things (IoT)~\cite{iea.data}.
@@ -25,6 +27,22 @@ microcontroller.
 Given the projected scale of the IoT, the role of low-power standby towards
 energy efficiency, and the posed software-related challenges, our research has
 the following goals:
+\end{comment}
+%%%%
+According to the International Energy Agency (IEA), the number of
+network-connected devices is expected to reach 50 billion by 2020 with the
+expansion of the Internet of Things (IoT)~\cite{iea.data}.
+%
+Most of the energy to power these devices will be consumed in
+\emph{standby mode}, i.e., when they are neither transmitting or processing
+data.
+%
+However, making effective use of standby requires software-related efforts in
+order to detect idle periods of activity in a device, identify peripherals
+that must remain functional, and apply appropriate sleep mode levels in its
+microcontroller.
+Therefore, our research has the following goals:
+%%%%
 %
 %\begin{enumerate}
 (i)   address energy efficiency through rigorous use of standby;
@@ -49,11 +67,11 @@ In contrast with other concurrency models (e.g., thread and actor based), the
 synchronous semantics of \CEU guarantees that reactions to the environment
 always reach an idle state amenable to standby.
 %
-Previous work~\cite{ceu.sensys13} evaluates the expressiveness of \CEU in the
-context of Wireless Sensor Networks and discusses the development of drivers,
-network protocols, and full applications in the language.
-In addition, \CEU incurs a small overhead of memory in comparison to C (around
-5-10\%), thus being a suitable alternative for constrained devices.
+Previous work~\cite{ceu.sensys13} demonstrates the expressiveness of \CEU in
+the context of Wireless Sensor Networks and discusses the development of
+drivers, network protocols, and full applications in the language.
+It also attests a small overhead of memory in comparison to C (around 5-10\%),
+thus being a suitable alternative for constrained devices.
 The language runtime is in the order of a few kilobytes only (less than 5Kb).
 
 In our approach, each supported microcontroller requires hooks in C for the
@@ -72,8 +90,8 @@ variety of peripherals, such as for GPIO, A/D converter, USART, SPI, and the
 nRF24L01 transceiver.
 %
 We developed a number of simple applications using these peripherals
-concurrently and could verify that the applications remain in the deepest
-standby modes for the longest periods of time.
+concurrently and could verify that they remain in the deepest standby modes for
+the longest periods of time.
 
 %Even though the examples in this paper use standby effectively, they are too
 %simple to draw any conclusions about power savings in real-world applications.
@@ -85,7 +103,7 @@ standby modes for the longest periods of time.
 
 In Section~\ref{sec.ceu}, we compare the structure of programs in \CEU and
 Arduino~\cite{arduino.book}, whose primary goal is to reduce the programming
-barrier of adoption for a non-technical audience (e.g., designers and artists).
+barrier of adoption for a non-technical audience. % TODO-FULL (e.g., designers and artists).
 We show that we can keep the intended sequential reasoning of Arduino even when
 applications require non-trivial concurrent behavior.
 %
@@ -460,7 +478,7 @@ In the best case, e.g., if only external interrupts are required, the
 microcontroller can use the most efficient mode (ln. 18).
 
 With all the standby infrastructure set, the unmodified program of
-Figure~\ref{lst.inversion}.b will automatically take advantage of the deepest
+Figure~\ref{lst.inversion}.b automatically takes advantage of the deepest
 sleep modes for the longest periods of time possible.
 
 \begin{figure}[t]
@@ -539,9 +557,9 @@ amenable to standby.
 This way, application written in \CEU can take advantage of the longest periods
 of time and deepest sleep modes possible without extra programming efforts.
 
-In future work, in order to evaluate the gains in energy efficiency with the
-proposed infrastructure, we will evaluate the consumption of realistic
-applications.
+In future work, we will evaluate the consumption of realistic applications.
+%in order to evaluate the gains in energy efficiency with the
+%proposed infrastructure,
 %
 The Arduino community has an abundance of open-source projects which can be
 rewritten in \CEU to take advantage of transparent standby.
@@ -552,4 +570,8 @@ structure, and the actual energy efficiency.
 \begin{acks}
 The authors would like to thank Guilherme Simas for the initial explorations
 with the language extensions and development of some of the device drivers.
+This work was supported by the Serrapilheira Institute (grant number
+Serra-1708-15612).
 \end{acks}
+
+\balance
