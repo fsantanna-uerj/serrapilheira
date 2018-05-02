@@ -1,4 +1,22 @@
 -------------------------------------------------------------------------------
+`[30-Abr] -> [06-Mai]`
+-------------------------------------------------------------------------------
+
+### `[30-Abr]` O que será feito?
+
+- Projeto
+    - Procurar alunos de Engenharia da Computação
+        - Colocar cartaz
+        - Procurar grupo
+    - [ ] Nota Multímetro
+    - [ ] Comprar bateria Notebook
+
+- Implementação
+    - Continuar RF24Network
+
+### `[06-Abr]` O que foi feito?
+
+-------------------------------------------------------------------------------
 `[23-Abr] -> [29-Abr]`
 -------------------------------------------------------------------------------
 
@@ -6,8 +24,8 @@
 
 - Projeto
     - [ ] Contratação de Estagiário
-    - [ ] Compra de Passagem
-    - [ ] Pontapé inicial GSoC
+    - [x] Compra de Passagem
+    - [x] Pontapé inicial GSoC
 
 - Implementação
     - [ ] Protocolo RFNetwork em Céu
@@ -15,6 +33,22 @@
         - deve levar algumas semanas
 
 ### `[29-Abr]` O que foi feito?
+
+- Projeto
+    - Passagem comprada
+    - Conversas iniciais com Anny e Naveen
+    - Ainda não encontrei nenhum estagiário
+
+- Implementação
+    - Parte RX do RF24Network implementada
+        - roteamento
+        - destino
+    - Ainda falta:
+        - TX
+        - modo sleep no Arduino
+        - Rede com mais nós
+
+- Feriado
 
 -------------------------------------------------------------------------------
 `[16-Abr] -> [22-Abr]`
