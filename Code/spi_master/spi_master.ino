@@ -1,6 +1,6 @@
 #include <SPI.h>
 
-#define SAMD
+//#define SAMD
 
 #ifdef SAMD
 #define S SerialUSB
