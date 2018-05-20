@@ -15,7 +15,8 @@ void setup() {
     //radio.disableCRC();
     radio.setPayloadSize(1);
     radio.setAutoAck(false);              // true by default
-    radio.setDataRate(RF24_2MBPS);
+    radio.setDataRate(RF24_1MBPS);
+    //radio.setDataRate(RF24_2MBPS);
     radio.openWritingPipe(pipe);
 }
 

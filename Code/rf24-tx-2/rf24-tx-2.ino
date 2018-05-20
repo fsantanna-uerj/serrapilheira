@@ -40,7 +40,7 @@ struct payload_t {                  // Structure of our payload
 void setup(void)
 {
   Serial.begin(9600);
-  Serial.println("C - helloworld_tx-2");
+  Serial.println("C - rf24-tx-2");
  
   SPI.begin();
   radio.begin();
