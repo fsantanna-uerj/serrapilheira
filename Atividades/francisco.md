@@ -1,4 +1,65 @@
 -------------------------------------------------------------------------------
+`[21-Mai] -> [27-Mai]`
+-------------------------------------------------------------------------------
+
+### `[21-Mai]` O que será feito?
+
+- Projeto
+    - [ ] Contratação João
+
+- Implementação
+    - [ ] Vídeos gasto de energia
+    - [ ] Driver HC-SCR04
+    - [ ] Driver IR
+    - [ ] Bugs de Céu
+
+### `[27-Mai]` O que foi feito?
+
+-------------------------------------------------------------------------------
+`[14-Mai] -> [20-Mai]`
+-------------------------------------------------------------------------------
+
+### `[14-Mai]` O que será feito?
+
+### `[20-Mai]` O que foi feito?
+
+- Projeto
+    - [x] Contratação Anna
+    - [x] Compra Notebook
+    - [x] Versões finais LCTES
+
+- Implementação
+    - Céu
+        - Inline de code/awaits
+            - OK, mas casos complexos dão erro. O certo é pelo menos não gerar
+              código para code/awaits nunca chamados.
+        - [x] Callbacks estáticas
+            - Em vez do `switch`, usar função diretamente.
+        - [x] ISRs estáticas
+            - Em vez de callbacks, usar função diretamente.
+    - Céu-Arduino
+        - Ajustes no WDT, NRF, RF24-Network
+    - Gasto de Energia
+        - [x] Testes completos para `blink`, `nrf`, `rf24-network`.
+
+-------------------------------------------------------------------------------
+`[07-Mai] -> [13-Mai]`
+-------------------------------------------------------------------------------
+
+### `[07-Mai]` O que será feito?
+
+- Implementação
+    - Céu
+        - Gasto de Memória
+            - [x] Inline de code/awaits
+            - Remover código morto
+            - Otimizar eventuais facilidades
+    - RF24Network
+        - Sleep
+
+### `[13-Mai]` O que foi feito?
+
+-------------------------------------------------------------------------------
 `[30-Abr] -> [06-Mai]`
 -------------------------------------------------------------------------------
 
@@ -13,8 +74,14 @@
 
 - Implementação
     - Continuar RF24Network
+        - TX
+        - Sleep em C
 
 ### `[06-Abr]` O que foi feito?
+
+- Implementação
+    - RF24Network
+        - Terminado TX
 
 -------------------------------------------------------------------------------
 `[23-Abr] -> [29-Abr]`
