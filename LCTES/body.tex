@@ -1,3 +1,5 @@
+\vspace{-0.5cm}
+\section{Introduction}
 \label{sec.introduction}
 
 % TODO-FULL: voltar c/ artigo completo
@@ -185,11 +187,12 @@ Structured reactive programming lets developers write code in direct style,
 recovering from the inversion of control imposed by event-driven
 execution~\cite{rp.deprecating,rp.rescala,sync_async.cooperative}.
 
-\subsection*{A Motivating Example}
+\subsection{A Motivating Example}
 \label{sec.ceu.example}
 
 {\linespread{1}
 \begin{figure}[t]
+\vspace{2mm}
 \begin{minipage}[t]{0.49\linewidth}
 \begin{lstlisting}[xrightmargin=0.5cm]
 while (1) {
@@ -322,7 +325,7 @@ terminates when either of them terminates, aborting the other automatically.
 This approach preserves the sequential, easy-to-read style while introducing
 concurrency seamlessly.
 
-\subsection*{Standby Considerations}
+\subsection{Standby Considerations}
 \label{sec.ceu.standby}
 
 The structure of the program in Figure~\ref{lst.inversion}.b also indicates
@@ -355,6 +358,7 @@ standby, we have developed some extensions to \CEU as follows:
 \end{itemize}
 
 \begin{figure}[t]
+\vspace{2mm}
 \begin{lstlisting}[numbers=left]
 // Exposed driver functionality
 
@@ -482,6 +486,7 @@ Figure~\ref{lst.inversion}.b automatically takes advantage of the deepest
 sleep modes for the longest periods of time possible.
 
 \begin{figure}[t]
+\vspace{2mm}
 \begin{lstlisting}[numbers=left]
 #define PM_GET(dev)   bitRead(pm,dev)
 #define PM_SET(dev,v) bitWrite(pm,dev,v)
