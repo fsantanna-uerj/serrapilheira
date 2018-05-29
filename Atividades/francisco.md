@@ -1,4 +1,26 @@
 -------------------------------------------------------------------------------
+`[28-Mai] -> [03-Jun]`
+-------------------------------------------------------------------------------
+
+### `[28-Mai]` O que será feito?
+
+- Projeto
+    - Contratação João
+    - [ ] Enviar contrato Anna
+
+- Documentação
+    - [ ] v0.40
+    - [ ] Drivers de Céu-Arduino
+        - estrutura em ceu-arduino
+        - drivers individualmente
+
+- Implementação
+    - [ ] Retomar SAMD
+    - [ ] Céu-Maker
+        - serial
+        - exemplo joystick controlando tela
+
+-------------------------------------------------------------------------------
 `[21-Mai] -> [27-Mai]`
 -------------------------------------------------------------------------------
 
@@ -8,12 +30,34 @@
     - [ ] Contratação João
 
 - Implementação
-    - [ ] Vídeos gasto de energia
-    - [ ] Driver HC-SCR04
-    - [ ] Driver IR
-    - [ ] Bugs de Céu
+    - [x] Vídeos gasto de energia
+    - [x] Driver HC-SCR04
+    - [x] Driver PIN-03
+    - [x] IR TCRT5000
+    - [x] Bugs de Céu
+        - Pointer accesses
+    - [x] Separação de bibliotecas
+    - [x] Remover poll? Ao menos da árvore (tirar isrs como especial)
 
 ### `[27-Mai]` O que foi feito?
+
+- Projeto
+    - Contratação pendente
+
+- Implementação
+    - Subi os vídeos para o YouTube:
+        - https://www.youtube.com/playlist?list=PL_NafSplpnh6CQGEx8ustNB8uDF1bL7v1
+    - Drivers foram bem simples de fazer.
+    - Bugs de Céu corrigidos
+    - Separação de bibliotecas
+        - arch-avr    driver-gpio    driver-nrf24l01  driver-usart   driver-wdt
+          driver-adc  driver-hcsr04  driver-spi       driver-wclock  protocol-rf24network
+    - Preparação da versão v0.40
+        - todos os projetos (ceu, ceu-arduino, ceu-libuv, ceu-sdl, pico-ceu, ceu-maker, freechains)
+        - callbacks estáticas
+    - Criação das organizações:
+        - https://github.com/ceu-lang
+        - https://github.com/ceu-arduino
 
 -------------------------------------------------------------------------------
 `[14-Mai] -> [20-Mai]`
