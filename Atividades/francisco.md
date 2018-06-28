@@ -1,4 +1,62 @@
 -------------------------------------------------------------------------------
+`[25-Jun] -> [01-Jul]`
+-------------------------------------------------------------------------------
+
+### `[25-Jun]` O que será feito?
+
+- Projeto
+    - [ ] Relatório Serrapilheira
+
+- Implementação
+    - [ ] Avaliação I2C
+    - [ ] Avaliação Céu-Maker
+
+### `[01-Jul]` O que foi feito?
+
+-------------------------------------------------------------------------------
+`[18-Jun] -> [24-Jun]`
+-------------------------------------------------------------------------------
+
+### `[18-Jun]` O que será feito?
+
+- (não preenchido)
+
+### `[24-Jun]` O que foi feito?
+
+- Viagem EUA - PLDI - LCTES
+
+-------------------------------------------------------------------------------
+`[11-Jun] -> [17-Jun]`
+-------------------------------------------------------------------------------
+
+### `[11-Jun]` O que será feito?
+
+- (não preenchido)
+
+### `[17-Jun]` O que foi feito?
+
+- UERJ - Provas
+
+- Documentação
+    - Preparação LCTES
+        - Apresentação dos 2 artigos
+
+-------------------------------------------------------------------------------
+`[04-Jun] -> [10-Jun]`
+-------------------------------------------------------------------------------
+
+### `[04-Jun]` O que será feito?
+
+- (não preenchido)
+
+### `[10-Jun]` O que foi feito?
+
+- Implementação
+    - GPIO AVR e SAMD
+        - [ ] Problemas com o GPIO
+            - continuar a resolver questão PIN/Pin
+
+-------------------------------------------------------------------------------
 `[28-Mai] -> [03-Jun]`
 -------------------------------------------------------------------------------
 
@@ -15,10 +73,25 @@
         - drivers individualmente
 
 - Implementação
-    - [ ] Retomar SAMD
+    - [x] Retomar SAMD
     - [ ] Céu-Maker
         - serial
         - exemplo joystick controlando tela
+
+### `[03-Jun]` O que foi feito?
+
+- Projeto
+    - Contratação do João depende de convênio FUNARBE-UERJ
+    - Envio do contrato da Anna está esperando contratação do João
+
+- Documentação
+    - Ficou pendente
+    - LCTES: Artifact "badges"
+
+- Implementação
+    - SAMD: adicionado projeto "arch-samd"
+        - GPIO, RTC
+    - Céu-Maker: Anny está trabalhando com serial, passar exemplo do joystick para ela?
 
 -------------------------------------------------------------------------------
 `[21-Mai] -> [27-Mai]`
@@ -64,6 +137,8 @@
 -------------------------------------------------------------------------------
 
 ### `[14-Mai]` O que será feito?
+
+- (não preenchido)
 
 ### `[20-Mai]` O que foi feito?
 
