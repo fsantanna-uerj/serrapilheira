@@ -1,4 +1,42 @@
 -------------------------------------------------------------------------------
+`[09-Jul] -> [15-Jul]`
+-------------------------------------------------------------------------------
+
+### `[09-Jul]` O que será feito?
+
+- Projeto
+    - [ ] Sugestão de projeto para Julia
+    - [ ] Criação de Lista `ceu-lab`
+
+- Documentação
+    - [ ] Submissão SBGames
+
+- Implementação
+    - [ ] Corrigir driver de timer
+
+### `[15-Jul]` O que foi feito?
+
+-------------------------------------------------------------------------------
+`[02-Jul] -> [08-Jul]`
+-------------------------------------------------------------------------------
+
+### `[02-Jul]` O que será feito?
+
+- (não preenchido)
+
+### `[08-Jul]` O que foi feito?
+
+- Projeto
+    - Avaliação de métodos formais para Céu
+        - Model Checking, Liquid Haskell, Dafny, Coq
+    - Contratação do João
+
+- Implementação
+    - Bugs no `ceu-arduino`
+        - Suporte para `async`
+        - Timer usando polling
+
+-------------------------------------------------------------------------------
 `[25-Jun] -> [01-Jul]`
 -------------------------------------------------------------------------------
 
@@ -12,6 +50,17 @@
     - [ ] Avaliação Céu-Maker
 
 ### `[01-Jul]` O que foi feito?
+
+- Projeto
+    - Versão inicial do relatório
+
+- Implementação
+    - Review AVR
+        - I2C
+            - `arch-avr/examples/twi/master/read-write-*`
+        - GPIO
+            - pin-02, pin-03
+    - Não consegui avaliar Céu-Maker
 
 -------------------------------------------------------------------------------
 `[18-Jun] -> [24-Jun]`
@@ -196,7 +245,7 @@
         - TX
         - Sleep em C
 
-### `[06-Abr]` O que foi feito?
+### `[06-Mai]` O que foi feito?
 
 - Implementação
     - RF24Network
