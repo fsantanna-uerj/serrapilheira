@@ -1,6 +1,12 @@
 all: pt
 	ls
 
+mid:
+	pdflatex mid
+	bibtex   mid
+	pdflatex mid
+	pdflatex mid
+
 big:
 	pdflatex big
 	bibtex   big
