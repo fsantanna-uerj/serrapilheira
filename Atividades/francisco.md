@@ -1,4 +1,64 @@
 -------------------------------------------------------------------------------
+`[06-Jul] -> [12-Ago]`
+-------------------------------------------------------------------------------
+
+### `[06-Jul]` O que será feito?
+
+- Projeto
+    - Contrato do João
+    - Enviar contratos à FUNARBE
+
+- Documentação
+    - Artigo REBLS
+        - Submeter
+
+### `[12-Ago]` O que foi feito?
+
+-------------------------------------------------------------------------------
+`[30-Jul] -> [05-Ago]`
+-------------------------------------------------------------------------------
+
+### `[30-Jul]` O que será feito?
+
+- Documentação
+    - Artigo REBLS
+
+### `[05-Ago]` O que foi feito?
+
+- Documentação
+    - Artigo REBLS
+
+-------------------------------------------------------------------------------
+`[23-Jul] -> [29-Jul]`
+-------------------------------------------------------------------------------
+
+### `[23-Jul]` O que será feito?
+
+- (não preenchido)
+
+### `[29-Jul]` O que foi feito?
+
+- Projeto
+    - Contratação Guilherme
+
+- Documentação
+    - Artigo REBLS
+
+-------------------------------------------------------------------------------
+`[16-Jul] -> [22-Jul]`
+-------------------------------------------------------------------------------
+
+### `[16-Jul]` O que será feito?
+
+- (não preenchido)
+
+### `[22-Jul]` O que foi feito?
+
+- Documentação
+    - SBGames submetido
+    - Artigo REBLS
+
+-------------------------------------------------------------------------------
 `[09-Jul] -> [15-Jul]`
 -------------------------------------------------------------------------------
 
@@ -9,12 +69,25 @@
     - [ ] Criação de Lista `ceu-lab`
 
 - Documentação
-    - [ ] Submissão SBGames
+    - [x] Submissão SBGames
+    - [ ] Artigo REBLS?
 
 - Implementação
     - [ ] Corrigir driver de timer
 
 ### `[15-Jul]` O que foi feito?
+
+- Projeto
+    - Julia começa em Setembro
+
+- Documentação
+    - Driver GPIO
+    - Artigo REBLS iniciado
+
+- Implementação
+    - Gerenciamento de energia `CEU_PM` opcional
+    - Driver GPIO
+        - Bugs corrigidos
 
 -------------------------------------------------------------------------------
 `[02-Jul] -> [08-Jul]`
