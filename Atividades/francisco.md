@@ -1,4 +1,17 @@
 -------------------------------------------------------------------------------
+`[13-Jul] -> [19-Ago]`
+-------------------------------------------------------------------------------
+
+### `[13-Jul]` O que será feito?
+
+- Projeto
+    - [ ] Submeter Mid Evaluation
+    - Contrato do João
+    - Enviar contratos à FUNARBE
+
+### `[19-Ago]` O que foi feito?
+
+-------------------------------------------------------------------------------
 `[06-Jul] -> [12-Ago]`
 -------------------------------------------------------------------------------
 
@@ -13,6 +26,13 @@
         - Submeter
 
 ### `[12-Ago]` O que foi feito?
+
+- Projeto
+    - Contrato ainda não está pronto.
+    - Mid evaluation quase pronto.
+
+- Documentação
+    - Artigo submetido.
 
 -------------------------------------------------------------------------------
 `[30-Jul] -> [05-Ago]`
@@ -70,7 +90,7 @@
 
 - Documentação
     - [x] Submissão SBGames
-    - [ ] Artigo REBLS?
+    - [x] Artigo REBLS?
 
 - Implementação
     - [ ] Corrigir driver de timer
