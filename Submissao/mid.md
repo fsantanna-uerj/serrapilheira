@@ -8,13 +8,13 @@ The bulk of our research is grounded on the design of Céu [1], a new reactive p
 The language is grounded on the synchronous concurrency model, which trades power for reliability and has a simpler model of time that suits most requirements of IoT applications.
 In this model, all reactions to the external world are guaranteed to be computed in bounded time, ensuring that applications always reach an idle state amenable to standby mode.
 
-Since the grant notification at the end of last year, our immediate goal was to reach, as fast as possible, a working prototype of our core research idea.
-I worked towards a new version of our programming language Céu that would provide automatic standby for all applications:
+Since the grant notification at the end of last year, our immediate goal was to reach, as fast as possible, a working prototype of the core research idea.
+We worked towards a new version of Céu that would provide automatic standby for all applications:
 
 - A programmer writes an IoT application unaware of standby or energy constraints.
 - The language puts the IoT device to sleep automatically whenever possible in the most efficient standby mode.
 
-In parallel, I worked with colleagues on a formal semantics of Céu and a mathematical proof that all valid programs react to an external event in bounded time, with bounded memory, and deterministic behavior.
+In parallel, we worked on a formal semantics of Céu and a mathematical proof that all valid programs react to an external event in bounded time, with bounded memory, and deterministic behavior.
 This proof is an important result because it shows that applications always reach an idle state amenable to standby.
 The formalization of Céu already appeared on my PhD thesis [2], but the proofs for the properties are new results from this year.
 
@@ -29,7 +29,7 @@ community for discussion on the conference.
 Between March and May, we invested most of the time on engineering efforts on the prototype.
 We refactored and optimized the language implementation and also worked on supporting new the device drivers and microcontrollers.
 In particular, we built an RF (radio) module driver in Céu from scratch, which also requires an SPI driver.
-A working radio infrastructure is fundamental for the development of IoT applications.
+A reliable software infrastructure for radio is fundamental for the development of IoT applications.
 
 In the last months, with all basic pieces set, we started working on full IoT applications.
 At this moment, we have more concrete evaluation scenarios that show significant energy savings due to standby in the microcontroller and other peripherals.
@@ -60,7 +60,7 @@ As mentioned in the previous section, we are opening a new front on education wh
 
 # 3. Please list any preliminary results/outcomes.
 
-We implemented of the new version of Céu with support for interrupts and power management:
+We implemented a new version of Céu with support for interrupts and power management:
 
 https://github.com/ceu-lang/ceu
 
@@ -116,7 +116,7 @@ We still have difficulties in finding good students to work in the area of embed
 As a new professor in my University, I was not associated with any graduate program until mid March, when I joined the Electrical Engineering program.
 The next semester I will offer a course on Embedded Software, which did not exist in the graduate program.
 This course and our new front on the educational programming environment are important to bring new students.
-Nevertheless we got our first long-term committed student in May.
+Nevertheless we got our first long-term committed student last May:
 She is now joining the MSc program under my supervision and will probably stay in this project for the next two years.
 
 # 5. Please list any findings you've generated so far.
@@ -125,7 +125,7 @@ She is now joining the MSc program under my supervision and will probably stay i
 
 - A specialized programming language, with appropriate vocabulary to deal with events from the real world, can be adopted in the whole development cycle, from device drivers up to the application.
 
-- This programming language can automate the process to detect when an application can sleep, and also which sleep mode it can use.
+- This programming language can automate the process to detect when an application can sleep, and also which sleep mode to use.
 
 # 6. Please indicate any information that you consider relevant for your final evaluation.
 
@@ -151,13 +151,13 @@ We already have a student working on the educational programming environment for
 Céu has strong safety properties that apply to all programs as discussed in our last paper (i.e., termination, determinism, and memory boundedness).
 We want to extend this work with automatic proofs for even stronger properties, but which apply to specific programs.
 As an example, suppose we want to prove that a given program satisfies a specification related to energy consumption as follows: "After broadcasting the value of a sensor, the device must sleep for one hour".
-Our goal is to take a specification written in some meta language, take a program written in Céu, and verify automatically if the program satisfies the specification.
+Our goal is to take a specification written in some higher-level language, take a program written in Céu, and verify automatically whether the program satisfies the specification or not.
 
 Item 1 will concentrate most of our efforts until February, and would complete our intended research for the first year.
 The applications would validate our software infrastructure and would allow us to submit a paper to a journal with high impact in our subfield (embedded software).
 We believe that we can complete our original plan and submit this paper by the end of February.
 
-Items 2 and 3 were not in our original plan for the first but target medium and long term goals.
+Items 2 and 3 were not in our original plan for the first year, but actually target medium and long-term goals.
 Item 2 is related to the usability and adoption of Céu and is important to build a local community around the language.
 Item 3 is in very early stages and is related to what we can know (and automatically prove) about a program before it executes.
 We believe that static verification of specifications towards program correctness (including energy efficiency) will have a high impact also outside of our subfield.
@@ -197,4 +197,4 @@ Anny, R$1500, SET-FEV
 Guilherme, R$2000, AGO-DEZ
 -->
 
-Com essa previsão, ainda há uma sobra de R$10000 que provavelmente será usada para um congresso internacional em novembro.
+Com essa previsão, ainda há uma sobra de R$10000 que será usada para um congresso internacional em novembro caso um trabalho já submetido seja aceito.
