@@ -10,9 +10,9 @@ In this model, all reactions to the external world are guaranteed to be computed
 
 Since the grant notification at the end of last year, our immediate goal was to reach, as fast as possible, a working prototype of the core research idea.
 We worked towards a new version of Céu that would provide automatic standby for all applications:
-
-- A programmer writes an IoT application unaware of standby or energy constraints.
-- The language puts the IoT device to sleep automatically whenever possible in the most efficient standby mode.
+<ul> <li> A programmer writes an IoT application unaware of standby or energy constraints.
+<li> The language puts the IoT device to sleep automatically whenever possible in the most efficient standby mode.
+</ul>
 
 In parallel, we worked on a formal semantics of Céu and a mathematical proof that all valid programs react to an external event in bounded time, with bounded memory, and deterministic behavior.
 This proof is an important result because it shows that applications always reach an idle state amenable to standby.
@@ -39,22 +39,21 @@ The idea is to introduce physical computing and IoT early in the computer scienc
 Our hypothesis is that the dedicated vocabulary of Céu to deal with the external world (e.g., events and concurrency) will permit that students accomplish simple but complete IoT projects.
 We also want to attract new students to our research area over the long term, which will be important for the future of the project.
 We plan to offer a 3-week course open for all undergraduate students on each semester, starting next year.
-
-1. F. Sant'anna and others. The design and implementation of the synchronous language Céu. ACM Trans. Embed. Comput. Syst., 16(4):98:1–98:26, July 2017.
-2. F. Sant'Anna. Safe System-level Concurrency on Resource-Constrained Nodes with Céu. PhD thesis, PUC–Rio, 2013.
-3. Rodrigo C. M. Santos and others. A memory-bounded, deterministic and terminating semantics for the synchronous programming language Céu.  In LCTES'18. ACM, New York, NY, USA, 1-18.
-4. F. Sant'anna and others. Transparent standby for low-Power, resource-constrained embedded systems: a programming language-based approach (short WIP paper). In LCTES'2018. ACM, New York, NY, USA 94.
+<ol> <li> F. Sant'anna and others. The design and implementation of the synchronous language Céu. ACM Trans. Embed. Comput. Syst., 16(4):98:1–98:26, July 2017.
+<li> F. Sant'Anna. Safe System-level Concurrency on Resource-Constrained Nodes with Céu. PhD thesis, PUC–Rio, 2013.
+<li> Rodrigo C. M. Santos and others. A memory-bounded, deterministic and terminating semantics for the synchronous programming language Céu.  In LCTES'18. ACM, New York, NY, USA, 1-18.
+<li> F. Sant'anna and others. Transparent standby for low-Power, resource-constrained embedded systems: a programming language-based approach (short WIP paper). In LCTES'2018. ACM, New York, NY, USA 94.
+</ol>
 
 # 2. Have your objectives changed? If so, please explain.
 
-The main objective remains the same:
-Energy efficiency for IoT software in the large through automatic standby at the programming language level.
+The main objective remains the same: Energy efficiency for IoT software in the large through automatic standby at the programming language level.
 
 We are also following the methodology of the original proposal closely:
-
-- IoT Hardware Infrastructure: Arduino-based embedded platforms (AVR/ATmega328p and ARM/Cortex-M0).
-- IoT Software Infrastructure: Rewriting device drivers and interrupt service routines in Céu.
-- IoT Applications: RF module and real-world IoT applications.
+<ul><li>IoT Hardware Infrastructure: Arduino-based embedded platforms (AVR/ATmega328p and ARM/Cortex-M0).
+<li> IoT Software Infrastructure: Rewriting device drivers and interrupt service routines in Céu.
+<li> IoT Applications: RF module and real-world IoT applications.
+</ul>
 
 As mentioned in the previous section, we are opening a new front on education which is aligned with our objectives but was not originally planned.
 
@@ -62,21 +61,19 @@ As mentioned in the previous section, we are opening a new front on education wh
 
 We implemented a new version of Céu with support for interrupts and power management:
 
-https://github.com/ceu-lang/ceu
+<pre> https://github.com/ceu-lang/ceu </pre>
 
 We added support for a variety of drivers and two microcontrollers for Céu-Arduino:
 
-https://github.com/ceu-arduino/
+<pre> https://github.com/ceu-arduino/ </pre>
 
 We have an early prototype of our educational programming environment:
 
-https://github.com/ceu-lang/ceu-maker
+<pre> https://github.com/ceu-lang/ceu-maker </pre>
 
 Our main quantitative results so far are the first full-application experiments showing significant energy savings ranging from 20% to 99%.
 The table below shows the energy consumption (in mA) of five applications originally in C/Arduino which we rewrote in Céu:
-
-```
-===============================================================
+<pre>===============================================================
 App        Arduino      Céu         Description
 ---------------------------------------------------------------
 Empty        3.7         0.002      empty program
@@ -85,7 +82,7 @@ Sensor      11.4         7.7        sensors reads
 Radio       19.5        15.8/3.0    periodic RF communication
 Protocol    19.6        15.9        active mesh RF protocol
 ===============================================================
-```
+</pre>
 
 The first case illustrates how an "Empty" program in Arduino remains 100% of the time awake while an equivalent in Céu sleeps in the most efficient standby mode.
 The "Blink" example in Céu relies on timer standby, which is not the most efficient, but still consumes less energy than its Arduino counterpart.
@@ -121,11 +118,10 @@ She is now joining the MSc program under my supervision and will probably stay i
 
 # 5. Please list any findings you've generated so far.
 
-- IoT applications, with the typical sense-broadcast-sleep loop pattern, can be in standby mode most of the time and save energy significantly (up to over 99%).
-
-- A specialized programming language, with appropriate vocabulary to deal with events from the real world, can be adopted in the whole development cycle, from device drivers up to the application.
-
-- This programming language can automate the process to detect when an application can sleep, and also which sleep mode to use.
+<ul><li> IoT applications with the typical <i>sense-broadcast-sleep</i> loop pattern can be in standby mode most of the time and save energy significantly (up to over 99%).
+<li> A specialized programming language, with appropriate vocabulary to deal with events from the real world, can be adopted in the whole development cycle, from device drivers up to the application.
+<li> This programming language can automate the process to detect when an application can sleep, and also which sleep mode to use.
+</ul>
 
 # 6. Please indicate any information that you consider relevant for your final evaluation.
 
@@ -133,7 +129,7 @@ She is now joining the MSc program under my supervision and will probably stay i
 
 Our next steps are focused on three fronts:
 
-1. Evaluate realistic IoT applications:
+<ol><li>Evaluate realistic IoT applications:
 
 From the original plan:
 "In order to evaluate the gains in energy efficiency with the proposed infrastructure, we will need to evaluate the consumption of realistic applications."
@@ -142,16 +138,17 @@ As a canonical example, to monitor the temperature of a building, we need to dep
 We also need to build the device with sensors and RF communication, and develop the software.
 Finally, we need some third-party software to compare, and measure the energy consumption in the evaluation.
 
-2. Introduce an optional IoT course for undergraduate students:
+<li>Introduce an optional IoT course for undergraduate students:
 
 We already have a student working on the educational programming environment for a couple of months and we expect to start this course during the first semester of the next year.
 
-3. Work towards formal verification of program specifications:
+<li>Work towards formal verification of program specifications:
 
 Céu has strong safety properties that apply to all programs as discussed in our last paper (i.e., termination, determinism, and memory boundedness).
 We want to extend this work with automatic proofs for even stronger properties, but which apply to specific programs.
 As an example, suppose we want to prove that a given program satisfies a specification related to energy consumption as follows: "After broadcasting the value of a sensor, the device must sleep for one hour".
 Our goal is to take a specification written in some higher-level language, take a program written in Céu, and verify automatically whether the program satisfies the specification or not.
+</ol>
 
 Item 1 will concentrate most of our efforts until February, and would complete our intended research for the first year.
 The applications would validate our software infrastructure and would allow us to submit a paper to a journal with high impact in our subfield (embedded software).
@@ -169,11 +166,11 @@ A comunicação com os funcionários é suficientemente rápida, eles em geral t
 O meu projeto requisitou R$70000, mas descontando 6% da Funarbe e 5% da UERJ, sobram R$62300.
 Já foram gastos em torno de R$31000 (incluindo setembro) divididos da seguinte forma:
 
-```
+<pre>
 Equipamentos:    R$  7000  (notebook, arduinos, sensores, etc)
 Congresso Int'l: R$ 15000  (passagem, seguro, inscrição, 7 diárias)
 Alunos:          R$  9000  (a seguir)
-```
+</pre>
 <!--
 Equipamentos, R$7000, (notebook, multímetro, arduinos, sensores, etc)
 Congresso Int'l, R$15000, (passagem, seguro, inscrição, 7 diárias)
@@ -183,13 +180,13 @@ Alunos, R$9000, (a seguir)
 No momento, temos dois alunos de iniciação, um pós-doc, e uma aluna de mestrado.
 Segue a tabela prevista para o pagamento de pessoal:
 
-```
+<pre>
            JUN   JUL   AGO   SET   OUT   NOV   DEZ   JAN   FEV
 Anna       500   500   500   500   500   500   500
 João             500   500   500   500   500   500
 Anny                        1500  1500  1500  1500  1500  1500
 Guilherme             2000  2000  2000  2000  2000
-```
+</pre>
 <!--
 Anna, R$500, JUN-DEZ
 João, R$500, JUL-DEZ
@@ -197,4 +194,4 @@ Anny, R$1500, SET-FEV
 Guilherme, R$2000, AGO-DEZ
 -->
 
-Com essa previsão, ainda há uma sobra de R$10000 que será usada para um congresso internacional em novembro caso um trabalho já submetido seja aceito.
+Com essa previsão, ainda há um restante de R$10000 que será usada para um congresso internacional em novembro caso um trabalho já submetido seja aceito.
