@@ -1,6 +1,6 @@
 # 1. Please describe the research you've developed so far.
 
-Our project wants to address energy efficiency in the Internet of Things (IoT) through rigorous use of standby.
+Our project aims to address energy efficiency in the Internet of Things (IoT) through rigorous use of standby.
 Our initial focus is on low-power resource-constrained embedded microcontrollers, which are simpler architectures and also constitute most of the IoT.
 Our approach is to provide transparent standby mechanisms at the programming language level in order to scale to all applications.
 
@@ -14,7 +14,7 @@ We worked towards a new version of Céu that would provide automatic standby for
 <li> The language puts the IoT device to sleep automatically whenever possible in the most efficient standby mode.
 </ul>
 
-In parallel, we worked on a formal semantics of Céu and a mathematical proof that all valid programs react to an external event in bounded time, with bounded memory, and deterministic behavior.
+In parallel, we worked on a formal semantics of Céu and a mathematical proof that all valid programs react to an external event in bounded time, with bounded memory, and with deterministic behavior.
 This proof is an important result because it shows that applications always reach an idle state amenable to standby.
 The formalization of Céu already appeared on my PhD thesis [2], but the proofs for the properties are new results from this year.
 
@@ -55,13 +55,13 @@ We are also following the methodology of the original proposal closely:
 <li> IoT Applications: RF module and real-world IoT applications.
 </ul>
 
-As mentioned in the previous section, we are opening a new front on education which is aligned with our objectives but was not originally planned.
+As mentioned in the previous section, we are now opening a new front in the area of education, which is aligned with our objectives, but which was not originally planned.
 
 # 3. Please list any preliminary results/outcomes.
 
 We implemented a new version of Céu with support for interrupts and power management:
 
-<pre> https://github.com/ceu-lang/ceu </pre>
+<pre> https://github.com/ceu-lang/ceu/tree/pre-v0.40 </pre>
 
 We added support for a variety of drivers and two microcontrollers for Céu-Arduino:
 
@@ -69,7 +69,7 @@ We added support for a variety of drivers and two microcontrollers for Céu-Ardu
 
 We have an early prototype of our educational programming environment:
 
-<pre> https://github.com/ceu-lang/ceu-maker </pre>
+<pre> https://github.com/ceu-lang/ceu-maker/tree/pre-v0.40 </pre>
 
 Our main quantitative results so far are the first full-application experiments showing significant energy savings ranging from 20% to 99%.
 The table below shows the energy consumption (in mA) of five applications originally in C/Arduino which we rewrote in Céu:
@@ -84,10 +84,10 @@ Protocol    19.6        15.9        active mesh RF protocol
 ===============================================================
 </pre>
 
-The first case illustrates how an "Empty" program in Arduino remains 100% of the time awake while an equivalent in Céu sleeps in the most efficient standby mode.
-The "Blink" example in Céu relies on timer standby, which is not the most efficient, but still consumes less energy than its Arduino counterpart.
-The "Radio" example in Céu can turn off the radio periodically, showing significant savings while waiting (3.0 mA).
-The "Protocol" example illustrates a scenario for a busy node in a mesh network, which keeps the radio on 100% of the time.
+The first case illustrates how an empty program in Arduino remains 100% of the time awake, while an equivalent in Céu sleeps in the most efficient standby mode.
+The blinking example in Céu relies on timer standby, which is not the most efficient, but still consumes less energy than its Arduino counterpart.
+The radio example in Céu can turn off the radio periodically, showing significant savings while in the awaiting state (3.0 mA).
+The protocol example illustrates a scenario for a busy node in a mesh network, which keeps the radio on 100% of the time, being unable to save much energy.
 
 The results are preliminary and should be taken with a grain of salt.
 Even tough the chosen applications are from third parties, they are not real-world scenarios.
@@ -96,7 +96,7 @@ Nevertheless, the use of standby modes in Arduino is unusual and challenging sin
 
 # 4. Have you faced any difficulties or challenges in developing your project so far? If so, please explain.
 
-Hiring research students has been the most difficult task so far.
+Hiring research assistants and students has been the most difficult task so far.
 We originally planned to spend around 80% on research students, but we now estimate this number to be around 50% by the end of the project.
 
 In particular, we wanted a professional embedded engineer early in the project for the heavy-lifting work on drivers and platforms that serve as the basis of the IoT applications.
@@ -106,7 +106,7 @@ Nevertheless, I could dedicate most of my time until May on the engineering
 aspects of the project, since the core language mechanisms were developed
 between December and February.
 -->
-At the end, the outcome was actually favorable since I overestimated the importance of an experienced domain-specific engineer at an early stage.
+At the end, the outcome was actually favorable since I overestimated the importance of an experienced domain-specific engineer at an early stage of the project.
 We could redirect part of the budget to the presentation on the international conference, which was not initially planned.
 
 We still have difficulties in finding good students to work in the area of embedded systems.
@@ -120,7 +120,7 @@ She is now joining the MSc program under my supervision and will probably stay i
 
 <ul><li> IoT applications with the typical <i>sense-broadcast-sleep</i> loop pattern can be in standby mode most of the time and save energy significantly (up to over 99%).
 <li> A specialized programming language, with appropriate vocabulary to deal with events from the real world, can be adopted in the whole development cycle, from device drivers up to the application.
-<li> This programming language can automate the process to detect when an application can sleep, and also which sleep mode to use.
+<li> This programming language can automate standby towards energy efficiency by detecting when an application can sleep and also which sleep mode to use.
 </ul>
 
 # 6. Please indicate any information that you consider relevant for your final evaluation.
@@ -140,11 +140,11 @@ Finally, we need some third-party software to compare, and measure the energy co
 
 <li>Introduce an optional IoT course for undergraduate students:
 
-We already have a student working on the educational programming environment for a couple of months and we expect to start this course during the first semester of the next year.
+We already have an MSc student working on the educational programming environment and we expect to start this course during the first semester of the next year.
 
 <li>Work towards formal verification of program specifications:
 
-Céu has strong safety properties that apply to all programs as discussed in our last paper (i.e., termination, determinism, and memory boundedness).
+Céu has strong safety properties that apply to all programs as discussed in our last work (i.e., termination, determinism, and memory boundedness).
 We want to extend this work with automatic proofs for even stronger properties, but which apply to specific programs.
 As an example, suppose we want to prove that a given program satisfies a specification related to energy consumption as follows: "After broadcasting the value of a sensor, the device must sleep for one hour".
 Our goal is to take a specification written in some higher-level language, take a program written in Céu, and verify automatically whether the program satisfies the specification or not.
@@ -152,7 +152,7 @@ Our goal is to take a specification written in some higher-level language, take 
 
 Item 1 will concentrate most of our efforts until February, and would complete our intended research for the first year.
 The applications would validate our software infrastructure and would allow us to submit a paper to a journal with high impact in our subfield (embedded software).
-We believe that we can complete our original plan and submit this paper by the end of February.
+We believe that we can complete our original plan and submit this work for feedback by the end of February.
 
 Items 2 and 3 were not in our original plan for the first year, but actually target medium and long-term goals.
 Item 2 is related to the usability and adoption of Céu and is important to build a local community around the language.
@@ -182,10 +182,10 @@ Segue a tabela prevista para o pagamento de pessoal:
 
 <pre>
            JUN   JUL   AGO   SET   OUT   NOV   DEZ   JAN   FEV
-Anna       500   500   500   500   500   500   500
-João             500   500   500   500   500   500
+Anna       500   500   500   500   500   500   500    ?     ?
+João             500   500   500   500   500   500    ?     ?
 Anny                        1500  1500  1500  1500  1500  1500
-Guilherme             2000  2000  2000  2000  2000
+Guilherme             2000  2000  2000  2000  2000    -     -
 </pre>
 <!--
 Anna, R$500, JUN-DEZ
