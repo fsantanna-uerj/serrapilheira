@@ -1,21 +1,61 @@
 -------------------------------------------------------------------------------
-`[13-Jul] -> [19-Ago]`
+`[03-Set] -> [09-Set]`
 -------------------------------------------------------------------------------
 
-### `[13-Jul]` O que será feito?
+- Férias
+
+-------------------------------------------------------------------------------
+`[27-Ago] -> [02-Set]`
+-------------------------------------------------------------------------------
+
+- Férias
+
+-------------------------------------------------------------------------------
+`[20-Ago] -> [26-Ago]`
+-------------------------------------------------------------------------------
+
+### `[20-Ago]` O que será feito?
 
 - Projeto
     - [ ] Submeter Mid Evaluation
-    - Contrato do João
-    - Enviar contratos à FUNARBE
+        - [x] Conversar com Patricia
+        - [ ] Ver item "O que mais a acrescentar"
+
+### `[26-Ago]` O que foi feito?
+
+- Projeto
+    - Mid Evaluation submetido vai ser submetido na volta
+    - CNPq - Universal
+
+- Documentação
+    - Conteúdo Software Embarcado
+
+-------------------------------------------------------------------------------
+`[13-Ago] -> [19-Ago]`
+-------------------------------------------------------------------------------
+
+### `[13-Ago]` O que será feito?
+
+- Projeto
+    - [ ] Submeter Mid Evaluation
+        - [ ] Conversar com Patricia
+        - [ ] Ver item "O que mais a acrescentar"
+    - [x] Contrato do João
+    - [x] Enviar contratos à FUNARBE
 
 ### `[19-Ago]` O que foi feito?
 
+- Projeto
+    - Mid Evaluation gravado
+
+- Documentação
+    - Revisões no Artigo
+
 -------------------------------------------------------------------------------
-`[06-Jul] -> [12-Ago]`
+`[06-Ago] -> [12-Ago]`
 -------------------------------------------------------------------------------
 
-### `[06-Jul]` O que será feito?
+### `[06-Ago]` O que será feito?
 
 - Projeto
     - Contrato do João
@@ -28,8 +68,8 @@
 ### `[12-Ago]` O que foi feito?
 
 - Projeto
-    - Contrato ainda não está pronto.
-    - Mid evaluation quase pronto.
+    - Contrato ainda não está pronto
+    - Mid evaluation quase pronto
 
 - Documentação
     - Artigo submetido.
