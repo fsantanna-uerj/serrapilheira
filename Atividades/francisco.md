@@ -46,10 +46,13 @@
 ### `[19-Ago]` O que foi feito?
 
 - Projeto
-    - Mid Evaluation gravado
+    - Mid Evaluation pronto
+        - falta feedback da Patricia e envio final dia 10/09
+    - Contrato do João OK
+    - Enviei contratos à FUNARBE
 
 - Documentação
-    - Revisões no Artigo
+    - Artigo REBLS melhorado.
 
 -------------------------------------------------------------------------------
 `[06-Ago] -> [12-Ago]`
@@ -176,7 +179,7 @@
 ### `[25-Jun]` O que será feito?
 
 - Projeto
-    - [ ] Relatório Serrapilheira
+    - [x] Relatório Serrapilheira
 
 - Implementação
     - [ ] Avaliação I2C
@@ -246,7 +249,7 @@
 
 - Projeto
     - Contratação João
-    - [ ] Enviar contrato Anna
+    - [x] Enviar contrato Anna
 
 - Documentação
     - [ ] v0.40
@@ -282,7 +285,7 @@
 ### `[21-Mai]` O que será feito?
 
 - Projeto
-    - [ ] Contratação João
+    - [x] Contratação João
 
 - Implementação
     - [x] Vídeos gasto de energia
@@ -370,8 +373,8 @@
     - Procurar alunos de Engenharia da Computação
         - Colocar cartaz
         - Procurar grupo
-    - [ ] Nota Multímetro
-    - [ ] Comprar bateria Notebook
+    - [x] Nota Multímetro
+    - [x] Comprar bateria Notebook
 
 - Implementação
     - Continuar RF24Network
@@ -391,12 +394,12 @@
 ### `[23-Abr]` O que será feito?
 
 - Projeto
-    - [ ] Contratação de Estagiário
+    - [x] Contratação de Estagiário
     - [x] Compra de Passagem
     - [x] Pontapé inicial GSoC
 
 - Implementação
-    - [ ] Protocolo RFNetwork em Céu
+    - [x] Protocolo RFNetwork em Céu
         - experimento de energia
         - deve levar algumas semanas
 
@@ -432,7 +435,7 @@
 
 - Implementação
     - Experimentos de gasto de energia
-        - [ ] Mini-Ultra 8MHz
+        - [x] Mini-Ultra 8MHz
 
 ### `[22-Abr]` O que foi feito?
 
@@ -570,7 +573,7 @@ Blink                       3.8-4.6
     - [x] Workshop LAAS-CNRS
         - apresentação e participação durante 3 dias
     - [x] Preparação de texto para divulgação científica
-    - [ ] Assinatura do contrato por parte do Reitor
+    - [x] Assinatura do contrato por parte do Reitor
 
 ### `[18-Mar]` O que foi feito?
 
@@ -775,9 +778,9 @@ Global variables use 1782 bytes (21%) of dynamic memory, leaving 6410 bytes for 
 - Implementação
     - AVR
         - [x] Driver nRF24
-        - [ ] Driver WDT, mas sem ser para *wclock*
+        - [x] Driver WDT, mas sem ser para *wclock*
     - SAMD
-        - [ ] Ajeitar implementação para nova estrutura
+        - [x] Ajeitar implementação para nova estrutura
         - [ ] Verificar se contador WDT pode ser lido
     - Otimizações
         - [ ] Diminuir tamanho do executável (comparando com exemplos em C puro)
@@ -816,7 +819,7 @@ Com ele terminado, já podemos fazer aplicações IoT mais complexas.
     - [x] Driver watchdog. Vai permitir modo mais profundo para timer.
 
 - Projeto
-    - [ ] Definir alunos e valores de bolsas
+    - [x] Definir alunos e valores de bolsas
     - [x] Comprar multímetro
         - Extech 430
             - http://www.rocketscream.com/blog/2011/04/26/mini-ultra-8-mhz-current-consumption-part-2/
@@ -838,7 +841,7 @@ Com ele terminado, já podemos fazer aplicações IoT mais complexas.
     - [x] ATMEGA-2560 (timer1, usart, adc, pin-02, SPI)
 
 - Projeto
-    - [ ] Retomar Céu-Maker
+    - [x] Retomar Céu-Maker
 
 -------------------------------------------------------------------------------
 `[8-Jan] -> [14-Jan]`
