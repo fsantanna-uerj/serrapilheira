@@ -4,7 +4,7 @@ Our project aims to address energy efficiency in the Internet of Things (IoT) th
 Our initial focus is on low-power resource-constrained embedded microcontrollers, which are simpler architectures and also constitute most of the IoT.
 Our approach is to provide transparent standby mechanisms at the programming language level in order to scale to all applications.
 
-The bulk of our research is grounded on the design of Céu [1], a new reactive programming language, which I have been working for the past 8 years.
+The bulk of our research is based on the design of Céu [1], a new reactive programming language, which I have been working for the past 8 years.
 The language is grounded on the synchronous concurrency model, which trades power for reliability and has a simpler model of time that suits most requirements of IoT applications.
 In this model, all reactions to the external world are guaranteed to be computed in bounded time, ensuring that applications always reach an idle state amenable to standby mode.
 
@@ -28,8 +28,8 @@ community for discussion on the conference.
 
 Between March and May, we invested most of the time on engineering efforts on the prototype.
 We refactored and optimized the language implementation and also worked on supporting new the device drivers and microcontrollers.
-In particular, we built an RF (radio) module driver in Céu from scratch, which also requires an SPI driver.
-A reliable software infrastructure for radio is fundamental for the development of IoT applications.
+In particular, a reliable software infrastructure for radio is fundamental for the development of IoT applications.
+Toward this goal, we built an RF (radio) and SPI drivers in Céu from scratch, which required considerable efforts.
 
 In the last months, with all basic pieces set, we started working on full IoT applications.
 At this moment, we have more concrete evaluation scenarios that show significant energy savings due to standby in the microcontroller and other peripherals.
@@ -93,6 +93,7 @@ The results are preliminary and should be taken with a grain of salt.
 Even tough the chosen applications are from third parties, they are not real-world scenarios.
 In particular, the versions in Arduino do not attempt to take advantage of standby modes.
 Nevertheless, the use of standby modes in Arduino is unusual and challenging since it is very application dependent and must be programmed explicitly.
+For this reason, we also expect significant energy savings in real-world scenarios.
 
 # 4. Have you faced any difficulties or challenges in developing your project so far? If so, please explain.
 
