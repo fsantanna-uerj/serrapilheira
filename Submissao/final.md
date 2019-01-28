@@ -222,13 +222,6 @@ instigate students seeking for dissertation topics.
 - rewrite Céu from scracth
 - aposta em LH
 
-- Anny
-    - education
-- Joao
-    - games
-- Anna
-    - IoT / energy
-
 not originally
 
 rewrite from scratch
@@ -254,9 +247,14 @@ use automatic proofs
 
 # Team and Partners
 
-- What individuals have worked on the project and what other organizations have been involved as partners
+- Anny
+    - education
+- Joao
+    - games
+- Anna
+    - IoT / energy
 
-# Carrier Impact
+# Career Impact
 
 - Carrier Impact/Comments/Concerns (short paragraph)
 
