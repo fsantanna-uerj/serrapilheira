@@ -107,9 +107,9 @@ each message is in the order of a few milliseconds, then the device can sleep
 almost 100% of the time.
 Follows the general approach we employed to materialize this insight:
 
-- Enforce programs to reach idle states after each reaction
-- Put the device in standby mode whenever the program is idle
-- Only awake programs from hardware interrupts on external stimuli
+- Enforcing that the program reaches an idle state after each reaction
+- Putting the device in standby mode whenever the program is idle
+- Awaking the program only from hardware interrupts on external stimuli
 
 We described this approach in two work-in-progress papers, which we presented
 in June at LCTES'18 (Languages, Compilers, and Tools for Embedded Systems) and
