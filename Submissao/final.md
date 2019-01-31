@@ -116,6 +116,8 @@ in June at LCTES'18 (Languages, Compilers, and Tools for Embedded Systems) and
 in November at REBLS'18 (Reactive and Event-Based Languages and Systems).
 The papers are attached as the files "lctes-wip-18.pdf" and "rebls-wip-18.pdf".
 
+TODO: jsa
+
 In the first paper, which targets embedded system researchers, we describe the
 design at a higher level, first discussing why current languages cannot provide
 automatic standby for applications, and then why and how we can extend Céu to
@@ -245,26 +247,108 @@ use automatic proofs
 - no trained
 - more clear what is expected
 
-# Team and Partners
+# Team
 
-- Anny
-    - education
-- Joao
-    - games
-- Anna
-    - IoT / energy
+- Francisco Sant'Anna
+    - PhD, professor at UERJ
+    - 12 months (40h/week)
+    - Goals 2, 3 & 5
+
+Francisco is the Serrapilheira grantee responsible for the project.
+During the first semester, he focused on the core idea of the research
+(Goal 2), i.e., on the design and implementation of energy-aware mechanisms for
+the programming language Céu.
+He also wrote the first IoT applications to take advantage of automatic standby
+(Goal 3).
+During the second semester, he focused on the mathematical foundations of the
+language (Goal 5), specifying the formal semantics, sketching the proofs, and
+rewriting the language implementation from scratch towards automated proofs.
+
+- Guilherme Lima
+    - PhD, self employed
+    - 6 months (20h/week)
+    - Goal 5
+
+Guilherme ...
+
+- Anny Caroline Chagas
+    - MSc student at UERJ
+    - 8 months (20h/week)
+    - Goals 3 & 4
+
+At the end of the first semester, Anny received an external scholarship (from
+"Google Summer of Code") to work on "Céu-Maker", an educational tool for Céu
+(Goal 4).
+In the second semester, she joined our MSc program in Electronic Engineering at
+UERJ.
+She also worked on the design of new a entry-level programming course focused
+on IoT and wrote an educational project for encouraging girls in STEM careers
+(Goal 4).
+She is now developing complex IoT applications in Céu to measure the energy
+efficiency of our proposed solution (Goal 3).
+
+- Anna Leticia Alegria
+    - Undergraduate student at PUC-Rio
+    - 7 months (15h/week)
+    - Goal 3
+
+Anna worked on the initial experiments with IoT applications in Céu (Goal 3).
+She tested the early prototypes of the new version of Céu with support for
+automatic standby.
+She also investigated existing applications in C/Arduino and rewrote them in
+Céu.
+This allowed us to compare the energy consumption of the same applications
+written in two different languages.
+
+- João Sampaio
+    - Undergraduate student at UERJ
+    - 6 months (20h/week)
+    - Goal 3
+
+João explored the development of video games in Céu, which are considerably
+more complex than typical IoT applications (Goal 3).
+Games are demanding in terms of computational resources and programming
+expressiveness, serving as a stress test for the robustness of Céu beyond the
+domain of IoT.
 
 # Career Impact
 
-- Carrier Impact/Comments/Concerns (short paragraph)
+The Serrapilheira grant was probably a key condition to be accepted on the
+graduate program of my University last year.
+In the second semester, I started to advise a student which is already reaching
+a level of knowledge to contribute effectively this year.
 
-- Life-time project
+The grant also allowed me to take two international trips to attend the two top
+conferences on my field of programming languages (PLDI & SPLASH) and present
+three papers on satellite workshops.
+It is important to notice that top conferences have much more prestige than
+journals for the programming languages international community, an aspect that
+is neglected by the Brazilian "one-size-fits-all" evaluation policy for
+researchers.
+Because of the second trip, I could be the program chair of the workshop on
+"Reactive and Event-Based Languages and Systems" and later be invited to become
+part of its steering committee.
+
+This was my first grant and I had full control over the expenses.
+I used the money for diverse purposes, such as international trips (around
+R$30k), staff (around R$25k), and equipment (around R$10k).
+I learned that 
+
+The design of Céu is a life-time research project and this year contributed the
+most for its progress.
+
+Besides the international trips, I could
+I had access to students
+I also learned fast that unless you have a long-term plan
+it is better to invest
 
 - PEL
 
 # Next Steps
 
 - The next steps for the following three years in your project
+
+- diverge from the original goal
 
 
 - syntax and vocabulary
