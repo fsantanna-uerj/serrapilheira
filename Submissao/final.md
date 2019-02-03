@@ -1,9 +1,9 @@
 # Research Progress
 
 We start with an abstract of our project roughly based on the original
-proposal, since the core research idea did not change.
-We then discuss the progress of five specific goals which we investigated
-during the year with noticeable advances.
+proposal. <!--, since the core research idea did not change.-->
+We then discuss the progress of five specific goals which we investigated and
+had noticeable advances during the year.
 
 <!--
  and summarize what we achieved in the first year.
@@ -42,18 +42,20 @@ In this model, all reactions to the external world are guaranteed to be
 computed in bounded time, ensuring that applications always reach an idle state
 amenable to standby mode.
 
-## Specific Goals - Original Proposal
+## Specific Goals
 
 In the original proposal, we enumerated three specific goals with associated
 risks and expected contributions.
-In the mid-term report, we included two other goals which we are working on.
+In the mid-term report, we included two other goals which we are also working
+on.
 We now also include an estimated completeness of each goal to give an idea of
 the overall progress.
 
 ### Goal 1 - IoT Hardware Infrastructure
 
 - **Risks:** very low (1/5)
-- **Expected contribution:** (minor scientific contributions)
+- **Expected contribution:**
+    A low-power IoT hardware platform.
 - **Completeness:** 75%
 
 We need an energy-efficient IoT hardware infrastructure that allows our
@@ -116,16 +118,14 @@ in June at LCTES'18 (Languages, Compilers, and Tools for Embedded Systems) and
 in November at REBLS'18 (Reactive and Event-Based Languages and Systems).
 The papers are attached as the files "lctes-wip-18.pdf" and "rebls-wip-18.pdf".
 
-TODO: jsa
-
-In the first paper, which targets embedded system researchers, we describe the
+The first paper, which targets embedded system researchers, describes our
 design at a higher level, first discussing why current languages cannot provide
 automatic standby for applications, and then why and how we can extend Céu to
 understand which level of standby to adopt after each reaction and how to awake
 only from hardware interrupts.
 
-In the second paper, which targets reactive language designers, we described
-the technical details of interrupt service routines in Céu.
+The second paper, which targets reactive language designers, describes the
+technical details of interrupt service routines in Céu.
 For instance, we detailed how programmers can map an input from the environment
 (e.g., a button press) to a reaction in the program.
 We also discussed the safety threads due to concurrency and how Céu can detect
@@ -141,7 +141,7 @@ REBLS'18: https://2018.splashcon.org/event/rebls-2018-papers-where-do-events-com
 https://conf.researchr.org/event/LCTES-2018/lctes-2018-papers-a-memory-bounded-deterministic-and-terminating-semantics-for-the-synchronous-programming-language-c-u
 -->
 
-#### Goal 3 - IoT Applications
+### Goal 3 - IoT Applications
 
 - **Risks:** medium (3/5)
 - **Expected contribution:**
@@ -181,9 +181,8 @@ significant savings while in the awaiting state (3.0 mA).
 The protocol example illustrates a scenario for a busy node in a mesh network,
 which keeps the radio on 100% of the time, being unable to save much energy.
 
-As we already mentioned on the mid-term report, the results are preliminary and
-should be taken with a grain of salt.
-We stll did not evaluate complex applications, which will demand substantial
+As we already mentioned on the mid-term report, the results are preliminary.
+We still did not evaluate complex applications, which will demand substantial
 work until we consider a full publication comprising our three original goals.
 
 ### Goal 4 - Training and Education
@@ -195,8 +194,8 @@ work until we consider a full publication comprising our three original goals.
 
 One of the difficulties we encountered early in the project was to hire
 students with basic skills on embedded systems and IoT.
-Since we are proposing a new programming approach for the IoT, the difficulties
-are even more remarkable.
+Since we are proposing a new programming approach for the IoT, this difficulty
+are even more noticeable.
 
 In May, a student got a 3-month scholarship from the "Google Summer of Code"
 initiative and started to develop a new tool "Céu-Maker" targeting students
@@ -213,39 +212,40 @@ targeting graduate and late undergraduate students.
 The goal is to expose more technical aspects related to our research and
 instigate students seeking for dissertation topics.
 
-#### Goal 5 - Formal Proofs
+### Goal 5 - Formal Verification
 
 - **Risks:** very high (5/5)
 - **Expected contribution:**
-    An automated mathematical proof that reactions are deterministic, memory
+    An automated formal verification that reactions are deterministic, memory
     bounded, and terminate.
 - **Completeness:** 20%
 
-- rewrite Céu from scracth
-- aposta em LH
+Céu guarantees by design that a program always reaches an idle state amenable
+to standby after each reaction.
+In order to verify that our design is correct, we formalized the language
+specification using a small-step operational semantics.
+We then formalized the notion of termination and proved, using standard
+induction techniques, that reaction times are indeed finite.
+We also proved that the language is deterministic and uses finite memory.
+These results were presented in June at LCTES'18 (Languages, Compilers, and
+Tools for Embedded Systems) and were expanded in a journal paper to be
+published soon on JSA (Journal of Systems Architecture).
+The papers are attached as the files "lctes-full-18.pdf" and "jsa-19.pdf".
 
-not originally
+These are important but strictly theoretical results, since the apply to a
+mathematical model of Céu, but not to the actual implementation of the
+language.
+We are currently working on a verifiable interpreter of Céu in Haskell along
+with LiquidHaskell.
+LiquidHaskell uses an SMT (Satisfiability Modulo Theories) solver to
+automatically prove statements about programs.
+We already managed to prove that a simplified version of our interpreter
+behaves deterministically and always terminates.
 
-rewrite from scratch
-use automatic proofs
-    - more reliable
-    - extensible
-
-- focus on 3,5
-    - higher risks and outcomes
-    - others for the team we will build
-        - important for bandwidth
-    - goal 3 is too demanding of new ppl
-
-- prove?
-
-  - Provide standby mechanisms at the programming language level that scale to
-    all applications.
-  - Support transparent/non-intrusive standby software mechanisms that reduce
-    barriers of development.
-
-- no trained
-- more clear what is expected
+Fully automated theorem proofs are more reliable and extensible in comparison
+to the "paper-and-pencil" approach we adopted earlier.
+However, they are also much more laborious and rely on exponential-time
+decision algorithms.
 
 # Team
 
@@ -269,7 +269,7 @@ rewriting the language implementation from scratch towards automated proofs.
     - 6 months (20h/week)
     - Goal 5
 
-Guilherme ...
+Guilherme worked on the ... (Goal 5).
 
 - Anny Caroline Chagas
     - MSc student at UERJ
@@ -313,22 +313,26 @@ domain of IoT.
 
 # Career Impact
 
-The Serrapilheira grant was probably a key condition to be accepted on the
-graduate program of my University last year.
+The Serrapilheira grant was a key condition to be accepted on the graduate
+school of my University last year.
+Being part of a graduate school opens new opportunities for collaborations with
+students and colleagues.
 In the second semester, I started to advise a student which is already reaching
-a level of knowledge to contribute effectively this year.
+a level of maturity to contribute effectively this year.
 
 The grant also allowed me to take two international trips to attend the two top
-conferences on my field of programming languages (PLDI & SPLASH) and present
-three papers on satellite workshops.
-It is important to notice that top conferences have much more prestige than
-journals for the programming languages international community, an aspect that
-is neglected by the Brazilian "one-size-fits-all" evaluation policy for
-researchers.
-Because of the second trip, I could be the program chair of the workshop on
-"Reactive and Event-Based Languages and Systems" and later be invited to become
-part of its steering committee.
+conferences of my field of programming languages (PLDI & SPLASH).
+It is important to notice that for the international programming languages
+community the top conferences have much more prestige than journals, an aspect
+that is neglected by the Brazilian "one-size-fits-all" evaluation policy for
+researchers (which reduces resources for traveling).
+In the two conferences, I was able to present three papers on satellite
+workshops.
+I was also the program chair of the workshop on "Reactive and Event-Based
+Languages and Systems", which resulted in an invitation to become part of its
+permanent steering committee.
 
+<!--
 This was my first grant and I had full control over the expenses.
 I used the money for diverse purposes, such as international trips (around
 R$30k), staff (around R$25k), and equipment (around R$10k).
@@ -343,6 +347,7 @@ I also learned fast that unless you have a long-term plan
 it is better to invest
 
 - PEL
+-->
 
 # Next Steps
 
@@ -358,6 +363,25 @@ it is better to invest
     Nevertheless, the novel support for ISRs would complete the whole
     development cycle, from the application down to the hardware, without
     operating system support.
+
+## Summary
+
+This year we focused on goals 2 (design and implementation of Céu) and 5
+(formal verification), which we consider the most challenging and
+scientifically rewarding.
+Goal 3 (applications) is important for a comprehensive evaluation of energy
+efficiency in Céu, but also requires more people to be involved in the
+experiments.
+Goals 1 (hardware infrastructure) and 4 (training and education) are 
+
+- focus on 3,5
+    - higher risks and outcomes
+    - others for the team we will build
+        - important for bandwidth
+    - goal 3 is too demanding of new ppl
+
+- no trained
+- more clear what is expected
 
 
 
