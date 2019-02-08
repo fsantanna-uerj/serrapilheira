@@ -1,11 +1,11 @@
 # Research Progress
 
+<!--
 We start with an abstract of our project roughly based on the original
-proposal. <!--, since the core research idea did not change.-->
+proposal.  //, since the core research idea did not change.
 We then discuss the progress of five specific goals which we investigated and
 had noticeable advances during the year.
 
-<!--
  and summarize what we achieved in the first year.
  and still expect to achieve.
 We conclude with the main achievements of the first year and discuss the
@@ -16,22 +16,15 @@ evolved during this period.
 ## Abstract
 
 Effective use of low-power standby will play a fundamental role in energy
-efficiency for the expected 50 billion IoT devices by 2020.
-This research project aims to address the software challenges, as observed by
-the International Energy Agency, towards an energy-efficient IoT:
-    to ensure that devices employ the lowest possible modes of standby, and
-    that devices remain in longest possible periods of standby.
+efficiency for the expected 50 billion IoT devices by 2020, as observed by the
+International Energy Agency.
+Given the projected scale of the IoT and the role of standby towards energy
+efficiency, this research project has the following goals:
 
-Given the projected scale of the IoT and the role of power standby controlled
-by software towards energy efficiency, this research project has the following
-goals:
-
-- Address energy efficiency through extensive use of standby in software.
-- Target constrained embedded microcontroller architectures that form the IoT.
-- Provide standby mechanisms at the programming language level that scale to
-all applications.
-- Support transparent/non-intrusive standby software mechanisms that reduce
-barriers of development.
+- Addressing energy efficiency through extensive use of standby in software.
+- Targeting constrained embedded microcontrollers that form the IoT.
+- **Providing transparent standby mechanisms at the programming language level
+    in order to scale to all applications.**
 
 The bulk of our research is based on the design of Céu, a new reactive
 programming language, which we have been working for the past 9 years.
@@ -46,8 +39,7 @@ amenable to standby mode.
 
 In the original proposal, we enumerated three specific goals with associated
 risks and expected contributions.
-In the mid-term report, we included two other goals which we are also working
-on.
+In the mid-term report, we included two new goals.
 We now also include an estimated completeness of each goal to give an idea of
 the overall progress.
 
@@ -70,12 +62,6 @@ clocks) that can operate in sleep modes to consume less energy.
 Using this infrastructure, the automatic software mechanisms from our proposal
 can now control the hardware to reach almost 100% energy efficient without
 compromising the functionalities of the applications.
-
-We want even more control over the hardware components and intend to prototype
-a customizable and affordable low-power development board as a side project.
-Last year, we submitted this idea to the main Brazilian scientific funding
-agency (*CNPq - Universal Call*), but did not receive the grant.
-The proposal is attached as the file "cnpq-universal-18.pdf".
 
 ### Goal 2 - IoT Software Infrastructure
 
@@ -109,9 +95,9 @@ each message is in the order of a few milliseconds, then the device can sleep
 almost 100% of the time.
 Follows the general approach we employed to materialize this insight:
 
-- Enforcing that the program reaches an idle state after each reaction
-- Putting the device in standby mode whenever the program is idle
-- Awaking the program only from hardware interrupts on external stimuli
+- Enforcing that the program reaches an idle state after each reaction.
+- Putting the device in standby mode whenever the program is idle.
+- Awaking the program only from hardware interrupts on external stimuli.
 
 We described this approach in two work-in-progress papers, which we presented
 in June at LCTES'18 (Languages, Compilers, and Tools for Embedded Systems) and
@@ -174,12 +160,17 @@ numbers above are the same.
 The first case illustrates how an empty program in Arduino remains 100% of the
 time awake, while an equivalent in Céu sleeps in the most efficient standby
 mode.
+Even though an empty program is useless, it shows how far we can go with
+automatic standby, serving as a basis of comparison.
 The blinking example in Céu relies on timer standby, which is not the most
 efficient, but still consumes less energy than its Arduino counterpart.
-The radio example in Céu can turn off the radio periodically, showing
-significant savings while in the awaiting state (3.0 mA).
-The protocol example illustrates a scenario for a busy node in a mesh network,
-which keeps the radio on 100% of the time, being unable to save much energy.
+The radio example transmits a message periodically, and Céu is able to turn the
+radio off automatically, showing significant savings while in the idle state
+(3.0 mA).
+The protocol example illustrates a case in which the language cannot help: if
+the specification states that the radio must be on on all the time, then the
+language cannot apply standby automatically, since this would change the
+behavior of the application.
 
 As we already mentioned on the mid-term report, the results are preliminary.
 We still did not evaluate complex applications, which will demand substantial
@@ -195,10 +186,10 @@ work until we consider a full publication comprising our three original goals.
 One of the difficulties we encountered early in the project was to hire
 students with basic skills on embedded systems and IoT.
 Since we are proposing a new programming approach for the IoT, this difficulty
-are even more noticeable.
+is even more noticeable.
 
 In May, a student got a 3-month scholarship from the "Google Summer of Code"
-initiative and started to develop a new tool "Céu-Maker" targeting students
+initiative and started to develop the new tool "Céu-Maker" targeting students
 with no programming background.
 In October, we submitted a project to encourage more girls to pursue STEM
 careers (*CNPq - Girls on Sciences, Engineering, and Computing*).
@@ -217,8 +208,8 @@ instigate students seeking for dissertation topics.
 - **Risks:** very high (5/5)
 - **Expected contribution:**
     An automated formal verification that reactions are deterministic, memory
-    bounded, and terminate.
-- **Completeness:** 20%
+    bounded, and always terminate.
+- **Completeness:** 30%
 
 Céu guarantees by design that a program always reaches an idle state amenable
 to standby after each reaction.
@@ -232,7 +223,7 @@ Tools for Embedded Systems) and were expanded in a journal paper to be
 published soon on JSA (Journal of Systems Architecture).
 The papers are attached as the files "lctes-full-18.pdf" and "jsa-19.pdf".
 
-These are important but strictly theoretical results, since the apply to a
+These are important but strictly theoretical results, since it applies to a
 mathematical model of Céu, but not to the actual implementation of the
 language.
 We are currently working on a verifiable interpreter of Céu in Haskell along
@@ -244,8 +235,8 @@ behaves deterministically and always terminates.
 
 Fully automated theorem proofs are more reliable and extensible in comparison
 to the "paper-and-pencil" approach we adopted earlier.
-However, they are also much more laborious and rely on exponential-time
-decision algorithms.
+However, they are also much more laborious and rely on unpredictable
+exponential-time decision algorithms.
 
 # Team
 
@@ -257,7 +248,7 @@ decision algorithms.
 Francisco is the Serrapilheira grantee responsible for the project.
 During the first semester, he focused on the core idea of the research
 (Goal 2), i.e., on the design and implementation of energy-aware mechanisms for
-the programming language Céu.
+Céu.
 He also wrote the first IoT applications to take advantage of automatic standby
 (Goal 3).
 During the second semester, he focused on the mathematical foundations of the
@@ -269,7 +260,11 @@ rewriting the language implementation from scratch towards automated proofs.
     - 6 months (20h/week)
     - Goal 5
 
-Guilherme worked on the ... (Goal 5).
+Guilherme worked part time in the second semester on the foundations of Céu
+(Goal 5).
+He worked on the details of the proofs and also did the first explorations with
+LiquidHaskell.
+He co-authored two of the papers we published during the year.
 
 - Anny Caroline Chagas
     - MSc student at UERJ
@@ -313,19 +308,19 @@ domain of IoT.
 
 # Career Impact
 
-The Serrapilheira grant was a key condition to be accepted on the graduate
-school of my University last year.
+The Serrapilheira grant was a key condition for me to be accepted on the
+graduate school of my University last year.
 Being part of a graduate school opens new opportunities for collaborations with
 students and colleagues.
-In the second semester, I started to advise a student which is already reaching
-a level of maturity to contribute effectively this year.
+In the second semester, I started to advise a master student which is already
+reaching a level of maturity to contribute effectively this year.
 
-The grant also allowed me to take two international trips to attend the two top
+The grant also allowed me to take two international trips to attend the top
 conferences of my field of programming languages (PLDI & SPLASH).
 It is important to notice that for the international programming languages
-community the top conferences have much more prestige than journals, an aspect
+community, top conferences have much more prestige than journals, an aspect
 that is neglected by the Brazilian "one-size-fits-all" evaluation policy for
-researchers (which reduces resources for traveling).
+researchers.
 In the two conferences, I was able to present three papers on satellite
 workshops.
 I was also the program chair of the workshop on "Reactive and Event-Based
@@ -351,18 +346,39 @@ it is better to invest
 
 # Next Steps
 
-- The next steps for the following three years in your project
+The immediate next step is to complete the evaluation of energy consumption for
+realistic applications (Goal 3).
+We plan to take existing complex IoT applications and rewrite them in Céu to
+measure the difference in consumption between the two implementations.
+If we find similar results to our initial experiments, then we will complete
+our three original goals of a low-power hardware architecture, controlled by
+automatic standby, and validated in real-world scenarios.
+Most of the hard work can be done by students and we believe that one semester
+is enough for a handful amount of applications.
 
-- diverge from the original goal
+In the last semester, we shifted the focus slightly towards more fundamental
+aspects of programming languages and started a new implementation of Céu with
+verification in mind from scratch (Goal 5).
+We will probably need one semester to reach the point of the actual
+implementation in terms of basic functionality to start using it exclusively in
+new applications.
+The other front is to take the new implementation and make use of LiquidHaskell
+to automatically verify the properties of termination, determinism, and
+memory boundedness.
+This would be a result of greater impact, since extensive automatic
+verification of properties that hold for all programs of a programming language
+is atypical.
+We already have initial results that show that it might TODO.
+We will probably need one another year to cover a significant portion of the
+language, since it is estimated that each line of code needs two other lines
+of annotations for verification.
 
-
-- syntax and vocabulary
-- semantics
-- only myself
-
-    Nevertheless, the novel support for ISRs would complete the whole
-    development cycle, from the application down to the hardware, without
-    operating system support.
+We want even more control over the hardware components and intend to prototype
+a customizable and affordable low-power development board as a side project
+(Goal 1).
+Last year, we submitted this idea to the main Brazilian scientific funding
+agency (*CNPq - Universal Call*), but did not receive the grant.
+The proposal is attached as the file "cnpq-universal-18.pdf".
 
 ## Summary
 
