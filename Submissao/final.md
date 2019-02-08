@@ -16,7 +16,7 @@ evolved during this period.
 ## Abstract
 
 Effective use of low-power standby will play a fundamental role in energy
-efficiency for the expected 50 billion IoT devices by 2020, as observed by the
+efficiency of the expected 50 billion IoT devices by 2020, as observed by the
 International Energy Agency.
 Given the projected scale of the IoT and the role of standby towards energy
 efficiency, this research project has the following goals:
@@ -60,8 +60,8 @@ We also selected IoT peripherals (e.g., radio transceivers and real-time
 clocks) that can operate in sleep modes to consume less energy.
 
 Using this infrastructure, the automatic software mechanisms from our proposal
-can now control the hardware to reach almost 100% energy efficient without
-compromising the functionalities of the applications.
+can now control the hardware and potentially reach 100% energy efficient
+without compromising the functionalities of the applications.
 
 ### Goal 2 - IoT Software Infrastructure
 
@@ -118,8 +118,9 @@ We also discussed the safety threads due to concurrency and how Céu can detect
 race conditions at compile time in order to prevent them.
 
 We consider that we reached a satisfactory design regarding energy efficiency,
-but we still need to polish the implementation of Céu to make it ready for a
-comprehensive quantitative evaluation to be described next.
+which was our main goal for the first year.
+However, we still need to polish the implementation of Céu to make it ready for
+a comprehensive quantitative evaluation to be described next.
 
 <!--
 LCTES'18: https://conf.researchr.org/event/LCTES-2018/lctes-2018-papers-wip-transparent-standby-for-low-power-resource-constrained-embedded-systems-a-programming-language-based-approach
@@ -188,9 +189,9 @@ students with basic skills on embedded systems and IoT.
 Since we are proposing a new programming approach for the IoT, this difficulty
 is even more noticeable.
 
-In May, a student got a 3-month scholarship from the "Google Summer of Code"
-initiative and started to develop the new tool "Céu-Maker" targeting students
-with no programming background.
+In May, one of our students got a 3-month scholarship from the "Google Summer
+of Code" initiative and started to develop the new tool "Céu-Maker" targeting
+students with no programming background.
 In October, we submitted a project to encourage more girls to pursue STEM
 careers (*CNPq - Girls on Sciences, Engineering, and Computing*).
 The project was recommended but we did not receive the grant.
@@ -207,8 +208,8 @@ instigate students seeking for dissertation topics.
 
 - **Risks:** very high (5/5)
 - **Expected contribution:**
-    An automated formal verification that reactions are deterministic, memory
-    bounded, and always terminate.
+    An automated formal verification that reactions in Céu are deterministic,
+    memory bounded, and always terminate.
 - **Completeness:** 30%
 
 Céu guarantees by design that a program always reaches an idle state amenable
@@ -350,29 +351,30 @@ The immediate next step is to complete the evaluation of energy consumption for
 realistic applications (Goal 3).
 We plan to take existing complex IoT applications and rewrite them in Céu to
 measure the difference in consumption between the two implementations.
-If we find similar results to our initial experiments, then we will complete
-our three original goals of a low-power hardware architecture, controlled by
-automatic standby, and validated in real-world scenarios.
+If our initial experiments are confirmed for realistic applications, then we
+will complete our three original goals: (i) a low-power hardware architecture,
+(ii) controlled by automatic standby, and (iii) validated in real-world
+scenarios.
 Most of the hard work can be done by students and we believe that one semester
 is enough for a handful amount of applications.
 
-In the last semester, we shifted the focus slightly towards more fundamental
-aspects of programming languages and started a new implementation of Céu with
-verification in mind from scratch (Goal 5).
-We will probably need one semester to reach the point of the actual
-implementation in terms of basic functionality to start using it exclusively in
-new applications (Goal 2).
+In the last semester, we slightly shifted the focus towards more fundamental
+aspects of programming languages and started a new implementation of Céu from
+scratch with verification in mind (Goal 5).
+We will probably need one semester to reach the same functionality of the
+current implementation (Goal 2) in order to start using it exclusively in new
+applications.
 The other front is to take the new implementation and make use of LiquidHaskell
 to automatically verify the properties of termination, determinism, and
 memory boundedness.
 This would be a result of a greater impact, since extensive automatic
 verification of properties that hold for all programs of a programming language
-is atypical.
+is valuable and hard to achieve.
 We already proved termination for a small subset of the language, which gave
 us confidence to continue on this direction. 
-We will probably need one another year to cover a significant portion of the
+We will probably need another year to cover a significant portion of the
 language, since it is estimated that for each line of the interpreter, we need
-five other lines of annotations for verification.
+two other lines of annotations for verification.
 
 We want even more control over the hardware components and intend to prototype
 a customizable and affordable low-power development board as a side project
