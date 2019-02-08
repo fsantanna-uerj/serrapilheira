@@ -117,7 +117,7 @@ For instance, we detailed how programmers can map an input from the environment
 We also discussed the safety threads due to concurrency and how Céu can detect
 race conditions at compile time in order to prevent them.
 
-We consider that we reached an effective design regarding energy efficiency,
+We consider that we reached a satisfactory design regarding energy efficiency,
 but we still need to polish the implementation of Céu to make it ready for a
 comprehensive quantitative evaluation to be described next.
 
@@ -361,17 +361,18 @@ aspects of programming languages and started a new implementation of Céu with
 verification in mind from scratch (Goal 5).
 We will probably need one semester to reach the point of the actual
 implementation in terms of basic functionality to start using it exclusively in
-new applications.
+new applications (Goal 2).
 The other front is to take the new implementation and make use of LiquidHaskell
 to automatically verify the properties of termination, determinism, and
 memory boundedness.
-This would be a result of greater impact, since extensive automatic
+This would be a result of a greater impact, since extensive automatic
 verification of properties that hold for all programs of a programming language
 is atypical.
-We already have initial results that show that it might TODO.
+We already proved termination for a small subset of the language, which gave
+us confidence to continue on this direction. 
 We will probably need one another year to cover a significant portion of the
-language, since it is estimated that each line of code needs two other lines
-of annotations for verification.
+language, since it is estimated that for each line of the interpreter, we need
+five other lines of annotations for verification.
 
 We want even more control over the hardware components and intend to prototype
 a customizable and affordable low-power development board as a side project
@@ -379,34 +380,5 @@ a customizable and affordable low-power development board as a side project
 Last year, we submitted this idea to the main Brazilian scientific funding
 agency (*CNPq - Universal Call*), but did not receive the grant.
 The proposal is attached as the file "cnpq-universal-18.pdf".
-
-## Summary
-
-This year we focused on goals 2 (design and implementation of Céu) and 5
-(formal verification), which we consider the most challenging and
-scientifically rewarding.
-Goal 3 (applications) is important for a comprehensive evaluation of energy
-efficiency in Céu, but also requires more people to be involved in the
-experiments.
-Goals 1 (hardware infrastructure) and 4 (training and education) are 
-
-- focus on 3,5
-    - higher risks and outcomes
-    - others for the team we will build
-        - important for bandwidth
-    - goal 3 is too demanding of new ppl
-
-- no trained
-- more clear what is expected
-
-
-
-- All software uses progr. languages
-- Turing awards
-- Big enterprises (Images)
-    - Microsoft: VB, C#, ...
-    - Google: Go
-    - Apple: Swift
-    - Mozilla: Rust
-    - Sun/Oracle: Java
-    - none of them are looking at energy
+Another immediate goal is to offer a 3-week course on IoT and Céu for early
+undergraduate students, starting this semester (Goal 4).
