@@ -1,3 +1,9 @@
+Francisco Sant'Anna
+
+Universidade do Estado do Rio de Janeiro - UERJ
+
+Energy Efficiency for IoT Software in the Large
+
 # Research Progress
 
 <!--
@@ -40,14 +46,16 @@ amenable to standby mode.
 In the original proposal, we enumerated three specific goals with associated
 risks and expected contributions.
 In the mid-term report, we included two new goals.
-We now also include an estimated completeness of each goal to give an idea of
-the overall progress.
+We now also include the estimated efforts (from the total workforce) and
+completeness of each goal, to give a perception of our priorities and overall
+progress.
 
 ### Goal 1 - IoT Hardware Infrastructure
 
 - **Risks:** very low (1/5)
 - **Expected contribution:**
     A low-power IoT hardware platform.
+- **Efforts:** 10%
 - **Completeness:** 75%
 
 We need an energy-efficient IoT hardware infrastructure that allows our
@@ -60,8 +68,15 @@ We also selected IoT peripherals (e.g., radio transceivers and real-time
 clocks) that can operate in sleep modes to consume less energy.
 
 Using this infrastructure, the automatic software mechanisms from our proposal
-can now control the hardware and potentially reach 100% energy efficient
+can now control the hardware and potentially reach over 99% energy efficient
 without compromising the functionalities of the applications.
+
+We want even more control over the hardware components and intend to prototype
+a customizable and affordable low-power development board as a side project
+(Goal 1).
+Last year, we submitted this idea to the main Brazilian scientific funding
+agency (*CNPq - Universal Call*), but did not receive the grant.
+The proposal is annexed as the file "cnpq-universal-18.pdf".
 
 ### Goal 2 - IoT Software Infrastructure
 
@@ -69,6 +84,7 @@ without compromising the functionalities of the applications.
 - **Expected contribution:**
     An energy-aware programming language that integrates with the surrounding
     physical environment.
+- **Efforts:** 40%
 - **Completeness:** 80%
 
 The main challenge we confronted this year was on extending the design of the
@@ -88,8 +104,8 @@ Céu guarantees that reactions always execute in finite time so that upcoming
 inputs are also readily handled.
 
 A key insight is that if the period between subsequent stimuli is much higher
-than the associated reaction times, then the application can be in standby most
-of the time.
+than their associated reaction times, then the application can be in standby
+most of the time.
 As an example, if a radio message arrives every second and the time to process
 each message is in the order of a few milliseconds, then the device can sleep
 almost 100% of the time.
@@ -99,10 +115,27 @@ Follows the general approach we employed to materialize this insight:
 - Putting the device in standby mode whenever the program is idle.
 - Awaking the program only from hardware interrupts on external stimuli.
 
-We described this approach in two work-in-progress papers, which we presented
-in June at LCTES'18 (Languages, Compilers, and Tools for Embedded Systems) and
-in November at REBLS'18 (Reactive and Event-Based Languages and Systems).
-The papers are attached as the files "lctes-wip-18.pdf" and "rebls-wip-18.pdf".
+Céu provides dedicated vocabulary to deal with external events, e.g., a
+statement like "`await 1s`" makes the program idle for 1 second.
+Since the language compiler understands this vocabulary, it can now apply
+standby automatically.
+With the support of device drivers, which are also written in Céu, the runtime
+chooses the optimal standby mode based on the events the program is currently
+awaiting.
+For the "`await 1s`" example, the runtime will choose a standby mode in which
+the clock remains active, since the hardware still has to count time somehow.
+The language also guarantees that after it awakes, the program must reach
+another await statement in finite time in order to sleep again.
+It does so by refusing infinite loops at compile time.
+Céu also supports logical parallelism to handle multiple events concurrently.
+In this case, the runtime chooses the best standby mode that contemplates and
+awakes from all events.
+
+We described our approach for automatic standby in two work-in-progress papers,
+which we presented in June at LCTES'18 (Languages, Compilers, and Tools for
+Embedded Systems) and in November at REBLS'18 (Reactive and Event-Based
+Languages and Systems).
+The papers are annexed as the files "lctes-wip-18.pdf" and "rebls-wip-18.pdf".
 
 The first paper, which targets embedded system researchers, describes our
 design at a higher level, first discussing why current languages cannot provide
@@ -133,6 +166,7 @@ https://conf.researchr.org/event/LCTES-2018/lctes-2018-papers-a-memory-bounded-d
 - **Risks:** medium (3/5)
 - **Expected contribution:**
     A realistic energy-efficient IoT programming alternative to Arduino.
+- **Efforts:** 15%
 - **Completeness:** 30%
 
 In order to evaluate the gains in energy efficiency with the proposed software
@@ -182,6 +216,7 @@ work until we consider a full publication comprising our three original goals.
 - **Risks:** low (2/5)
 - **Expected contribution:**
     A framework for early computer science education centered around the IoT.
+- **Efforts:** 10%
 - **Completeness:** 20%
 
 One of the difficulties we encountered early in the project was to hire
@@ -195,7 +230,7 @@ students with no programming background.
 In October, we submitted a project to encourage more girls to pursue STEM
 careers (*CNPq - Girls on Sciences, Engineering, and Computing*).
 The project was recommended but we did not receive the grant.
-The proposal is attached as the file "cnpq-meninas-18.pdf".
+The proposal is annexed as the file "cnpq-meninas-18.pdf".
 As a follow up, we plan to offer a 3-week course open for early undergraduate
 students on each semester, starting this year.
 
@@ -210,6 +245,7 @@ instigate students seeking for dissertation topics.
 - **Expected contribution:**
     An automated formal verification that reactions in Céu are deterministic,
     memory bounded, and always terminate.
+- **Efforts:** 25%
 - **Completeness:** 30%
 
 Céu guarantees by design that a program always reaches an idle state amenable
@@ -222,13 +258,12 @@ We also proved that the language is deterministic and uses finite memory.
 These results were presented in June at LCTES'18 (Languages, Compilers, and
 Tools for Embedded Systems) and were expanded in a journal paper to be
 published soon on JSA (Journal of Systems Architecture).
-The papers are attached as the files "lctes-full-18.pdf" and "jsa-19.pdf".
+The papers are annexed as the files "lctes-full-18.pdf" and "jsa-19.pdf".
 
-These are important but strictly theoretical results, since it applies to a
-mathematical model of Céu, but not to the actual implementation of the
-language.
-We are currently working on a verifiable interpreter of Céu in Haskell along
-with LiquidHaskell.
+These are important but strictly theoretical results, since they apply to a
+mathematical model of Céu, but not to its current implementation.
+We are currently working on a verifiable interpreter of Céu in Haskell and
+LiquidHaskell.
 LiquidHaskell uses an SMT (Satisfiability Modulo Theories) solver to
 automatically prove statements about programs.
 We already managed to prove that a simplified version of our interpreter
@@ -317,7 +352,7 @@ In the second semester, I started to advise a master student which is already
 reaching a level of maturity to contribute effectively this year.
 
 The grant also allowed me to take two international trips to attend the top
-conferences of my field of programming languages (PLDI & SPLASH).
+conferences in my field of programming languages (PLDI & SPLASH).
 It is important to notice that for the international programming languages
 community, top conferences have much more prestige than journals, an aspect
 that is neglected by the Brazilian "one-size-fits-all" evaluation policy for
@@ -355,10 +390,11 @@ If our initial experiments are confirmed for realistic applications, then we
 will complete our three original goals: (i) a low-power hardware architecture,
 (ii) controlled by automatic standby, and (iii) validated in real-world
 scenarios.
-Most of the hard work can be done by students and we believe that one semester
-is enough for a handful amount of applications.
+Most of the hard work can be done by students and we believe that by the end of
+the year we will have a handful amount of applications with solid research
+results.
 
-In the last semester, we slightly shifted the focus towards more fundamental
+In the last semester, we slightly shifted our focus towards more fundamental
 aspects of programming languages and started a new implementation of Céu from
 scratch with verification in mind (Goal 5).
 We will probably need one semester to reach the same functionality of the
@@ -372,15 +408,18 @@ verification of properties that hold for all programs of a programming language
 is valuable and hard to achieve.
 We already proved termination for a small subset of the language, which gave
 us confidence to continue on this direction. 
-We will probably need another year to cover a significant portion of the
+We will probably need over a year to cover a significant portion of the
 language, since it is estimated that for each line of the interpreter, we need
 two other lines of annotations for verification.
 
-We want even more control over the hardware components and intend to prototype
-a customizable and affordable low-power development board as a side project
-(Goal 1).
-Last year, we submitted this idea to the main Brazilian scientific funding
-agency (*CNPq - Universal Call*), but did not receive the grant.
-The proposal is attached as the file "cnpq-universal-18.pdf".
-Another immediate goal is to offer a 3-week course on IoT and Céu for early
-undergraduate students, starting this semester (Goal 4).
+Besides constrained embedded systems, the IoT also consists of traditional
+networked devices, such as routers, servers, and smartphones.
+These devices are based on much more complex architectures (e.g., 64-bit CPUs
+with memory management unit) and rely on operating systems to orchestrate
+multiple applications.
+A long term goal is to investigate an alternative to bloated and antiquated
+operating systems like Windows and UNIX, which were not designed with mobile
+and energy awareness in mind.
+The concept and vocabulary of events designed for Céu can be extended to deal
+with inter-process communication, serving as foundations for a new operating
+system.
