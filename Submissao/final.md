@@ -21,7 +21,7 @@ evolved during this period.
 
 ## Abstract
 
-Effective use of low-power standby will play a fundamental role in energy
+Effective use of low-power standby will play a fundamental role in the energy
 efficiency of the expected 50 billion IoT devices by 2020, as observed by the
 International Energy Agency.
 Given the projected scale of the IoT and the role of standby towards energy
@@ -55,7 +55,7 @@ progress.
 - **Risks:** very low (1/5)
 - **Expected contribution:**
     A low-power IoT hardware platform.
-- **Efforts:** 10%
+- **Efforts:** 5%
 - **Completeness:** 75%
 
 We need an energy-efficient IoT hardware infrastructure that allows our
@@ -72,8 +72,7 @@ can now control the hardware and potentially reach over 99% energy efficient
 without compromising the functionalities of the applications.
 
 We want even more control over the hardware components and intend to prototype
-a customizable and affordable low-power development board as a side project
-(Goal 1).
+a customizable and affordable low-power development board as a side project.
 Last year, we submitted this idea to the main Brazilian scientific funding
 agency (*CNPq - Universal Call*), but did not receive the grant.
 The proposal is annexed as the file "cnpq-universal-18.pdf".
@@ -84,7 +83,7 @@ The proposal is annexed as the file "cnpq-universal-18.pdf".
 - **Expected contribution:**
     An energy-aware programming language that integrates with the surrounding
     physical environment.
-- **Efforts:** 40%
+- **Efforts:** 45%
 - **Completeness:** 80%
 
 The main challenge we confronted this year was on extending the design of the
@@ -93,8 +92,7 @@ programming language Céu to use standby effectively:
 - A programmer writes **any** IoT application in Céu unaware of standby or
   energy constraints.
 - The compiler of Céu generates a program that puts the IoT device to sleep
-  automatically and in the most efficient standby mode for as long as
-  possible.
+  automatically in the most efficient standby mode for as long as possible.
 
 We designed Céu from the very beginning to be promptly reactive to the
 surrounding environment.
@@ -116,7 +114,7 @@ Follows the general approach we employed to materialize this insight:
 - Awaking the program only from hardware interrupts on external stimuli.
 
 Céu provides dedicated vocabulary to deal with external events, e.g., a
-statement like "`await 1s`" makes the program idle for 1 second.
+statement like "`await 1s`" makes the program to go idle for 1 second.
 Since the language compiler understands this vocabulary, it can now apply
 standby automatically.
 With the support of device drivers, which are also written in Céu, the runtime
@@ -126,7 +124,7 @@ For the "`await 1s`" example, the runtime will choose a standby mode in which
 the clock remains active, since the hardware still has to count time somehow.
 The language also guarantees that after it awakes, the program must reach
 another await statement in finite time in order to sleep again.
-It does so by refusing infinite loops at compile time.
+It does so by refusing non-awaiting infinite loops at compile time.
 Céu also supports logical parallelism to handle multiple events concurrently.
 In this case, the runtime chooses the best standby mode that contemplates and
 awakes from all events.
@@ -192,8 +190,8 @@ Protocol    19.6        15.9        active mesh RF protocol
 
 We did not advance much on these experiments after the mid-term report, so the
 numbers above are the same.
-The first case illustrates how an empty program in Arduino remains 100% of the
-time awake, while an equivalent in Céu sleeps in the most efficient standby
+The first case illustrates how an empty program in Arduino remains awake 100%
+of the time, while the equivalent in Céu sleeps in the most efficient standby
 mode.
 Even though an empty program is useless, it shows how far we can go with
 automatic standby, serving as a basis of comparison.
@@ -262,7 +260,7 @@ The papers are annexed as the files "lctes-full-18.pdf" and "jsa-19.pdf".
 
 These are important but strictly theoretical results, since they apply to a
 mathematical model of Céu, but not to its current implementation.
-We are currently working on a verifiable interpreter of Céu in Haskell and
+We are now working on a verifiable interpreter of Céu in Haskell and
 LiquidHaskell.
 LiquidHaskell uses an SMT (Satisfiability Modulo Theories) solver to
 automatically prove statements about programs.
@@ -312,8 +310,8 @@ At the end of the first semester, Anny received an external scholarship (from
 (Goal 4).
 In the second semester, she joined our MSc program in Electronic Engineering at
 UERJ.
-She also worked on the design of new a entry-level programming course focused
-on IoT and wrote an educational project for encouraging girls in STEM careers
+She worked on the design of new a entry-level programming course focused on IoT
+and wrote an educational project for encouraging girls in STEM careers
 (Goal 4).
 She is now developing complex IoT applications in Céu to measure the energy
 efficiency of our proposed solution (Goal 3).
@@ -344,7 +342,7 @@ domain of IoT.
 
 # Career Impact
 
-The Serrapilheira grant was a key condition for me to be accepted on the
+The Serrapilheira grant was a key condition for me to get accepted on the
 graduate school of my University last year.
 Being part of a graduate school opens new opportunities for collaborations with
 students and colleagues.
@@ -391,21 +389,20 @@ will complete our three original goals: (i) a low-power hardware architecture,
 (ii) controlled by automatic standby, and (iii) validated in real-world
 scenarios.
 Most of the hard work can be done by students and we believe that by the end of
-the year we will have a handful amount of applications with solid research
+the year we will have a handful amount of applications to produce solid
 results.
 
-In the last semester, we slightly shifted our focus towards more fundamental
-aspects of programming languages and started a new implementation of Céu from
-scratch with verification in mind (Goal 5).
-We will probably need one semester to reach the same functionality of the
+In the last semester, we shifted our focus towards more fundamental aspects of
+programming languages and started a new implementation of Céu from scratch with
+verification in mind (Goal 5).
+We will probably need this whole year to reach the same functionality of the
 current implementation (Goal 2) in order to start using it exclusively in new
 applications.
 The other front is to take the new implementation and make use of LiquidHaskell
 to automatically verify the properties of termination, determinism, and
 memory boundedness.
 This would be a result of a greater impact, since extensive automatic
-verification of properties that hold for all programs of a programming language
-is valuable and hard to achieve.
+verification of properties that hold for all programs is a valuable asset.
 We already proved termination for a small subset of the language, which gave
 us confidence to continue on this direction. 
 We will probably need over a year to cover a significant portion of the
@@ -417,9 +414,9 @@ networked devices, such as routers, servers, and smartphones.
 These devices are based on much more complex architectures (e.g., 64-bit CPUs
 with memory management unit) and rely on operating systems to orchestrate
 multiple applications.
-A long term goal is to investigate an alternative to bloated and antiquated
+A long term goal is to investigate an alternative to the bloated and antiquated
 operating systems like Windows and UNIX, which were not designed with mobile
 and energy awareness in mind.
 The concept and vocabulary of events designed for Céu can be extended to deal
-with inter-process communication, serving as foundations for a new operating
-system.
+with inter-process communication, serving as the foundations of a new
+operating system.
